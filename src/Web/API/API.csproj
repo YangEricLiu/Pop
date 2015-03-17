@@ -7,8 +7,8 @@
     <ProjectGuid>{0FE6DC63-03F5-425C-B1FD-9C78C0CA362B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>API</RootNamespace>
-    <AssemblyName>API</AssemblyName>
+    <RootNamespace>SE.DSP.Pop.Web.API</RootNamespace>
+    <AssemblyName>SE.DSP.Pop.Web.API</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

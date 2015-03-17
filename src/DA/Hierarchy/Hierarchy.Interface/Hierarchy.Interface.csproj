@@ -7,8 +7,8 @@
     <ProjectGuid>{DCF99938-7D1A-4242-9B33-3EA496507AF1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Interface</RootNamespace>
-    <AssemblyName>Interface</AssemblyName>
+    <RootNamespace>SE.DSP.Pop.DA.Hierarchy.Interface</RootNamespace>
+    <AssemblyName>SE.DSP.Pop.DA.Hierarchy.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

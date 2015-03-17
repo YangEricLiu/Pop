@@ -6,8 +6,8 @@
     <ProjectGuid>{1EE26884-492C-4EB5-A0B5-0D42DCC65484}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLTest</RootNamespace>
-    <AssemblyName>BLTest</AssemblyName>
+    <RootNamespace>SE.DSP.Pop.Test.BLTest</RootNamespace>
+    <AssemblyName>SE.DSP.Pop.Test.BLTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
