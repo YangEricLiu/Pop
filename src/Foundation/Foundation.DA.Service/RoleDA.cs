@@ -14,6 +14,8 @@ namespace SE.DSP.Foundation.DA.Service
 {
     public class RoleDA : DABase, IRoleDA
     {
+        public RoleDA() { }
+
         private Microsoft.Practices.EnterpriseLibrary.Data.Database db = Database;
         public long CreateRole(RoleEntity entity)
         {

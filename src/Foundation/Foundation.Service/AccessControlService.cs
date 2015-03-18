@@ -11,9 +11,8 @@ using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.API;
-
-using SE.DSP.Foundation.DA.API;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
+using SE.DSP.Foundation.DA.Interface;
 
 namespace SE.DSP.Foundation.Service
 {
@@ -27,37 +26,24 @@ namespace SE.DSP.Foundation.Service
             get { return _userBL ?? (_userBL = IocHelper.Container.Resolve<IUserService>()); }
             set { _userBL = value; }
         }
-        //private IHierarchyBL _hierarchyBL;
-        //public IHierarchyBL HierarchyBL
-        //{
-        //    get { return _hierarchyBL ?? (_hierarchyBL = IocHelper.Container.Resolve<IHierarchyBL>()); }
-        //    set { _hierarchyBL = value; }
-        //}
-
-        private RoleAPI _roleApi;
-        public RoleAPI RoleAPI
+ 
+        private IRoleDA _roleApi;
+        public IRoleDA RoleAPI
         {
-            get { return _roleApi ?? (_roleApi = IocHelper.Container.Resolve<RoleAPI>()); }
+            get { return _roleApi ?? (_roleApi = IocHelper.Container.Resolve<IRoleDA>()); }
             set { _roleApi = value; }
         }
-        private RolePrivilegeAPI _rolePrivilegeAPI;
-        public RolePrivilegeAPI RolePrivilegeAPI
+        private IRolePrivilegeDA _rolePrivilegeAPI;
+        public IRolePrivilegeDA RolePrivilegeAPI
         {
-            get { return _rolePrivilegeAPI ?? (_rolePrivilegeAPI = IocHelper.Container.Resolve<RolePrivilegeAPI>()); }
+            get { return _rolePrivilegeAPI ?? (_rolePrivilegeAPI = IocHelper.Container.Resolve<IRolePrivilegeDA>()); }
             set { _rolePrivilegeAPI = value; }
         }
-        private DataPrivilegeAPI _dataPrivilegeAPI;
-        public DataPrivilegeAPI DataPrivilegeAPI
+        private IDataPrivilegeDA _dataPrivilegeAPI;
+        public IDataPrivilegeDA DataPrivilegeAPI
         {
-            get { return _dataPrivilegeAPI ?? (_dataPrivilegeAPI = IocHelper.Container.Resolve<DataPrivilegeAPI>()); }
+            get { return _dataPrivilegeAPI ?? (_dataPrivilegeAPI = IocHelper.Container.Resolve<IDataPrivilegeDA>()); }
             set { _dataPrivilegeAPI = value; }
-        }
-
-        protected override void RegisterType()
-        {
-            IocHelper.Container.RegisterType<RoleAPI, RoleAPI>(new ContainerControlledLifetimeManager());
-            IocHelper.Container.RegisterType<DataPrivilegeAPI, DataPrivilegeAPI>(new ContainerControlledLifetimeManager());
-            IocHelper.Container.RegisterType<RolePrivilegeAPI, RolePrivilegeAPI>(new ContainerControlledLifetimeManager());
         }
 
         #endregion
@@ -279,14 +265,11 @@ namespace SE.DSP.Foundation.Service
             DataPrivilegeAPI.CreateDataPrivileges(dataPrivileges);
         }
 
-
         public String[] GetFuncPrivilegesByFilter(UserRoleFilterDto filter)
         {
             var entities = RolePrivilegeAPI.RetrieveRolePrivilege(new RoleFilter { UserIds = filter.UserIds, RoleIds = filter.RoleIds });
             return entities.Select(p => p.PrivilegeCode).ToArray();
         }
-
-
 
         public UserDto[] GetUsersByPrivilegeItem(UserPrivilegedFilter filter)
         {

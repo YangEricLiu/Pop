@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.API;
-using SE.DSP.Foundation.DA.API;
+using SE.DSP.Foundation.DA.Interface;
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
 using SE.DSP.Foundation.Infrastructure.Utils;
@@ -11,13 +11,13 @@ namespace SE.DSP.Foundation.Service
     public class IndustryService : SE.DSP.Foundation.Infrastructure.BaseClass.ServiceBase, IIndustryService
     {
         #region DI
-        private IndustryAPI _industryAPI;
+        private IIndustryDA _industryAPI;
 
-        public IndustryAPI IndustryAPI
+        public IIndustryDA IndustryAPI
         {
             get
             {
-                return this._industryAPI ?? (this._industryAPI = IocHelper.Container.Resolve<IndustryAPI>());
+                return this._industryAPI ?? (this._industryAPI = IocHelper.Container.Resolve<IIndustryDA>());
             }
 
             set
@@ -25,11 +25,7 @@ namespace SE.DSP.Foundation.Service
                 this._industryAPI = value;
             }
         }
-
-        protected override void RegisterType()
-        {
-            IocHelper.Container.RegisterType<IndustryAPI, IndustryAPI>(new ContainerControlledLifetimeManager());
-        }
+ 
         #endregion
 
         /// <summary>

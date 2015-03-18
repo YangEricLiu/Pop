@@ -21,6 +21,8 @@ namespace SE.DSP.Foundation.DA.Service
 
     public class ServiceProviderDA : DABase, IServiceProviderDA
     {
+        public ServiceProviderDA() { }
+
         public long CreateServiceProvider(ServiceProviderEntity entity)
         {
             const string sql = @"insert into serviceprovider(

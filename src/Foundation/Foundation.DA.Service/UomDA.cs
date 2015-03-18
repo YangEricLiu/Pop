@@ -14,6 +14,8 @@ namespace SE.DSP.Foundation.DA.Service
     using SE.DSP.Foundation.Infrastructure.Enumerations;
     public class UomDA : DABase, IUomDA
     {
+        public UomDA() { }
+
         #region Retrieve
         public UomEntity RetrieveUomById(long uomId)
         {

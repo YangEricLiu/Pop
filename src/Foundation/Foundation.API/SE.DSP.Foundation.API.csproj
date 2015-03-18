@@ -54,10 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Foundation.DA.API\SE.DSP.Foundation.DA.API.csproj">
-      <Project>{e5817dae-122f-4f48-af2d-0f2becb6fbe8}</Project>
-      <Name>SE.DSP.Foundation.DA.API</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
       <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>
       <Name>SE.DSP.Foundation.Infrastructure</Name>

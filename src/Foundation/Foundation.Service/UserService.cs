@@ -1,12 +1,8 @@
 ﻿using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 
-
-
 using SE.DSP.Foundation.Infrastructure.Structure;
 using SE.DSP.Foundation.Infrastructure;
-
-using SpreadsheetGear;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,11 +17,12 @@ using SE.DSP.Foundation.Infrastructure.Interception;
 using Schneider.REM.Common;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
-using SE.DSP.Foundation.DA.API;
 using SE.DSP.Foundation.API;
 
 using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Foundation.Infrastructure.ActionExtension;
+using SE.DSP.Foundation.DA.Interface;
+using SpreadsheetGear;
 
 namespace SE.DSP.Foundation.Service
 {
@@ -33,44 +30,24 @@ namespace SE.DSP.Foundation.Service
     {
         #region DI
 
-        //private IDashboardBL _dashBoardBL;
-        //public IDashboardBL DashBoardBL
-        //{
-        //    get { return _dashBoardBL ?? (_dashBoardBL = IocHelper.Container.Resolve<IDashboardBL>()); }
-        //    set { _dashBoardBL = value; }
-        //}
-        //private ICollaborativeWidgetBL _collaborativeWidgetBL;
-        //public ICollaborativeWidgetBL CollaborativeWidgetBL
-        //{
-        //    get { return _collaborativeWidgetBL ?? (_collaborativeWidgetBL = IocHelper.Container.Resolve<ICollaborativeWidgetBL>()); }
-        //    set { _collaborativeWidgetBL = value; }
-        //}
-
-        //private IShareInfoBL _shareInfoBL;
-        //public IShareInfoBL ShareInfoBL
-        //{
-        //    get { return _shareInfoBL ?? (_shareInfoBL = IocHelper.Container.Resolve<IShareInfoBL>()); }
-        //    set { _shareInfoBL = value; }
-        //}
-
-        private UserAPI _userApi;
-        public UserAPI UserAPI
+        private IUserDA _userApi;
+        public IUserDA UserAPI
         {
-            get { return _userApi ?? (_userApi = IocHelper.Container.Resolve<UserAPI>()); }
+            get { return _userApi ?? (_userApi = IocHelper.Container.Resolve<IUserDA>()); }
             set { _userApi = value; }
         }
 
-        private RoleAPI _roleApi;
-        public RoleAPI RoleAPI
+        private IRoleDA _roleApi;
+        public IRoleDA RoleAPI
         {
-            get { return _roleApi ?? (_roleApi = IocHelper.Container.Resolve<RoleAPI>()); }
+            get { return _roleApi ?? (_roleApi = IocHelper.Container.Resolve<IRoleDA>()); }
             set { _roleApi = value; }
         }
 
-        private RolePrivilegeAPI _rolepApi;
-        public RolePrivilegeAPI RolePrivilegeAPI
+        private IRolePrivilegeDA _rolepApi;
+        public IRolePrivilegeDA RolePrivilegeAPI
         {
-            get { return _rolepApi ?? (_rolepApi = IocHelper.Container.Resolve<RolePrivilegeAPI>()); }
+            get { return _rolepApi ?? (_rolepApi = IocHelper.Container.Resolve<IRolePrivilegeDA>()); }
             set { _rolepApi = value; }
         }
 
@@ -87,10 +64,6 @@ namespace SE.DSP.Foundation.Service
             get { return _ServiceProviderBL ?? (_ServiceProviderBL = IocHelper.Container.Resolve<IServiceProviderService>()); }
         }
 
-        protected override void RegisterType()
-        {
-            IocHelper.Container.RegisterType<UserAPI, UserAPI>(new ContainerControlledLifetimeManager());
-        }
         #endregion
 
         public string ProductInfo
@@ -831,11 +804,11 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
             var updateuser = ServiceContext.CurrentUser.Name;
             var updateTime = DateTime.UtcNow;
 
-            var r1 = RoleAPI.Create(new RoleEntity { Name = "服务商管理员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
-            var r2 = RoleAPI.Create(new RoleEntity { Name = "客户管理员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
-            var r3 = RoleAPI.Create(new RoleEntity { Name = "咨询人员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
-            var r4 = RoleAPI.Create(new RoleEntity { Name = "工程人员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
-            var r5 = RoleAPI.Create(new RoleEntity { Name = "商务人员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
+            var r1 = RoleAPI.CreateRole(new RoleEntity { Name = "服务商管理员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
+            var r2 = RoleAPI.CreateRole(new RoleEntity { Name = "客户管理员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
+            var r3 = RoleAPI.CreateRole(new RoleEntity { Name = "咨询人员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
+            var r4 = RoleAPI.CreateRole(new RoleEntity { Name = "工程人员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
+            var r5 = RoleAPI.CreateRole(new RoleEntity { Name = "商务人员", Comment = "", UpdateUser = updateuser, UpdateTime = updateTime, SpId = spid });
 
             #region RolePrivilege
             RolePrivilegeAPI.CreateRolePrivilege(new[] 
@@ -908,7 +881,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
 
         public void UpdateUser(UserEntity user)
         {
-            UserAPI.Update(user);
+            UserAPI.UpdateUser(user);
         }
 
         #region Validate

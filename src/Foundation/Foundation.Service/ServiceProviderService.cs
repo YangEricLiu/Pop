@@ -20,31 +20,28 @@ namespace SE.DSP.Foundation.Service
     using SE.DSP.Foundation.API;
     using SE.DSP.Foundation.Infrastructure.BE.Entities;
     using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
-    using SE.DSP.Foundation.DA.API;
     using SE.DSP.Foundation.Infrastructure.ActionExtension;
     using SE.DSP.Foundation.Infrastructure.Constant;
     using SE.DSP.Foundation.Infrastructure.Interception;
+    using SE.DSP.Foundation.DA.Interface;
 
     public class ServiceProviderService : ServiceBase, IServiceProviderService
     {
         #region DI
 
-        private ServiceProviderAPI _spApi;
+        private IServiceProviderDA _spApi;
+
         private IUserService _userBL;
         public IUserService UserBL
         {
             get { return _userBL ?? (_userBL = IocHelper.Container.Resolve<IUserService>()); }
             set { _userBL = value; }
         }
-        public ServiceProviderAPI ServiceProviderAPI
+        public IServiceProviderDA ServiceProviderAPI
         {
-            get { return _spApi ?? (_spApi = IocHelper.Container.Resolve<ServiceProviderAPI>()); }
+            get { return _spApi ?? (_spApi = IocHelper.Container.Resolve<IServiceProviderDA>()); }
         }
-        protected override void RegisterType()
-        {
-            IocHelper.Container.RegisterType<ServiceProviderAPI, ServiceProviderAPI>(new ContainerControlledLifetimeManager());
-        }
-
+ 
         #endregion
 
         public ServiceProviderDto CreateServiceProvider(ServiceProviderDto dto)

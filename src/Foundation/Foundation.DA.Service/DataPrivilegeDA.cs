@@ -16,6 +16,8 @@ namespace SE.DSP.Foundation.DA.Service
 {
     public class DataPrivilegeDA : DABase, IDataPrivilegeDA
     {
+        public DataPrivilegeDA() { }
+
         public DataPrivilegeEntity[] RetrieveDataPrivileges(DataPrivilegeFilter filter)
         {
             if (filter == null) return new DataPrivilegeEntity[0];

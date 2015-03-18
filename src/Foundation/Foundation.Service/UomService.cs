@@ -1,7 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
-
 using SE.DSP.Foundation.API;
-using SE.DSP.Foundation.DA.API;
+using SE.DSP.Foundation.DA.Interface;
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
 using SE.DSP.Foundation.Infrastructure.Constant;
@@ -18,31 +17,42 @@ namespace SE.DSP.Foundation.Service
     {
         private CacheHelper UOMCacheHelper = new CacheHelper("uom", SE.DSP.Foundation.Infrastructure.Interception.ServiceContext.CurrentUser.SPId);
 
-
         #region DI
-        private UomAPI _uomAPI;
-        private UomAPI UomAPI
+        private IUomDA _uomAPI;
+        private IUomDA UomAPI
         {
             get
             {
-                return this._uomAPI ?? (this._uomAPI = IocHelper.Container.Resolve<UomAPI>());
+                return this._uomAPI ?? (this._uomAPI = IocHelper.Container.Resolve<IUomDA>());
             }
         }
-        private CommodityAPI _CommodityAPI;
-        private CommodityAPI CommodityAPI
+        private ICommodityDA _CommodityAPI;
+        private ICommodityDA CommodityAPI
         {
             get
             {
-                return this._CommodityAPI ?? (this._CommodityAPI = IocHelper.Container.Resolve<CommodityAPI>());
+                return this._CommodityAPI ?? (this._CommodityAPI = IocHelper.Container.Resolve<ICommodityDA>());
             }
         }
 
-
-        protected override void RegisterType()
+        private IUomGroupRelationDA _uomGroupRelationDA;
+        private IUomGroupRelationDA UomGroupRelationDA
         {
-            IocHelper.Container.RegisterType<UomAPI, UomAPI>(new ContainerControlledLifetimeManager());
-            IocHelper.Container.RegisterType<CommodityAPI, CommodityAPI>(new ContainerControlledLifetimeManager());
+            get
+            {
+                return this._uomGroupRelationDA ?? (this._uomGroupRelationDA = IocHelper.Container.Resolve<IUomGroupRelationDA>());
+            }
         }
+
+        private IUomGroupDA _uomGroupDA;
+        private IUomGroupDA UomGroupDA
+        {
+            get
+            {
+                return this._uomGroupDA ?? (this._uomGroupDA = IocHelper.Container.Resolve<IUomGroupDA>());
+            }
+        }
+ 
         #endregion
         
         #region Uom
@@ -103,7 +113,7 @@ namespace SE.DSP.Foundation.Service
 
         public UomGroupRelationEntity GetCommonUomInGroup(long groupId)
         {
-            var uoms = this.UomAPI.RetrieveUomByGroup(groupId);
+            var uoms = this.UomGroupRelationDA.RetrieveUomByGroup(groupId);
 
             return uoms.Where(uom => uom.IsCommon).FirstOrDefault();
         }
@@ -116,12 +126,12 @@ namespace SE.DSP.Foundation.Service
         /// <returns></returns>
         public UomGroupEntity GetUomGroupByCommodityAndUom(long commodityId, long uomId)
         {
-            return UomAPI.RetrieveUomGroupByCommodityAndUom(commodityId, uomId);
+            return this.UomGroupDA.RetrieveUomGroupByCommodityAndUom(commodityId, uomId);
         }
 
         public UomGroupEntity GetEnergyConsumptionGroupByCommodity(long commodityId)
         {
-            var groups = this.UomAPI.RetrieveUomGroupByCommodity(commodityId);
+            var groups = this.UomGroupDA.RetrieveUomGroupByCommodity(commodityId);
 
             return groups.Where(group => group.IsEnergyConsumption).FirstOrDefault();
         }
@@ -137,7 +147,7 @@ namespace SE.DSP.Foundation.Service
         public UomGroupRelationEntity GetCommodityUom(long commodityId, long uomId)
         {
 
-            return this.UomAPI.RetrieveCommodityUom(commodityId, uomId);
+            return this.UomGroupRelationDA.RetrieveCommodityUom(commodityId, uomId);
         }
 
         /// <summary>
@@ -147,7 +157,7 @@ namespace SE.DSP.Foundation.Service
         /// <returns></returns>
         public UomGroupRelationEntity[] GetUomByGroup(long groupId)
         {
-            return UomAPI.RetrieveUomByGroup(groupId);
+            return UomGroupRelationDA.RetrieveUomByGroup(groupId);
         }
         #endregion
 
@@ -162,7 +172,7 @@ namespace SE.DSP.Foundation.Service
             List<UomConversionDto> result = new List<UomConversionDto>();
 
             //get all commodity uom relations
-            foreach (UomGroupRelationEntity relation in this.UomAPI.RetrieveUomRelation())
+            foreach (UomGroupRelationEntity relation in this.UomGroupRelationDA.RetrieveUomRelation())
             {
                 UomConversionDto conversion = new UomConversionDto();
 
@@ -308,8 +318,8 @@ namespace SE.DSP.Foundation.Service
         /// <returns></returns>
         private UomGroupRelationEntity[] RetrieveUomInSameGroup(long commodityId, long uomId)
         {
-            var group = this.UomAPI.RetrieveUomGroupByCommodityAndUom(commodityId, uomId);
-            return group == null ? new UomGroupRelationEntity[0] : this.UomAPI.RetrieveUomByGroup(group.Id.Value);
+            var group = this.UomGroupDA.RetrieveUomGroupByCommodityAndUom(commodityId, uomId);
+            return group == null ? new UomGroupRelationEntity[0] : this.UomGroupRelationDA.RetrieveUomByGroup(group.Id.Value);
         }
         #endregion
     }

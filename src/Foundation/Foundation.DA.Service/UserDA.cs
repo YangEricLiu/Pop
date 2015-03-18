@@ -24,6 +24,8 @@ namespace SE.DSP.Foundation.DA.Service
         public const String UserColumns = "Id,UserType,Name,RealName,Password,PasswordToken,PasswordTokenDate,Comment,Title,Telephone,Email,Status,DemoStatus,UpdateUser,UpdateTime,CAST(Version AS bigint) AS Version,SpId";
         public const String UserTable = "[User]";
 
+        public UserDA() { }
+
         private Microsoft.Practices.EnterpriseLibrary.Data.Database db = Database;
 
         public long CreateUser(UserEntity entity, ConnectionOption option = null)

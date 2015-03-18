@@ -10,6 +10,8 @@ namespace SE.DSP.Foundation.DA.Service
 {
     public class IndustryDA : DABase, IIndustryDA
     {
+        public IndustryDA() { }
+
         #region Retrieve
         public IndustryEntity RetrieveIndustryById(long industryId)
         {

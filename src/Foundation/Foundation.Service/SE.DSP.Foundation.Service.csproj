@@ -38,8 +38,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Lib\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="SpreadsheetGear2012.Core">
-      <HintPath>..\..\..\Lib\SpreadsheetGear2012.Core.dll</HintPath>
+    <Reference Include="SpreadsheetGear2012.Core, Version=7.1.2.102, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\SpreadsheetGear2012.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetGear2012.Drawing, Version=7.1.2.102, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\SpreadsheetGear2012.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetGear2012.Windows.WPF, Version=7.1.2.102, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\SpreadsheetGear2012.Windows.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -67,9 +76,9 @@
       <Project>{d56ea6b0-0888-4a18-a913-191116282c26}</Project>
       <Name>SE.DSP.Foundation.API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Foundation.DA.API\SE.DSP.Foundation.DA.API.csproj">
-      <Project>{e5817dae-122f-4f48-af2d-0f2becb6fbe8}</Project>
-      <Name>SE.DSP.Foundation.DA.API</Name>
+    <ProjectReference Include="..\Foundation.DA.Interface\SE.DSP.Foundation.DA.Interface.csproj">
+      <Project>{fb472a23-e616-4035-9651-3f38f7bd71b5}</Project>
+      <Name>SE.DSP.Foundation.DA.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
       <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>

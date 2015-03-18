@@ -15,6 +15,11 @@ namespace SE.DSP.Foundation.DA.Service
 {
     public class RolePrivilegeDA : DABase, IRolePrivilegeDA
     {
+        public RolePrivilegeDA()
+        {
+
+        }
+
         private Microsoft.Practices.EnterpriseLibrary.Data.Database db = Database;
         public void CreateRolePrivilege(RolePrivilegeEntity[] entities)
         {

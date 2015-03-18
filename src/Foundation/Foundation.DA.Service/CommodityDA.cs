@@ -11,6 +11,9 @@ namespace SE.DSP.Foundation.DA.Service
 {
     public class CommodityDA : DABase, ICommodityDA
     {
+
+        public CommodityDA() { }
+
         #region Retrieve
         public CommodityEntity RetrieveCommodityById(long commodityId)
         {

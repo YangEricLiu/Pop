@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.API;
-using SE.DSP.Foundation.DA.API;
+using SE.DSP.Foundation.DA.Interface;
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
 using SE.DSP.Foundation.Infrastructure.Utils;
@@ -11,20 +11,16 @@ namespace SE.DSP.Foundation.Service
     public class ZoneService : ServiceBase, IZoneService
     {
         #region DI
-        private ZoneAPI _zoneAPI;
+        private IZoneDA _zoneAPI;
 
-        private ZoneAPI ZoneAPI
+        private IZoneDA ZoneAPI
         {
             get
             {
-                return this._zoneAPI ?? (this._zoneAPI = IocHelper.Container.Resolve<ZoneAPI>());
+                return this._zoneAPI ?? (this._zoneAPI = IocHelper.Container.Resolve<IZoneDA>());
             }
         }
 
-        protected override void RegisterType()
-        {
-            IocHelper.Container.RegisterType<ZoneAPI, ZoneAPI>(new ContainerControlledLifetimeManager());
-        }
         #endregion
 
         /// <summary>

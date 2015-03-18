@@ -14,6 +14,8 @@ namespace SE.DSP.Foundation.DA.Service
 {
     public class UomGroupRelationDA : DABase, IUomGroupRelationDA
     {
+        public UomGroupRelationDA() { }
+
         #region Retrieve
         public UomGroupRelationEntity RetrieveCommodityUom(long commodityId, long uomId)
         {

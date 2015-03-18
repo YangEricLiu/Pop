@@ -2,7 +2,6 @@
 
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.API;
-using SE.DSP.Foundation.DA.API;
 using SE.DSP.Foundation.Infrastructure.Constant;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using System;
@@ -10,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
 using SE.DSP.Foundation.Infrastructure.Interception;
+using SE.DSP.Foundation.DA.Interface;
 
 namespace SE.DSP.Foundation.Service
 {
@@ -18,29 +18,33 @@ namespace SE.DSP.Foundation.Service
         private CacheHelper CommodityCacheHelper = new CacheHelper("commodity", ServiceContext.CurrentUser.SPId);
 
         #region DI
-        private UomAPI _uomAPI;
-        private UomAPI UomAPI
+        private IUomDA _uomAPI;
+        private IUomDA UomAPI
         {
             get
             {
-                return this._uomAPI ?? (this._uomAPI = IocHelper.Container.Resolve<UomAPI>());
+                return this._uomAPI ?? (this._uomAPI = IocHelper.Container.Resolve<IUomDA>());
             }
         }
-        private CommodityAPI _CommodityAPI;
-        private CommodityAPI CommodityAPI
+
+        private IUomGroupRelationDA _uomGroupRelationDA;
+        private IUomGroupRelationDA UomGroupRelationDA
         {
             get
             {
-                return this._CommodityAPI ?? (this._CommodityAPI = IocHelper.Container.Resolve<CommodityAPI>());
+                return this._uomGroupRelationDA ?? (this._uomGroupRelationDA = IocHelper.Container.Resolve<IUomGroupRelationDA>());
             }
         }
 
-
-        protected override void RegisterType()
+        private ICommodityDA _CommodityAPI;
+        private ICommodityDA CommodityAPI
         {
-            IocHelper.Container.RegisterType<UomAPI, UomAPI>(new ContainerControlledLifetimeManager());
-            IocHelper.Container.RegisterType<CommodityAPI, CommodityAPI>(new ContainerControlledLifetimeManager());
+            get
+            {
+                return this._CommodityAPI ?? (this._CommodityAPI = IocHelper.Container.Resolve<ICommodityDA>());
+            }
         }
+ 
         #endregion
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace SE.DSP.Foundation.Service
                     entities = entities.Where(c => c.Id.Value != UomConstant.CONSTCOMMODITY_OTHER).ToArray();
             }
 
-            var query = from e in entities select CommodityTranslator.CommodityEntity2CommodityDto(e, UomAPI.RetrieveUomRelationByCommodityId(e.Id.Value));
+            var query = from e in entities select CommodityTranslator.CommodityEntity2CommodityDto(e, this.UomGroupRelationDA.RetrieveUomRelationByCommodityId(e.Id.Value));
 
             return query.ToArray();
         }

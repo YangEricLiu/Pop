@@ -10,6 +10,8 @@ namespace SE.DSP.Foundation.DA.Service
 {
     public class ZoneDA : DABase, IZoneDA
     {
+        public ZoneDA() { }
+
         #region Retrieve
         public ZoneEntity RetrieveZoneById(long zoneId)
         {

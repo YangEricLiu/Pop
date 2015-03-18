@@ -12,6 +12,8 @@ namespace SE.DSP.Foundation.DA.Service
     using SE.DSP.Foundation.Infrastructure.BE.Entities;
     public class UomGroupDA : DABase, IUomGroupDA
     {
+        public UomGroupDA() { }
+
         #region Retrieve
         public UomGroupEntity RetrieveUomGroupById(long uomGroupId)
         {
