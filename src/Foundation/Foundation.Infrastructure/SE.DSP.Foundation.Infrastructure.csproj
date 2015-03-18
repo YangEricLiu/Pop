@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B11251AD-6A05-4AA1-8100-B8224B594FBC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SE.DSP.Foundation.Infrastructure</RootNamespace>
+    <AssemblyName>SE.DSP.Foundation.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="fastJSON, Version=1.9.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\fastJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.EnterpriseLibrary.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\..\..\Lib\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionExtension\ActionExcusor.cs" />
+    <Compile Include="ActionExtension\DefaultActionContext.cs" />
+    <Compile Include="ActionExtension\ActionExtensionBase.cs" />
+    <Compile Include="ActionExtension\ExtensionCfg.cs" />
+    <Compile Include="ActionExtension\ExtensionCfgsParser.cs" />
+    <Compile Include="ActionExtension\IActionContext.cs" />
+    <Compile Include="ActionExtension\PositionType.cs" />
+    <Compile Include="BaseClass\BLBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BaseClass\Order.cs" />
+    <Compile Include="BE\Entities\AccessControl\DataPrivilegeDto.cs" />
+    <Compile Include="BE\Entities\AccessControl\DataPrivilegeEntity.cs" />
+    <Compile Include="BE\Entities\AccessControl\DataPrivilegeFilter.cs" />
+    <Compile Include="BE\Entities\AccessControl\DataPrivilegeFilterDto.cs" />
+    <Compile Include="BE\Entities\AccessControl\RoleDto.cs" />
+    <Compile Include="BE\Entities\AccessControl\RoleEntity.cs" />
+    <Compile Include="BE\Entities\AccessControl\RoleFilter.cs" />
+    <Compile Include="BE\Entities\AccessControl\RolePrivilegeEntity.cs" />
+    <Compile Include="BE\Entities\AccessControl\RoleTranslator.cs" />
+    <Compile Include="BE\Entities\AccessControl\UserDataPrivilegeEntity.cs" />
+    <Compile Include="BE\Entities\AccessControl\UserPrivilegedFilter.cs" />
+    <Compile Include="BE\Entities\AccessControl\UserRoleFilterDto.cs" />
+    <Compile Include="BE\Entities\DataService\dataserviceentites.cs" />
+    <Compile Include="BE\Entities\DataService\DataServiceQueries.cs" />
+    <Compile Include="BE\Entities\SP\ServiceProviderDto.cs" />
+    <Compile Include="BE\Entities\SP\ServiceProviderEntity.cs" />
+    <Compile Include="BE\Entities\User\ContactUsDto.cs" />
+    <Compile Include="BE\Entities\User\PasswordDto.cs" />
+    <Compile Include="BE\Entities\User\PasswordResetDto.cs" />
+    <Compile Include="BE\Entities\User\UserCustomerEntity.cs" />
+    <Compile Include="BE\Entities\User\UserCustomerFilter.cs">
+      <SubType>
+      </SubType>
+    </Compile>
+    <Compile Include="BE\Entities\User\UserDto.cs" />
+    <Compile Include="BE\Entities\User\UserEntity.cs" />
+    <Compile Include="BE\Entities\User\UserFilter.cs" />
+    <Compile Include="BE\Entities\User\UserFilterDto.cs" />
+    <Compile Include="BE\Entities\User\UserOrder.cs" />
+    <Compile Include="BE\Entities\User\UserRoleEntity.cs" />
+    <Compile Include="BE\Entities\User\UserTranslator.cs" />
+    <Compile Include="BE\Enumeration\ServiceProviderErrorCode.cs" />
+    <Compile Include="BE\Entities\SP\ServiceProviderFilter.cs" />
+    <Compile Include="BE\Entities\Uom\CommodityDto.cs" />
+    <Compile Include="BE\Entities\Uom\ConversionFactorDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BE\Entities\Uom\StandardCoalConversionDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BE\Entities\Uom\Translator\CommodityTranslator.cs" />
+    <Compile Include="BE\Entities\Uom\Translator\UomTranslator.cs" />
+    <Compile Include="BE\Entities\Uom\UomConversionDto.cs" />
+    <Compile Include="BE\Entities\Uom\UomDto.cs" />
+    <Compile Include="BE\Enumeration\TargetBaselineType.cs" />
+    <Compile Include="Constant\CalcStatus.cs" />
+    <Compile Include="Enumerations\AccessControlErrorCode.cs" />
+    <Compile Include="Enumerations\Energy\PagingOrder.cs" />
+    <Compile Include="Enumerations\Energy\RankingType.cs" />
+    <Compile Include="Enumerations\Energy\RatioType.cs" />
+    <Compile Include="Enumerations\Energy\TargetBaselineColumnName.cs" />
+    <Compile Include="Enumerations\Energy\UnitType.cs" />
+    <Compile Include="Enumerations\Energy\LabelingType.cs" />
+    <Compile Include="Enumerations\LayoutDirection.cs" />
+    <Compile Include="Enumerations\UserErrorCode.cs" />
+    <Compile Include="Resource\zh-CN\App.Designer.cs" />
+    <Compile Include="Resource\zh-CN\DB.Designer.cs" />
+    <Compile Include="Structure\ConnectionOption.cs" />
+    <Compile Include="BaseClass\DAAPIBase.cs" />
+    <Compile Include="BaseClass\DABase.cs" />
+    <Compile Include="BaseClass\DAContext.cs" />
+    <Compile Include="BaseClass\DAFactory.cs" />
+    <Compile Include="BaseClass\DtoBase.cs" />
+    <Compile Include="BaseClass\EntityBase.cs" />
+    <Compile Include="BaseClass\FilterBase.cs" />
+    <Compile Include="BaseClass\FilterDtoBase.cs" />
+    <Compile Include="BaseClass\IPersistor.cs" />
+    <Compile Include="BaseClass\ServiceBase.cs" />
+    <Compile Include="BE\Entities\Uom\CommodityEntity.cs" />
+    <Compile Include="BE\Entities\Industry\IndustryDto.cs" />
+    <Compile Include="BE\Entities\Industry\IndustryEntity.cs" />
+    <Compile Include="BE\Entities\Industry\IndustryTranslator.cs" />
+    <Compile Include="BE\Entities\Uom\UomEntity.cs" />
+    <Compile Include="BE\Entities\Uom\UomGroupEntity.cs" />
+    <Compile Include="BE\Entities\Uom\UomGroupRelationEntity.cs" />
+    <Compile Include="BE\Entities\Zone\ZoneDto.cs" />
+    <Compile Include="BE\Entities\Zone\ZoneEntity.cs" />
+    <Compile Include="BE\Entities\Zone\ZoneTranslator.cs" />
+    <Compile Include="BE\Enumeration\AdjustmentFactorType.cs" />
+    <Compile Include="BE\Enumeration\AdjustmentFactorValueType.cs" />
+    <Compile Include="BE\Enumeration\CalendarItemType.cs" />
+    <Compile Include="BE\Enumeration\CalendarType.cs" />
+    <Compile Include="BE\Enumeration\CarbonFactorType.cs" />
+    <Compile Include="BE\Enumeration\TariffItemType.cs" />
+    <Compile Include="BE\Enumeration\ShareItemType.cs" />
+    <Compile Include="BE\Enumeration\AlarmNotificationColumn.cs" />
+    <Compile Include="BE\Enumeration\AlarmPriority.cs" />
+    <Compile Include="BE\Enumeration\AlarmType.cs" />
+    <Compile Include="BE\Enumeration\AssociationOption.cs" />
+    <Compile Include="BE\Enumeration\CalculationType.cs" />
+    <Compile Include="BE\Enumeration\CustomerColumn.cs" />
+    <Compile Include="BE\Enumeration\DAGReferType.cs" />
+    <Compile Include="BE\Enumeration\DayType.cs" />
+    <Compile Include="BE\Enumeration\DimensionType.cs" />
+    <Compile Include="BE\Enumeration\EnergyConsumptionFlag.cs" />
+    <Compile Include="BE\Enumeration\EnergyInfo.cs" />
+    <Compile Include="BE\Enumeration\HierarchyType.cs" />
+    <Compile Include="BE\Enumeration\SubscribeType.cs" />
+    <Compile Include="BE\Enumeration\TagColumn.cs" />
+    <Compile Include="BE\Enumeration\TagDependency.cs" />
+    <Compile Include="BE\Enumeration\TagType.cs" />
+    <Compile Include="BE\Enumeration\TBType.cs" />
+    <Compile Include="BE\Enumeration\ThresholdType.cs" />
+    <Compile Include="BE\Enumeration\VariableColumn.cs" />
+    <Compile Include="BE\Enumeration\VariableItemType.cs" />
+    <Compile Include="Constant\ASCII.cs" />
+    <Compile Include="Constant\CacheConstant.cs" />
+    <Compile Include="Constant\ConfiguratgionKey.cs" />
+    <Compile Include="Constant\ConfigurationKey.cs" />
+    <Compile Include="Constant\Constant.cs" />
+    <Compile Include="Constant\ConstantValue.cs" />
+    <Compile Include="Constant\DAConfigurationKey.cs" />
+    <Compile Include="Constant\ProductInfo.cs" />
+    <Compile Include="Constant\UomConstant.cs" />
+    <Compile Include="Constant\UserType.cs" />
+    <Compile Include="Enumerations\AdministrationErrorCode.cs" />
+    <Compile Include="Enumerations\AdvancedProperty.cs" />
+    <Compile Include="Enumerations\AlarmErrorCode.cs" />
+    <Compile Include="Enumerations\BuildingCoverErrorCode.cs" />
+    <Compile Include="Enumerations\CacheOperation.cs" />
+    <Compile Include="Enumerations\CalcPriority.cs" />
+    <Compile Include="Enumerations\ConfigChangedSource.cs" />
+    <Compile Include="Enumerations\CostErrorCode.cs" />
+    <Compile Include="Enumerations\CostUsageErrorCode.cs" />
+    <Compile Include="Enumerations\DataAuthType.cs" />
+    <Compile Include="Enumerations\DemandCostType.cs" />
+    <Compile Include="Enumerations\DeploymentConfigKey.cs" />
+    <Compile Include="Enumerations\EnergyErrorCode.cs" />
+    <Compile Include="Enumerations\EntityStatus.cs" />
+    <Compile Include="Enumerations\ErrorCode.cs" />
+    <Compile Include="Enumerations\ErrorType.cs" />
+    <Compile Include="Enumerations\HierarchyAdvancedProperty.cs" />
+    <Compile Include="Enumerations\Language.cs" />
+    <Compile Include="Enumerations\Layer.cs" />
+    <Compile Include="Enumerations\LoginQueryMode.cs" />
+    <Compile Include="Enumerations\LogSeverity.cs" />
+    <Compile Include="Enumerations\Module.cs" />
+    <Compile Include="Enumerations\OrderType.cs" />
+    <Compile Include="Enumerations\OtsDataType.cs" />
+    <Compile Include="Enumerations\RelativeDateType.cs" />
+    <Compile Include="Enumerations\ResourceType.cs" />
+    <Compile Include="Enumerations\Target.cs" />
+    <Compile Include="Enumerations\TimeGranularity.cs" />
+    <Compile Include="Enumerations\UomConversionDestinationType.cs" />
+    <Compile Include="Enumerations\UserTitle.cs" />
+    <Compile Include="Exceptions\BusinessLogicException.cs" />
+    <Compile Include="Exceptions\ConcurrentException.cs" />
+    <Compile Include="Exceptions\CustomException.cs" />
+    <Compile Include="Exceptions\DataAuthorizationException.cs" />
+    <Compile Include="Exceptions\InputException.cs" />
+    <Compile Include="Exceptions\ParameterException.cs" />
+    <Compile Include="Exceptions\REMException.cs" />
+    <Compile Include="Exceptions\REMExceptionDetail.cs" />
+    <Compile Include="Expr\Enumeration\ElementType.cs" />
+    <Compile Include="Expr\Enumeration\OperandType.cs" />
+    <Compile Include="Expr\Enumeration\OperatorType.cs" />
+    <Compile Include="Expr\Enumeration\VariableType.cs" />
+    <Compile Include="Expr\FormulaUtil.cs" />
+    <Compile Include="Expr\Structure\Constant.cs" />
+    <Compile Include="Expr\Structure\Element.cs" />
+    <Compile Include="Expr\Structure\Operator.cs" />
+    <Compile Include="Expr\Structure\Variable.cs" />
+    <Compile Include="Interception\CacheCallHandlerAttribute.cs" />
+    <Compile Include="Interception\CacheCallHanlder.cs" />
+    <Compile Include="Interception\LogBehaviorExtensionElement.cs" />
+    <Compile Include="Interception\LogParameterInterceptor.cs" />
+    <Compile Include="Interception\LogServiceBehavior.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structure\CalculatedData.cs" />
+    <Compile Include="Structure\Filter.cs" />
+    <Compile Include="Structure\HierarchyIdentity.cs" />
+    <Compile Include="Structure\LastUpdateInfo.cs" />
+    <Compile Include="Structure\Sort.cs" />
+    <Compile Include="Structure\StatusFilter.cs" />
+    <Compile Include="Utils\BLErrorCodeFactory.cs" />
+    <Compile Include="Utils\CacheHelper.cs" />
+    <Compile Include="Utils\ConfigHelper.cs" />
+    <Compile Include="Utils\CryptographyHelper.cs" />
+    <Compile Include="Utils\DAErrorCodeFactory.cs" />
+    <Compile Include="Utils\DataServiceHelper.cs" />
+    <Compile Include="Utils\DateTimeHelper.cs" />
+    <Compile Include="Utils\EmailHelper.cs" />
+    <Compile Include="Utils\ErrorCodeFactory.cs" />
+    <Compile Include="Utils\FastJsonHelper.cs" />
+    <Compile Include="Utils\FileHelper.cs" />
+    <Compile Include="Utils\I18nHelper.cs" />
+    <Compile Include="Utils\ImageHelper.cs" />
+    <Compile Include="Utils\IoCHelper.cs" />
+    <Compile Include="Utils\JsonHelper.cs" />
+    <Compile Include="Utils\LogHelper.cs" />
+    <Compile Include="Utils\MathHelper.cs" />
+    <Compile Include="Utils\MessageHelper.cs" />
+    <Compile Include="Utils\OssHelper.cs" />
+    <Compile Include="Utils\OtsHelper.cs" />
+    <Compile Include="Utils\PagingHelper.cs" />
+    <Compile Include="Utils\ParallelHelper.cs" />
+    <Compile Include="Utils\ServiceContextConstant.cs" />
+    <Compile Include="Utils\TimeRange.cs" />
+    <Compile Include="Utils\TransactionHelper.cs" />
+    <Compile Include="Utils\Translator.cs" />
+    <Compile Include="Utils\TreeBuilder.cs" />
+    <Compile Include="Utils\User.cs" />
+    <Compile Include="Validators\CodeValidator.cs" />
+    <Compile Include="Validators\CommentValidator.cs" />
+    <Compile Include="Validators\FieldCode.cs" />
+    <Compile Include="Validators\IdValidator.cs" />
+    <Compile Include="Validators\NameValidator.cs" />
+    <Compile Include="Validators\PasswordValidator.cs" />
+    <Compile Include="Validators\ValidatorBase.cs" />
+    <Compile Include="Validators\VersionValidator.cs" />
+    <Compile Include="Validators\YearRangeValidator.cs" />
+    <Compile Include="Interception\ServiceContext.cs" />
+    <Compile Include="Interception\ServiceErrorHandler.cs" />
+    <Compile Include="Interception\ServiceErrorHandlerBehavior.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BE\Structure\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\en-US\App.resx" />
+    <EmbeddedResource Include="Resource\en-US\DB.resx" />
+    <EmbeddedResource Include="Resource\zh-CN\App.resx" />
+    <EmbeddedResource Include="Resource\zh-CN\DB.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AliYunApi\AliYunApi.csproj">
+      <Project>{67bdc800-084c-4f84-8a80-661b5afe499a}</Project>
+      <Name>AliYunApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

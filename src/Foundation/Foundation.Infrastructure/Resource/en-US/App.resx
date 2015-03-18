@@ -1,0 +1,1071 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountIsBeingCreated" xml:space="preserve">
+    <value>Creating account, please wait...</value>
+  </data>
+  <data name="Administration_CONSTUOM_PERSON_CODE" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="Administration_CONSTUOM_TREE_CODE" xml:space="preserve">
+    <value>Tree</value>
+  </data>
+  <data name="BLCOMMON_ProductInfo" xml:space="preserve">
+    <value>Schneider Electric EnergyMost</value>
+  </data>
+  <data name="Customer_BusinessPersonnal" xml:space="preserve">
+    <value>Business personnel</value>
+  </data>
+  <data name="Customer_CEO" xml:space="preserve">
+    <value>Management level</value>
+  </data>
+  <data name="Customer_CloneDemoUserEmailBody" xml:space="preserve">
+    <value>Dear Mr./Ms.,&lt;p&gt;
+ You are applying to try {3} at {2}. Please click the following link within 24 hours and go for a trial:&lt;br/&gt;
+&lt;a href='{1}'&gt;{1}&lt;/a&gt;&lt;br/&gt;
+ May you have a pleasant trial experience. &lt;br/&gt;&lt;br/&gt;
+ Best regards,&lt;br/&gt;{3}&lt;/p&gt;</value>
+  </data>
+  <data name="Customer_CloneDemoUserEmailHeader" xml:space="preserve">
+    <value>Welcome to try {0}</value>
+  </data>
+  <data name="Customer_CoolingArea" xml:space="preserve">
+    <value>Cooling area</value>
+  </data>
+  <data name="Customer_CustomerAdmin" xml:space="preserve">
+    <value>Customer administrator</value>
+  </data>
+  <data name="Customer_DepartmentManager" xml:space="preserve">
+    <value>Department manager</value>
+  </data>
+  <data name="Customer_EEConsultant" xml:space="preserve">
+    <value>Energy consultant</value>
+  </data>
+  <data name="Customer_EnergyEngineer" xml:space="preserve">
+    <value>Energy engineer</value>
+  </data>
+  <data name="Customer_EnergyManager" xml:space="preserve">
+    <value>Energy manager</value>
+  </data>
+  <data name="Customer_HeatingArea" xml:space="preserve">
+    <value>Heating area</value>
+  </data>
+  <data name="Customer_InitPasswordEmailBody" xml:space="preserve">
+    <value>Hi {0},&lt;p&gt;
+            Welcome to use {7} &lt;br/&gt;
+            Your account information is as follows: &lt;br/&gt;
+            User name: {1}&lt;br/&gt;
+            Name: {0}&lt;br/&gt;
+            Job title: {5}&lt;br/&gt;
+            Tel.: {2}&lt;br/&gt;
+            E-mail: {3}&lt;br/&gt;
+            Pleas click the following link to set your login password: &lt;br/&gt;
+            &lt;a href='{4}'&gt;{4}&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;
+            May you have a pleasant experience! &lt;br/&gt;
+            Best regards, &lt;br/&gt;
+            {6}
+            &lt;/p&gt;</value>
+  </data>
+  <data name="Customer_InitPasswordEmailTopic" xml:space="preserve">
+    <value>Welcome to use {0}.</value>
+  </data>
+  <data name="Customer_PlatformAdmin" xml:space="preserve">
+    <value>Platform administrator</value>
+  </data>
+  <data name="Customer_ResetPasswordEmailBody" xml:space="preserve">
+    <value>Hi {0},&lt;p&gt;
+            You have applied to reset your {3} password at {2}.&lt;br/&gt;
+            Please click the following link within 24 hours to reset your login password. &lt;br/&gt;
+            &lt;a href='{1}'&gt;{1}&lt;/a&gt;&lt;br/&gt;
+            Thanks for your support to {3}.&lt;br/&gt;
+            Best regards, &lt;br/&gt;
+            Schneider Electric Digital Energy Service Department
+            &lt;/p&gt;</value>
+  </data>
+  <data name="Customer_ResetPasswordTopic" xml:space="preserve">
+    <value>Apply to reset password</value>
+  </data>
+  <data name="Customer_Saleman" xml:space="preserve">
+    <value>Sales personnel</value>
+  </data>
+  <data name="Customer_ServiceProviderAdmin" xml:space="preserve">
+    <value>Service provider administrator</value>
+  </data>
+  <data name="Customer_Technician" xml:space="preserve">
+    <value>Technician</value>
+  </data>
+  <data name="Customer_TotalArea" xml:space="preserve">
+    <value>Total area</value>
+  </data>
+  <data name="Customer_TotalPopulation" xml:space="preserve">
+    <value>Total population</value>
+  </data>
+  <data name="ENERGYCONST_CACLVAULE" xml:space="preserve">
+    <value>Calculated value</value>
+  </data>
+  <data name="ENERGYCONST_CARBONEXPORTTITLE" xml:space="preserve">
+    <value>Carbon</value>
+  </data>
+  <data name="ENERGYCONST_COSTEXPORTTITLE" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="ENERGYCONST_ENERGYEXPORTTITLE" xml:space="preserve">
+    <value>Energy efficiency analysis</value>
+  </data>
+  <data name="ENERGYCONST_HIERARCHYNAME" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ENERGYCONST_KPIBASELINEHEADER" xml:space="preserve">
+    <value>Baseline</value>
+  </data>
+  <data name="ENERGYCONST_KPIEXPORTTITLE" xml:space="preserve">
+    <value>Key energy efficiency indicator</value>
+  </data>
+  <data name="ENERGYCONST_KPITARGETLINEHEADER" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="ENERGYCONST_ORIGVALUE" xml:space="preserve">
+    <value>Raw data</value>
+  </data>
+  <data name="ENERGYCONST_RANKING" xml:space="preserve">
+    <value>Ranking</value>
+  </data>
+  <data name="ENERGYCONST_TIMEHEADERSTRING" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="ENERGYCONST_VALUEHEADERSTRING" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="ENERGYRANK_APDX" xml:space="preserve">
+    <value>/person</value>
+  </data>
+  <data name="Energy_CommodityName" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Energy_DataExportColumn_BaselineValue" xml:space="preserve">
+    <value>Baseline</value>
+  </data>
+  <data name="Energy_DataExportColumn_CalcValue" xml:space="preserve">
+    <value>Calculated value</value>
+  </data>
+  <data name="Energy_DataExportColumn_Carbon" xml:space="preserve">
+    <value>Carbon</value>
+  </data>
+  <data name="Energy_DataExportColumn_Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="Energy_DataExportColumn_Energy" xml:space="preserve">
+    <value>Energy efficiency analysis</value>
+  </data>
+  <data name="Energy_DataExportColumn_HierarchyName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Energy_DataExportColumn_OrigValue" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="Energy_DataExportColumn_Ranking" xml:space="preserve">
+    <value>Ranking</value>
+  </data>
+  <data name="Energy_DataExportColumn_TargetValue" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Energy_DataExportColumn_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Energy_DataExportColumn_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Energy_DataExportCommon_DateFormat" xml:space="preserve">
+    <value>yyyy-MM-dd</value>
+  </data>
+  <data name="Energy_DataExportCommon_TimeFormat" xml:space="preserve">
+    <value>HH:mm</value>
+  </data>
+  <data name="Energy_DataExportCommon_To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Energy_DataExportCommon_TotalView" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_H" xml:space="preserve">
+    <value>H</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_YYYY" xml:space="preserve">
+    <value>yyyy</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_YYYYM" xml:space="preserve">
+    <value>yyyy/M</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_YYYYMD" xml:space="preserve">
+    <value>yyyy/M/d</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_YYYYMDH" xml:space="preserve">
+    <value>yyyy/M/d H:00</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_YYYYMMDDHH" xml:space="preserve">
+    <value>yyyy/MM/dd</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_YYYYMMDDHHMMSS" xml:space="preserve">
+    <value>yyyy/MM/DD HH:mm:ss</value>
+  </data>
+  <data name="Energy_TagDataModifyLogExportColumn_ModifyTime" xml:space="preserve">
+    <value>Modify time</value>
+  </data>
+  <data name="Energy_TagDataModifyLogExportColumn_NewValue" xml:space="preserve">
+    <value>New value</value>
+  </data>
+  <data name="Energy_TagDataModifyLogExportColumn_OriginalValue" xml:space="preserve">
+    <value>Original value</value>
+  </data>
+  <data name="Energy_TagDataModifyLogExportColumn_RecordTime" xml:space="preserve">
+    <value>Record time</value>
+  </data>
+  <data name="Energy_TagDataModifyLogExportColumn_UserId" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="Energy_TagDataModifyLogExportFileNameFormat" xml:space="preserve">
+    <value>{0}_Modify_history.xls</value>
+  </data>
+  <data name="Energy_TagDataModifyLogExport_DateTimeFormat" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm:ss</value>
+  </data>
+  <data name="Energy_To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="HomePage_DemoIsBeingCreated" xml:space="preserve">
+    <value>Creating account, please wait...</value>
+  </data>
+  <data name="HomePage_LoadingEMOP" xml:space="preserve">
+    <value>EnergyMost is loading</value>
+  </data>
+  <data name="HomePage_WelcomeToTrailEMOP" xml:space="preserve">
+    <value>Welcome to trial use EnergyMost</value>
+  </data>
+  <data name="MobelAPI_CNStandard" xml:space="preserve">
+    <value>Chinese standards</value>
+  </data>
+  <data name="MobelAPI_USStandard" xml:space="preserve">
+    <value>American standards</value>
+  </data>
+  <data name="WEBAPI_MailFeedbackBody" xml:space="preserve">
+    <value>Dear operation and maintenance administrator!&lt;br/&gt; Feedback provider: {0}&lt;br/&gt; Name: {1}&lt;br/&gt;{2}&lt;br/&gt; Time: {3}&lt;br/&gt; Question type: {4}&lt;br/&gt;Question description: {5}&lt;br/&gt; Contact information: {6}&lt;br/&gt; E-mail: {7}&lt;br/&gt;{8} Feedback platform</value>
+  </data>
+  <data name="STS_BackLoginPage" xml:space="preserve">
+    <value>Back to login page</value>
+  </data>
+  <data name="STS_UserName_UserNameShouldNotBeEmpty" xml:space="preserve">
+    <value>User name cannot be empty</value>
+  </data>
+  <data name="STS_Email" xml:space="preserve">
+    <value>E-mail address</value>
+  </data>
+  <data name="STS_Login_ForgotPassword" xml:space="preserve">
+    <value>Forget password</value>
+  </data>
+  <data name="STS_LinkIsExpired" xml:space="preserve">
+    <value>Link expired.</value>
+  </data>
+  <data name="STS_LinkIsInvalid" xml:space="preserve">
+    <value>Invalid link.</value>
+  </data>
+  <data name="STS_Literal_About_SE" xml:space="preserve">
+    <value>About us</value>
+  </data>
+  <data name="STS_Literal_Copyright" xml:space="preserve">
+    <value>Copyright. All rights reserved.</value>
+  </data>
+  <data name="STS_Literal_Login_Col1" xml:space="preserve">
+    <value>Effective management</value>
+  </data>
+  <data name="STS_Literal_Login_Col1_Sub" xml:space="preserve">
+    <value>for your cost saving</value>
+  </data>
+  <data name="STS_Literal_Login_Col2" xml:space="preserve">
+    <value>Professional service</value>
+  </data>
+  <data name="STS_Literal_Login_Col2_Sub" xml:space="preserve">
+    <value>for your green business</value>
+  </data>
+  <data name="STS_Literal_Login_Col3" xml:space="preserve">
+    <value>Scalable system</value>
+  </data>
+  <data name="STS_Literal_Login_Col3_Sub" xml:space="preserve">
+    <value>for your business growth</value>
+  </data>
+  <data name="STS_Literal_Weibo" xml:space="preserve">
+    <value>Schneider Electric official Weibo</value>
+  </data>
+  <data name="STS_Login" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="STS_Password" xml:space="preserve">
+    <value>Login password</value>
+  </data>
+  <data name="STS_Pwd_ResettingEmailHasBeenSent" xml:space="preserve">
+    <value>Mail has been sent. Please log into your mail box to reset the password.</value>
+  </data>
+  <data name="STS_Trail_ReqDemoLogin" xml:space="preserve">
+    <value>Trial use</value>
+  </data>
+  <data name="STS_Pwd_SetPassword" xml:space="preserve">
+    <value>Set password</value>
+  </data>
+  <data name="STS_Trail_InputEmail" xml:space="preserve">
+    <value>Please enter your e-mail address</value>
+  </data>
+  <data name="STS_Trail_EmailHasBeenSent" xml:space="preserve">
+    <value>Mail has been sent successfully. Please log into your mail box to click the link and start trial use.</value>
+  </data>
+  <data name="STS_UserName_UserDoesNotExist" xml:space="preserve">
+    <value>The user name does not exist.</value>
+  </data>
+  <data name="STS_UserName_UserIsUnavailable" xml:space="preserve">
+    <value>"Login failed, your user name cannot be used for the moment."</value>
+  </data>
+  <data name="STS_UserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="WEBAPI_Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="WEBAPI_DataExportUomName" xml:space="preserve">
+    <value>RMB</value>
+  </data>
+  <data name="WEBAPI_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="WEBAPI_MailContactComment" xml:space="preserve">
+    <value>Description: {0}&lt;br/&gt;</value>
+  </data>
+  <data name="WEBAPI_MailContactTitle" xml:space="preserve">
+    <value>Job title: {0}&lt;br/&gt;</value>
+  </data>
+  <data name="WEBAPI_MailContactUsBody" xml:space="preserve">
+    <value>Dear customer service representative,&lt;br/&gt; Contact name: {0}&lt;br/&gt; Tel.: {1}&lt;br/&gt; E-mail: {2}&lt;br/&gt; Company: {3}&lt;br/&gt;{4}{5}&lt;br/&gt;{6}</value>
+  </data>
+  <data name="WEBAPI_MailContactUsTopic" xml:space="preserve">
+    <value>"Contact us" message from {0}</value>
+  </data>
+  <data name="WEBAPI_MailFeedbackTopic" xml:space="preserve">
+    <value>Feedback from {0}</value>
+  </data>
+  <data name="WEBAPI_ServiceProvider" xml:space="preserve">
+    <value>Service provider:{0}</value>
+  </data>
+  <data name="WEBAPI_Telephone" xml:space="preserve">
+    <value>Tel.</value>
+  </data>
+  <data name="WEBAPI_Title" xml:space="preserve">
+    <value>Job title</value>
+  </data>
+  <data name="WEBAPI_UserName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="WEBCOMMONCONST_DAY" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="WEBCOMMONCONST_HOUR" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="WEBCOMMONCONST_MONTH" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="WEBCOMMONCONST_YEAR" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Energy_DataExport_DateTimeFormat_YYYYMDHm" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm</value>
+  </data>
+  <data name="Common_EMOP" xml:space="preserve">
+    <value>EnergyMost</value>
+  </data>
+  <data name="Common_SchneiderElectric" xml:space="preserve">
+    <value>Schneider Electric</value>
+  </data>
+  <data name="Common_SchneiderElectricChina" xml:space="preserve">
+    <value>Schneider Electric (China) Co.,Ltd.</value>
+  </data>
+  <data name="STS_Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="STS_Pwd_ConfirmPwd" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="STS_Pwd_Hello" xml:space="preserve">
+    <value>Hi {0},</value>
+  </data>
+  <data name="STS_Pwd_InitPwdSet_Description" xml:space="preserve">
+    <value>Please set your password before using for the first time.</value>
+  </data>
+  <data name="STS_Pwd_PwdReset_Title" xml:space="preserve">
+    <value>Hi &lt;span class=""hightlight""&gt;{0}&lt;/span&gt;,</value>
+  </data>
+  <data name="STS_Pwd_NewPwd" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="STS_Pwd_PwdRest" xml:space="preserve">
+    <value>Please reset your password.</value>
+  </data>
+  <data name="STS_Pwd_PwdRule" xml:space="preserve">
+    <value>English letters, numbers, underlines and spacing are allowed.</value>
+  </data>
+  <data name="STS_Pwd_RequestPwdReset_Description" xml:space="preserve">
+    <value>Please enter your user name and the e-mail address you have already filled out in the system, and click the continue button.</value>
+  </data>
+  <data name="STS_Pwd_RequestPwdReset_ForgotEmail" xml:space="preserve">
+    <value>If you forgot the e-mail address submitted before, please contact your administrator.</value>
+  </data>
+  <data name="STS_Literal_ContactUs" xml:space="preserve">
+    <value>Contact us</value>
+  </data>
+  <data name="STS_Literal_ContactUs_Email" xml:space="preserve">
+    <value>Mail box</value>
+  </data>
+  <data name="STS_Literal_ContactUs_IfAnyQuestion" xml:space="preserve">
+    <value>If you have any questions or requirements, please feel free to contact us.</value>
+  </data>
+  <data name="STS_Literal_ContactUs_Telephone" xml:space="preserve">
+    <value>Tel.</value>
+  </data>
+  <data name="STS_Literal_ContactUs_WechatSite" xml:space="preserve">
+    <value>Micro site</value>
+  </data>
+  <data name="STS_Literal_EMOP_iPadClient" xml:space="preserve">
+    <value>EnergyMost for iPad</value>
+  </data>
+  <data name="STS_Literal_iPad_QRDownload" xml:space="preserve">
+    <value>Download is available using QR code scanner on the iPad to scan the QR code above</value>
+  </data>
+  <data name="STS_Login_InputUserName" xml:space="preserve">
+    <value>Please enter your user name</value>
+  </data>
+  <data name="STS_Login_PasswordIsIncorrect" xml:space="preserve">
+    <value>Wrong login password</value>
+  </data>
+  <data name="STS_Pwd_ClickToResetPwd" xml:space="preserve">
+    <value>Click the link in e-mail to reset password.</value>
+  </data>
+  <data name="STS_Pwd_ClickToTrail" xml:space="preserve">
+    <value>Click the link in e-mail to start trial use.</value>
+  </data>
+  <data name="STS_Pwd_EmailIncorrect" xml:space="preserve">
+    <value>Is e-mail address wrong?</value>
+  </data>
+  <data name="STS_Trail_RequestTrailAgain" xml:space="preserve">
+    <value>Re-apply trial use</value>
+  </data>
+  <data name="STS_Pwd_Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="STS_Pwd_SendToEmail" xml:space="preserve">
+    <value>E-mail has been sent to &lt;span class="highlight"&gt;{0}&lt;/span&gt;.</value>
+  </data>
+  <data name="STS_Literal_SwitchLanguage_ConfirmContinue" xml:space="preserve">
+    <value>"EnergyMost is about to leave the current page to finish language switch, do you want to continue?"</value>
+  </data>
+  <data name="STS_Trail_Title" xml:space="preserve">
+    <value>Welcome to try Schneider Electric EnergyMost</value>
+  </data>
+  <data name="Common_HourlyFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Common_Minit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Common_MinuteFormat_1" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm</value>
+  </data>
+  <data name="Common_MinuteFormat_2" xml:space="preserve">
+    <value>yyyyMMddHHmm</value>
+  </data>
+  <data name="Common_MinuteFormat_3" xml:space="preserve">
+    <value>yyyyMMdd2400</value>
+  </data>
+  <data name="WEBHOST_TagImportFileName" xml:space="preserve">
+    <value>Configure_tag_import</value>
+  </data>
+  <data name="STS_Literal_ContactUs_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="STS_Literal_ContactUs_Title" xml:space="preserve">
+    <value>Schneider Electric EnergyMost</value>
+  </data>
+  <data name="STS_Email_EmailIsIncorrect" xml:space="preserve">
+    <value>Wrong e-mail address</value>
+  </data>
+  <data name="STS_Email_EmailShouldNotBeNull" xml:space="preserve">
+    <value>E-mail address cannot be empty.</value>
+  </data>
+  <data name="STS_Trail_WillSendTrailEmail" xml:space="preserve">
+    <value>We will send the trial account to your mail box.</value>
+  </data>
+  <data name="STS_Login_InputPassword" xml:space="preserve">
+    <value>Please enter password.</value>
+  </data>
+  <data name="STS_Pwd_Pwd2ShouldNotBeNull" xml:space="preserve">
+    <value>Confirmed password cannot be empty.</value>
+  </data>
+  <data name="STS_Pwd_PwdResetRule" xml:space="preserve">
+    <value>Please at least include upper and lower case letters and numbers with 6-20 digits. Spacing is not supported.</value>
+  </data>
+  <data name="STS_Pwd_PwdsDontMatch" xml:space="preserve">
+    <value>The two passwords you entered do not match.</value>
+  </data>
+  <data name="STS_Pwd_PwdShouldNotBeNull" xml:space="preserve">
+    <value>Password cannot be empty.</value>
+  </data>
+  <data name="STS_Trail_InitPwdSetting_Title" xml:space="preserve">
+    <value>"Hi &lt;span class=""hightlight""&gt;{0}&lt;/span&gt;, welcome to log into Schneider Electric EnergyMost! "</value>
+  </data>
+  <data name="STS_UserName_UserHasBeenDeleted" xml:space="preserve">
+    <value>Your account has been deleted. Please contact the administrator.</value>
+  </data>
+  <data name="TagImport_AccumulatedIsEmpty" xml:space="preserve">
+    <value>Accumulative value is void or illegal;</value>
+  </data>
+  <data name="TagImport_CalculationStepIsEmpty" xml:space="preserve">
+    <value>Calculated interval is void or illegal;</value>
+  </data>
+  <data name="TagImport_CalculationStepIsNotValid" xml:space="preserve">
+    <value>The value of interval is void :</value>
+  </data>
+  <data name="TagImport_CalculationStepShouldNotBreakReferredTagsRules" xml:space="preserve">
+    <value>This datapoint has been referred to by other datapoint. Newly calculated interval must be smaller or equal to the calculated interval of the datapoint referred to;</value>
+  </data>
+  <data name="TagImport_CalculationTypeIsEmpty" xml:space="preserve">
+    <value>Calculation method is void or the value is illegal;</value>
+  </data>
+  <data name="TagImport_ChannelIdIsNullOrEmpty" xml:space="preserve">
+    <value>Tag channel id is void or illegal;</value>
+  </data>
+  <data name="TagImport_ChannelIdIsOverLongMax" xml:space="preserve">
+    <value>Tag channel id exceeds (999999999999999) or is less than 1;</value>
+  </data>
+  <data name="TagImport_CodeExistNoSupportedCharcters" xml:space="preserve">
+    <value>Illegal character in tag code.</value>
+  </data>
+  <data name="TagImport_CodeIsDuplicate" xml:space="preserve">
+    <value>Repeat tag code;</value>
+  </data>
+  <data name="TagImport_CodeIsNullOrEmpty" xml:space="preserve">
+    <value>Void tag code;</value>
+  </data>
+  <data name="TagImport_CommentExistNoSupportedCharacters" xml:space="preserve">
+    <value>Illegal character in tag code.</value>
+  </data>
+  <data name="TagImport_CommodityIsEmpty" xml:space="preserve">
+    <value>Commodity is void;</value>
+  </data>
+  <data name="TagImport_EnergyConsumptionTagOfTheCommodityExists" xml:space="preserve">
+    <value>Other tags of the same commodity at node of the same level or node of the same dimension have been marked as energy consumption datapoints.</value>
+  </data>
+  <data name="TagImport_ExcelHeader_CalculationStep" xml:space="preserve">
+    <value>CalculationStep</value>
+  </data>
+  <data name="TagImport_ExcelHeader_CalculationType" xml:space="preserve">
+    <value>CalculationType</value>
+  </data>
+  <data name="TagImport_ExcelHeader_ChannelID" xml:space="preserve">
+    <value>ChannelID</value>
+  </data>
+  <data name="TagImport_ExcelHeader_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="TagImport_ExcelHeader_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="TagImport_ExcelHeader_Commodity" xml:space="preserve">
+    <value>Commodity</value>
+  </data>
+  <data name="TagImport_ExcelHeader_IsAccumulated" xml:space="preserve">
+    <value>IsAccumulated</value>
+  </data>
+  <data name="TagImport_ExcelHeader_MeterCode" xml:space="preserve">
+    <value>MeterCode</value>
+  </data>
+  <data name="TagImport_ExcelHeader_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TagImport_ExcelHeader_UOM" xml:space="preserve">
+    <value>UOM</value>
+  </data>
+  <data name="TagImport_Failed" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="TagImport_FailedReason" xml:space="preserve">
+    <value>Reason for failure</value>
+  </data>
+  <data name="TagImport_MeterCodeExistNotSupportedCharacters" xml:space="preserve">
+    <value>Illegal character in tag meter code.</value>
+  </data>
+  <data name="TagImport_MeterCodeIsNullOrEmpty" xml:space="preserve">
+    <value>Tag meter code is void;</value>
+  </data>
+  <data name="TagImport_NameExistNotSupportedCharacters" xml:space="preserve">
+    <value>Illegal character in tag name;</value>
+  </data>
+  <data name="TagImport_NameIsNullOrEmpty" xml:space="preserve">
+    <value>Tag name is void;</value>
+  </data>
+  <data name="TagImport_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="TagImport_Operation" xml:space="preserve">
+    <value>Operate</value>
+  </data>
+  <data name="TagImport_OverCodeMaxLenth" xml:space="preserve">
+    <value>Tag code length exceeds maximum length 100;</value>
+  </data>
+  <data name="TagImport_OverCommmentMaxLenth" xml:space="preserve">
+    <value>Tag remarks exceeds maximum length 100;</value>
+  </data>
+  <data name="TagImport_OverMeterCodeMaxLenth" xml:space="preserve">
+    <value>Length of tag meter code exceeds maximum length 100;</value>
+  </data>
+  <data name="TagImport_OverNameMaxLenth" xml:space="preserve">
+    <value>Length of tag name exceeds 30;</value>
+  </data>
+  <data name="TagImport_PTagMeterCodeAndChannelIdDuplicated" xml:space="preserve">
+    <value>Tag meter code is the same with channel id;</value>
+  </data>
+  <data name="TagImport_PTagNameIsDuplicated" xml:space="preserve">
+    <value>Tag of the same name has been related to node of the same level or node of the same dimension</value>
+  </data>
+  <data name="TagImport_PTagUomIsUnsupportedForAppointedCommodity" xml:space="preserve">
+    <value>Mismatch between unit and commodity</value>
+  </data>
+  <data name="TagImport_Secquence" xml:space="preserve">
+    <value>Serial number</value>
+  </data>
+  <data name="TagImport_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TagImport_Succeed" xml:space="preserve">
+    <value>Succeed</value>
+  </data>
+  <data name="TagImport_TagIsExpired" xml:space="preserve">
+    <value>Tag out of date</value>
+  </data>
+  <data name="TagImport_UnknownFailedReason" xml:space="preserve">
+    <value>Unknown mistake</value>
+  </data>
+  <data name="TagImport_UOMIsEmpty" xml:space="preserve">
+    <value>Unit is void;</value>
+  </data>
+  <data name="TagImport_Upgrade" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="TagImport_VTagFormulaContainsInvalidTagSavingFailed" xml:space="preserve">
+    <value>The formula used to calculate virtual datapoint includes illegal datapoint so it cannot be saved</value>
+  </data>
+  <data name="Energy_DataExportColumn_Peak" xml:space="preserve">
+    <value>Peak</value>
+  </data>
+  <data name="Energy_DataExportColumn_Plain" xml:space="preserve">
+    <value>Plain</value>
+  </data>
+  <data name="Energy_DataExportColumn_Valley" xml:space="preserve">
+    <value>Valley</value>
+  </data>
+  <data name="TagImport_CaclationSetp_Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="TagImport_CaclationSetp_Hourly" xml:space="preserve">
+    <value>Hourly</value>
+  </data>
+  <data name="TagImport_CaclationSetp_Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="TagImport_CaclationType_Avg" xml:space="preserve">
+    <value>Avg</value>
+  </data>
+  <data name="TagImport_CaclationType_Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="TagImport_CaclationType_Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="TagImport_CaclationType_Sum" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="TagImport_IsAccumulated_No" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="TagImport_IsAccumulated_Yes" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="STS_Literal_EMOP_s" xml:space="preserve">
+    <value>EnergyMost</value>
+  </data>
+  <data name="STS_Literal_iPadClient" xml:space="preserve">
+    <value>iPad client</value>
+  </data>
+  <data name="Customer_TB_DefaultBaselineName" xml:space="preserve">
+    <value>Baseline</value>
+  </data>
+  <data name="Customer_TB_DefaultTargetName" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Customer_InitPasswordEmailHeader" xml:space="preserve">
+    <value>Welcome to use {0}</value>
+  </data>
+  <data name="WebHost_IndexTitle" xml:space="preserve">
+    <value>Schneider Electric EnergyMost</value>
+  </data>
+  <data name="TagImport_CaclationSetp_Min15" xml:space="preserve">
+    <value>15 mins</value>
+  </data>
+  <data name="TagImport_CaclationSetp_Min30" xml:space="preserve">
+    <value>30 mins</value>
+  </data>
+  <data name="TagImport_CaclationSetp_Yearly" xml:space="preserve">
+    <value>Per year</value>
+  </data>
+  <data name="TagImport_ExcelHeader_Offset" xml:space="preserve">
+    <value>Offset</value>
+  </data>
+  <data name="TagImport_ExcelHeader_Slope" xml:space="preserve">
+    <value>Slope</value>
+  </data>
+  <data name="DataImpExp_COMMON_Climate" xml:space="preserve">
+    <value>Climate region</value>
+  </data>
+  <data name="DataImpExp_COMMON_HierarchyCode" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="DataImpExp_COMMON_Industry" xml:space="preserve">
+    <value>Industry involved</value>
+  </data>
+  <data name="DataImpExp_COMMON_Level1" xml:space="preserve">
+    <value>Level 1</value>
+  </data>
+  <data name="DataImpExp_COMMON_Level2" xml:space="preserve">
+    <value>Level 2</value>
+  </data>
+  <data name="DataImpExp_COMMON_Level3" xml:space="preserve">
+    <value>Level 3</value>
+  </data>
+  <data name="DataImpExp_COMMON_Level4" xml:space="preserve">
+    <value>Level 4</value>
+  </data>
+  <data name="DataImpExp_COMMON_Level5" xml:space="preserve">
+    <value>Level 5</value>
+  </data>
+  <data name="DataImpExp_COMMON_Level6" xml:space="preserve">
+    <value>Level 6</value>
+  </data>
+  <data name="DataImpExp_COMMON_Level7" xml:space="preserve">
+    <value>Level 7</value>
+  </data>
+  <data name="DataImpExp_COMMON_NeedCompute" xml:space="preserve">
+    <value>Industry Benchmark Calculation</value>
+  </data>
+  <data name="DataImpExp_COMMON_NodeType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="DataImpExp_COMMON_Notes" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="DataImpExp_COMMON_PrimaryTag" xml:space="preserve">
+    <value>Consumption Tag</value>
+  </data>
+  <data name="DataImpExp_COMMON_TagCode" xml:space="preserve">
+    <value>Tag Code</value>
+  </data>
+  <data name="DataImpExp_COMMON_TagName" xml:space="preserve">
+    <value>Tag Name</value>
+  </data>
+  <data name="NodeExistsButGetDataFailure" xml:space="preserve">
+    <value>There are nodes with the same codes, but the attempt to obtain the data of node with the Code being {0} fails!</value>
+  </data>
+  <data name="OneAndOnlyOneColumn" xml:space="preserve">
+    <value>The operation is failed, because there must be one and only one column filled in the seven columns from Hierarchy 1 to Hierarchy 7!</value>
+  </data>
+  <data name="TagAssociationFailure" xml:space="preserve">
+    <value>The correlation of data points is failed!</value>
+  </data>
+  <data name="TagCodeAndTagNameNotMatch" xml:space="preserve">
+    <value>The operation is failed, because the number {0} of data point does not match with the name {1} of data point!</value>
+  </data>
+  <data name="DataImpExp_MSG_ArgumentCustomerIDIsInvalidation" xml:space="preserve">
+    <value>Failed in authentication because customer ID is invalid.</value>
+  </data>
+  <data name="DataImpExp_MSG_ClimateValueIsNotExists" xml:space="preserve">
+    <value>Failed in data validation beause zone value [{0}] at row [{1}] is not existed in system.</value>
+  </data>
+  <data name="DataImpExp_MSG_ColumnNameIsNotMatch" xml:space="preserve">
+    <value>Failed in file validation because target column title is not existed.</value>
+  </data>
+  <data name="DataImpExp_MSG_CustomerHasNoAuthorization" xml:space="preserve">
+    <value>Failed in authentication because user has no data permission.</value>
+  </data>
+  <data name="DataImpExp_MSG_FileIsNotExcelFile" xml:space="preserve">
+    <value>Failed in file validation because file can not be treated as Excel file.</value>
+  </data>
+  <data name="DataImpExp_MSG_FileNotExistsTheNamedSheet" xml:space="preserve">
+    <value>Failed in file validation because target sheet is not exist.</value>
+  </data>
+  <data name="DataImpExp_MSG_FirstNodeIsNotRootNode" xml:space="preserve">
+    <value>The operation is failed, because the effective data in Row 1 in Excel sheet must be root node!</value>
+  </data>
+  <data name="DataImpExp_MSG_FoundBlackExcelRow" xml:space="preserve">
+    <value>Data in Row [{0}] can't be identified.</value>
+  </data>
+  <data name="DataImpExp_MSG_HaveNotRootNode" xml:space="preserve">
+    <value>Failed in data validation becuase root node is missed.</value>
+  </data>
+  <data name="DataImpExp_MSG_HierarchyInfoIsNotExits" xml:space="preserve">
+    <value>Failed in data validation because [{0}] </value>
+  </data>
+  <data name="DataImpExp_MSG_IndustryValueIsNotExists" xml:space="preserve">
+    <value>Failed in data validation because industry value [{0}] at row [{1}] is not existed in system.</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeExistsButGetDataFailure" xml:space="preserve">
+    <value>Can not get the data of Tag [Code {0}] at row [{1}].</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeTypeValueIsNotExists" xml:space="preserve">
+    <value>Failed in data validation because node type [{0}] at row [{1}] is not existed in system.</value>
+  </data>
+  <data name="DataImpExp_MSG_OneAndOnlyOneColumn" xml:space="preserve">
+    <value>Failed in data validation because hierachy node info at row [{1}] can't be found.</value>
+  </data>
+  <data name="DataImpExp_MSG_OperationSuccessed" xml:space="preserve">
+    <value>Operation is success.</value>
+  </data>
+  <data name="DataImpExp_MSG_ServiceContextCurrentUserInvalidation" xml:space="preserve">
+    <value>Failed in authentication because current user is not existed.</value>
+  </data>
+  <data name="DataImpExp_MSG_SheetFormatIsWrong" xml:space="preserve">
+    <value>Failed in initialization because the first row is not column title or the column's number is not mached with target number.</value>
+  </data>
+  <data name="DataImpExp_MSG_SheetUsedColumnCNTNotMatch" xml:space="preserve">
+    <value>Failed in file validation because column number in file is not same with template column number.</value>
+  </data>
+  <data name="DataImpExp_MSG_TagAssociationFailure" xml:space="preserve">
+    <value>Association is failed because related hierarchy can not be found.</value>
+  </data>
+  <data name="DataImpExp_MSG_TagCodeAndTagNameNotMatch" xml:space="preserve">
+    <value>Failed in data validation because name of tag [code {0} - name {1}] at row [{2}] is not matched.</value>
+  </data>
+  <data name="DataImpExp_MSG_TagCodeIsNotExits" xml:space="preserve">
+    <value>Failed in data validation because tag [code {0}] at row [{1}] is not existed.</value>
+  </data>
+  <data name="DataImpExp_MSG_TagCodeValueIsNotExists" xml:space="preserve">
+    <value>Failed in data validation because tag code [{0}] at row [{1}] is empty in file.</value>
+  </data>
+  <data name="DataImpExp_MSG_TreeNodeLevelisIntteruption" xml:space="preserve">
+    <value>Failed in data validation because parent node at row [{0}] is missed or failed in operation.</value>
+  </data>
+  <data name="DataImpExp_MSG_UploadedFileInvalidation" xml:space="preserve">
+    <value>Failed in file valiation becaues it is not complete.</value>
+  </data>
+  <data name="DataImpExp_MSG_UserHasNoAuthorization" xml:space="preserve">
+    <value>Failed in authentication because user has no function permission.</value>
+  </data>
+  <data name="DataImpExp_StaticValues_HierarchyTemplateFileName" xml:space="preserve">
+    <value>DataImp-HierarchyTemplateFileName-EN_xlsx</value>
+  </data>
+  <data name="DataImpExp_StaticValues_TagTemplateFileName" xml:space="preserve">
+    <value>DataImp-TagTemplateFileName-EN_xls</value>
+  </data>
+  <data name="DataImpExp_COMMON_DateTime" xml:space="preserve">
+    <value>DateTime</value>
+  </data>
+  <data name="DataImpExp_COMMON_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DataImpExp_COMMON_NO" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="DataImpExp_COMMON_Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="DataImpExp_MSG_RootNodeMustBeValide" xml:space="preserve">
+    <value>Operation is failed. The first valid data row must be a level 1 node.</value>
+  </data>
+  <data name="DataImpExp_StaticValues_FALSE" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="DataImpExp_StaticValues_TRUE" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="DataImpExp_MSG_HierarchyRelationIsInvalid" xml:space="preserve">
+    <value>Failed in logic validation because node [code {0} - name {1} - type {2}] at row [{3}] can not associate with parent node [code {4} - name {5} - type {6}].</value>
+  </data>
+  <data name="DataImpExp_MSG_FieldValueIsInvalid" xml:space="preserve">
+    <value>Failed in data validation because value in Row [{0}] and Column[{1}] is invalid.</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeCodeIsDuplication" xml:space="preserve">
+    <value>Failed in data validation beause code of node [node {0} - name {1}] at row [{2}] is duplicate.</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeNameIsDuplication" xml:space="preserve">
+    <value>Failed in data validation beause name of node [node {0} - name {1}] at row [{2}] is duplicate.</value>
+  </data>
+  <data name="DataImpExp_MSG_CustomerNodeTypeIsNowAllowed" xml:space="preserve">
+    <value>Failed in data validation because customer type node at row [{0}] is not allowed.</value>
+  </data>
+  <data name="DataImpExp_X_TAG_EnergyConsumptionTagIsValidForBuilding" xml:space="preserve">
+    <value>Tag at row [{0}] is not valid for energy consumption.</value>
+  </data>
+  <data name="DataImpExp_X_TAG_ParameterIsIncorrect" xml:space="preserve">
+    <value>Tag\'s parameter is not corrent at row [{0}]</value>
+  </data>
+  <data name="DataImpExp_X_TAG_TagIsExpired" xml:space="preserve">
+    <value>Tag at row [{0}] is expired.</value>
+  </data>
+  <data name="DataImpExp_X_TAG_TagIsNotAssociatedToAreaDimension" xml:space="preserve">
+    <value>Tag at row [{0}] can not be associated with area dimension node.</value>
+  </data>
+  <data name="DataImpExp_X_TAG_TagIsNotAssociatedToHierarchy" xml:space="preserve">
+    <value>Tag at row [{0}] can not be associated with hierarchy node.</value>
+  </data>
+  <data name="DataImpExp_X_TAG_TagIsNotAssociatedToSystemDimension" xml:space="preserve">
+    <value>Tag at row [{0}] can not be associated with system dimension node.</value>
+  </data>
+  <data name="DataImpExp_X_TAG_TagsContainEnergyConsumptionTagOfTheCommodity" xml:space="preserve">
+    <value>Tag at row [{0}] contains the consumption commodity.</value>
+  </data>
+  <data name="DataImpExp_X_TAG_TagUomGroupIsNotEnergyConsumptionGroup" xml:space="preserve">
+    <value>Tag\'s UOM Group is not a energy consumption group at row [{0}].</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeCodeIsInvalid" xml:space="preserve">
+    <value>Failed in data validation because tag\'s code {0} is invalid at row [{1}].</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeNameIsInvalid" xml:space="preserve">
+    <value>Failed in data validation because tag\'s name {0} is invalid at row [{1}].</value>
+  </data>
+  <data name="DataImpExp_MSG_UserHasNoTagAssoiationAuthorization" xml:space="preserve">
+    <value>Failed in authentication because current user has no permission about "Tag Mapping"</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeCodeContainsIllegalCharacters" xml:space="preserve">
+    <value>Failed in data validation because code [{0}] contains unsupported characters at row[{1}].</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeCodeIsTooLong" xml:space="preserve">
+    <value>Failed in data validation because length of node code [{0}] is larger than {1} characters at row [{2}].</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeNameContainsIllegalCharacters" xml:space="preserve">
+    <value>Failed in data validation because name [{0}] contains unsupported character at row [{1}].</value>
+  </data>
+  <data name="DataImpExp_MSG_NodeNameIsTooLong" xml:space="preserve">
+    <value>Failed in data validation because length of node name [{0}] is larger than {1} characters at row [{2}].</value>
+  </data>
+  <data name="DataImpExp_MSG_TagHasExistsAssoiation" xml:space="preserve">
+    <value>Tag association is failed because tag [code {0}] has been associated at row [{1}]</value>
+  </data>
+</root>

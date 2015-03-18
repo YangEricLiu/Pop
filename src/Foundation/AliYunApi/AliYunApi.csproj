@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{67BDC800-084C-4F84-8A80-661B5AFE499A}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Aliyun.OpenServices</RootNamespace>
+    <AssemblyName>Aliyun.OpenServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\Ethan\AppData\Roaming\ICSharpCode/SharpDevelop4\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>False</DelaySign>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <RunCodeAnalysis>False</RunCodeAnalysis>
+    <RunSourceAnalysis>False</RunSourceAnalysis>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>
+    </DocumentationFile>
+    <WarningLevel>3</WarningLevel>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aliyun.OSS">
+      <HintPath>..\..\..\..\Lib\Aliyun.OSS.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Lib\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClientConfiguration.cs" />
+    <Compile Include="Common\Authentication\HmacSHA1Signature.cs" />
+    <Compile Include="Common\Authentication\IRequestSigner.cs" />
+    <Compile Include="Common\Authentication\ServiceSignature.cs" />
+    <Compile Include="Common\Communication\ExecutionContext.cs" />
+    <Compile Include="Common\Communication\ServiceMessage.cs" />
+    <Compile Include="Common\Communication\HttpMethod.cs" />
+    <Compile Include="Common\Communication\IServiceClient.cs" />
+    <Compile Include="Common\Communication\ServiceRequest.cs" />
+    <Compile Include="Common\Communication\ServiceResponse.cs" />
+    <Compile Include="Common\Communication\RetryableServiceClient.cs" />
+    <Compile Include="Common\Communication\ServiceClientImpl.cs" />
+    <Compile Include="Common\Communication\ServiceClient.cs" />
+    <Compile Include="Common\Handlers\IResponseHandler.cs" />
+    <Compile Include="Common\Handlers\ResponseHandler.cs" />
+    <Compile Include="Common\Transform\IDeserializer.cs" />
+    <Compile Include="Common\Transform\ResponseDeserializationException.cs" />
+    <Compile Include="Common\Transform\XmlStreamDeserializer.cs" />
+    <Compile Include="Common\Transform\ProtoBufStreamDeserializer.cs" />
+    <Compile Include="Common\Utilities\AsyncResult.cs" />
+    <Compile Include="Common\Utilities\DateUtils.cs" />
+    <Compile Include="Common\Utilities\EnumUtils.cs" />
+    <Compile Include="Common\Utilities\HttpHeaders.cs" />
+    <Compile Include="Common\Utilities\HttpUtils.cs" />
+    <Compile Include="Common\Utilities\IOUtils.cs" />
+    <Compile Include="Common\Utilities\StringValueAttribute.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\AbortTransactionCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\BatchModifyDataCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\CommitTransactionCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\CreateTableCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\CreateTableGroupCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\DeleteTableCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\GetRowCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\GetRowsByRangeCommand.cs" />
+    <Compile Include="OpenTableService\Commands\ProtoBuf\StartTransactionCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\AbortTransactionCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\BatchModifyDataCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\CommitTransactionCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\CreateTableCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\CreateTableGroupCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\DeleteDataCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\DeleteTableCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\DeleteTableGroupCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\GetRowCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\GetRowsByOffsetCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\GetRowsByRangeCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\GetTableMetaCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\ListTableCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\ListTableGroupCommand.cs" />
+    <Compile Include="OpenTableService\Commands\OtsCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\PutDataCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\SqlQueryCommand.cs" />
+    <Compile Include="OpenTableService\Commands\Xml\StartTransactionCommand.cs" />
+    <Compile Include="OpenTableService\IOts.cs" />
+    <Compile Include="OpenTableService\Utilities\DeserializerFactory.cs" />
+    <Compile Include="OpenTableService\Utilities\EntityNameList.cs" />
+    <Compile Include="OpenTableService\Utilities\ExceptionFactory.cs" />
+    <Compile Include="OpenTableService\Utilities\EntityDictionary.cs" />
+    <Compile Include="OpenTableService\Utilities\OtsConstants.cs" />
+    <Compile Include="OpenTableService\Utilities\OtsExceptionHandler.cs" />
+    <Compile Include="OpenTableService\Utilities\OtsRequestSigner.cs" />
+    <Compile Include="OpenTableService\Utilities\OtsUtility.cs" />
+    <Compile Include="OpenTableService\Utilities\ProtoBufConstant.cs" />
+    <Compile Include="OpenTableService\Utilities\ProtoBufUtility.cs" />
+    <Compile Include="OpenTableService\Utilities\ServiceClientFactory.cs" />
+    <Compile Include="OpenTableService\Utilities\TableValueExtension.cs" />
+    <Compile Include="OpenTableService\Utilities\ValidationResponseHandler.cs" />
+    <Compile Include="OpenTableService\Model\BatchModifyDataResult.cs" />
+    <Compile Include="OpenTableService\Model\CommitTransactionResult.cs" />
+    <Compile Include="OpenTableService\Model\DeleteDataResult.cs" />
+    <Compile Include="OpenTableService\Model\PutDataResult.cs" />
+    <Compile Include="OpenTableService\Model\StartTransactionResult.cs" />
+    <Compile Include="OpenTableService\Model\AbortTransactionResult.cs" />
+    <Compile Include="OpenTableService\OffsetRowQueryCriteria.cs" />
+    <Compile Include="OpenTableService\OtsErrorCode.cs" />
+    <Compile Include="OpenTableService\OtsException.cs" />
+    <Compile Include="OpenTableService\OtsExceptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OtsExceptions.resx</DependentUpon>
+    </Compile>
+    <Compile Include="OpenTableService\PartitionKeyValue.cs" />
+    <Compile Include="OpenTableService\PrimaryKeyRange.cs" />
+    <Compile Include="OpenTableService\PrimaryKeyValue.cs" />
+    <Compile Include="OpenTableService\RangeRowQueryCriteria.cs" />
+    <Compile Include="OpenTableService\RowDeleteChange.cs" />
+    <Compile Include="OpenTableService\RowPutChange.cs" />
+    <Compile Include="OpenTableService\RowQueryCriteria.cs" />
+    <Compile Include="OpenTableService\SingleRowQueryCriteria.cs" />
+    <Compile Include="OpenTableService\ColumnValue.cs" />
+    <Compile Include="OpenTableService\RowChange.cs" />
+    <Compile Include="OpenTableService\ColumnType.cs" />
+    <Compile Include="OpenTableService\Utilities\EnumTypeStringMap.cs" />
+    <Compile Include="OpenTableService\Model\CreateTableGroupResult.cs" />
+    <Compile Include="OpenTableService\Model\CreateTableResult.cs" />
+    <Compile Include="OpenTableService\Model\DeleteTableGroupResult.cs" />
+    <Compile Include="OpenTableService\Model\DeleteTableResult.cs" />
+    <Compile Include="OpenTableService\Model\ErrorResult.cs" />
+    <Compile Include="OpenTableService\Model\GetRowResult.cs" />
+    <Compile Include="OpenTableService\Model\GetTableMetaResult.cs" />
+    <Compile Include="OpenTableService\Model\ListTableGroupResult.cs" />
+    <Compile Include="OpenTableService\Model\ListTableResult.cs" />
+    <Compile Include="OpenTableService\Model\OpenTableServiceResult.cs" />
+    <Compile Include="OpenTableService\Row.cs" />
+    <Compile Include="OpenTableService\PrimaryKeyType.cs" />
+    <Compile Include="OpenTableService\CheckingMode.cs" />
+    <Compile Include="OpenTableService\OtsXmlClient.cs" />
+    <Compile Include="OpenTableService\PartitionKeyType.cs" />
+    <Compile Include="OpenTableService\TableMeta.cs" />
+    <Compile Include="OpenTableService\ots_protocol.cs" />
+    <Compile Include="OpenTableService\Utilities\ProtoBufRequestSigner.cs" />
+    <Compile Include="OpenTableService\Utilities\ValidationProtoBufResponseHandler.cs" />
+    <Compile Include="OpenTableService\OtsProtoBufClient.cs" />
+    <Compile Include="OpenTableService\Utilities\OtsProtoBufExceptionHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceCredentials.cs" />
+    <Compile Include="ServiceException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OpenTableService\OtsExceptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OtsExceptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OpenTableService\ots_comments_include.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>

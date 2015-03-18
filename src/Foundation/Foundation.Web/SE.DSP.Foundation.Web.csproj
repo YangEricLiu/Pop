@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE31828F-8DFF-4E37-A844-01D307532F35}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SE.DSP.Foundation.Web</RootNamespace>
+    <AssemblyName>SE.DSP.Foundation.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Jazz\Branch\R1.9\Jazz\Lib\Microsoft.Practices.EnterpriseLibrary.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Jazz\Branch\R1.9\Jazz\Lib\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Selectors" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attribute\CacheAttribute.cs" />
+    <Compile Include="Attribute\DataAuthorizationAttribute.cs" />
+    <Compile Include="Attribute\ExportContractAttribute.cs" />
+    <Compile Include="Attribute\FunctionAuthorizationAttribute.cs" />
+    <Compile Include="Constant\ConfiguratgionKey.cs" />
+    <Compile Include="Constant\Constant.cs" />
+    <Compile Include="Constant\Privilege.cs" />
+    <Compile Include="Constant\SessionKey.cs" />
+    <Compile Include="Error\REMError.cs" />
+    <Compile Include="Error\RemErrorBehaviorExtensionElement.cs" />
+    <Compile Include="Error\RemErrorEndpointBehavior.cs" />
+    <Compile Include="Error\REMErrorOperationBehavior.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\CertificateUtil.cs" />
+    <Compile Include="Security\CookieUtil.cs" />
+    <Compile Include="Security\CustomAuthenticationModule.cs" />
+    <Compile Include="Security\CustomSecurityTokenService.cs" />
+    <Compile Include="Security\CustomSecurityTokenServiceConfiguration.cs" />
+    <Compile Include="Security\MachineKeyProtectionTransform.cs" />
+    <Compile Include="Security\MachineKeySessionSecurityTokenHandler.cs" />
+    <Compile Include="Security\SampleRequestValidator.cs" />
+    <Compile Include="Security\SignOutHelper.cs" />
+    <Compile Include="Security\STSConstant.cs" />
+    <Compile Include="Security\SymmetricEncryptionFormatter.cs" />
+    <Compile Include="Security\TrustedIssuerNameRegistry.cs" />
+    <Compile Include="Service\CustomHeaderBehaviorExtensionElement.cs" />
+    <Compile Include="Service\CustomHeaderClientMessageInspector.cs" />
+    <Compile Include="Service\CustomHeaderEndpointBehavior.cs" />
+    <Compile Include="Service\FormBehavior.cs" />
+    <Compile Include="Service\FormDataRequestFormatter.cs" />
+    <Compile Include="Service\REMWebHttpBehaviorExtensionElement.cs" />
+    <Compile Include="Service\ServiceClientHelper.cs" />
+    <Compile Include="Service\ServiceWrapperBase.cs" />
+    <Compile Include="Service\ServiceWrapperContext.cs" />
+    <Compile Include="Service\ServiceWrapperErrorHandler.cs" />
+    <Compile Include="Service\ServiceWrapperErrorHandlerBehavior.cs" />
+    <Compile Include="Service\ServiceWrapperHttpModule.cs" />
+    <Compile Include="UI\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Utility\ServiceEndpointHelper.cs" />
+    <Compile Include="Utility\WebErrorCodeFactory.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
+      <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>
+      <Name>SE.DSP.Foundation.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

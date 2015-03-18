@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Uom_KWH" xml:space="preserve">
+    <value>千瓦时</value>
+  </data>
+  <data name="Uom_KVARH" xml:space="preserve">
+    <value>千乏时</value>
+  </data>
+  <data name="Uom_KVAH" xml:space="preserve">
+    <value>千伏安时</value>
+  </data>
+  <data name="Uom_KW" xml:space="preserve">
+    <value>千瓦</value>
+  </data>
+  <data name="Uom_m³" xml:space="preserve">
+    <value>立方米</value>
+  </data>
+  <data name="Uom_m³/s" xml:space="preserve">
+    <value>立方米/秒</value>
+  </data>
+  <data name="Uom_ppm" xml:space="preserve">
+    <value>百万分比浓度</value>
+  </data>
+  <data name="Uom_kg" xml:space="preserve">
+    <value>千克</value>
+  </data>
+  <data name="Uom_Ton" xml:space="preserve">
+    <value>吨</value>
+  </data>
+  <data name="Uom_J" xml:space="preserve">
+    <value>焦</value>
+  </data>
+  <data name="Uom_GJ" xml:space="preserve">
+    <value>千焦</value>
+  </data>
+  <data name="Uom_RMB" xml:space="preserve">
+    <value>人民币</value>
+  </data>
+  <data name="Uom_m²" xml:space="preserve">
+    <value>平方米</value>
+  </data>
+  <data name="Uom_h" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="Uom_m" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="Uom_s" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="Uom_°C" xml:space="preserve">
+    <value>摄氏度</value>
+  </data>
+  <data name="Uom_kgce" xml:space="preserve">
+    <value>千克标煤</value>
+  </data>
+  <data name="Uom_kgCO₂" xml:space="preserve">
+    <value>千克二氧化碳</value>
+  </data>
+  <data name="Uom_Tree" xml:space="preserve">
+    <value>棵树</value>
+  </data>
+  <data name="Uom_Person" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="Uom_null" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Uom_KVA" xml:space="preserve">
+    <value>千伏安</value>
+  </data>
+  <data name="Uom_KVAR" xml:space="preserve">
+    <value>千乏</value>
+  </data>
+  <data name="Uom_VOLTS" xml:space="preserve">
+    <value>伏特</value>
+  </data>
+  <data name="Uom_AMPS" xml:space="preserve">
+    <value>安培</value>
+  </data>
+  <data name="Uom_µg/m³" xml:space="preserve">
+    <value>微克每立方米</value>
+  </data>
+  <data name="Uom_Percentage" xml:space="preserve">
+    <value>百分比</value>
+  </data>
+  <data name="Commodity_Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Commodity_Electricity" xml:space="preserve">
+    <value>电</value>
+  </data>
+  <data name="Commodity_Water" xml:space="preserve">
+    <value>自来水</value>
+  </data>
+  <data name="Commodity_Gas" xml:space="preserve">
+    <value>天然气</value>
+  </data>
+  <data name="Commodity_SoftWater" xml:space="preserve">
+    <value>软水</value>
+  </data>
+  <data name="Commodity_Petrol" xml:space="preserve">
+    <value>汽油</value>
+  </data>
+  <data name="Commodity_LowPressureSteam" xml:space="preserve">
+    <value>低压蒸汽</value>
+  </data>
+  <data name="Commodity_DieselOil" xml:space="preserve">
+    <value>柴油</value>
+  </data>
+  <data name="Commodity_HeatQ" xml:space="preserve">
+    <value>热量</value>
+  </data>
+  <data name="Commodity_CoolQ" xml:space="preserve">
+    <value>冷量</value>
+  </data>
+  <data name="Commodity_Coal" xml:space="preserve">
+    <value>煤</value>
+  </data>
+  <data name="Commodity_CoalOil" xml:space="preserve">
+    <value>煤油</value>
+  </data>
+  <data name="Commodity_AirQuality" xml:space="preserve">
+    <value>空气</value>
+  </data>
+  <data name="AdvancedProperty_TotalPopulation" xml:space="preserve">
+    <value>总人口</value>
+  </data>
+  <data name="AdvancedProperty_TotalArea" xml:space="preserve">
+    <value>总面积</value>
+  </data>
+  <data name="AdvancedProperty_HeatingArea" xml:space="preserve">
+    <value>采暖面积</value>
+  </data>
+  <data name="AdvancedProperty_CoolingArea" xml:space="preserve">
+    <value>供冷面积</value>
+  </data>
+  <data name="Industry_All Industries" xml:space="preserve">
+    <value>全行业</value>
+  </data>
+  <data name="Industry_Office Building" xml:space="preserve">
+    <value>办公建筑</value>
+  </data>
+  <data name="Industry_Data Center" xml:space="preserve">
+    <value>数据中心</value>
+  </data>
+  <data name="Industry_Hotel" xml:space="preserve">
+    <value>酒店</value>
+  </data>
+  <data name="Industry_Hotel  Two-star and below " xml:space="preserve">
+    <value>酒店（二星级及以下）</value>
+  </data>
+  <data name="Industry_Hotel  Three-stat " xml:space="preserve">
+    <value>酒店（三星级）</value>
+  </data>
+  <data name="Industry_Hotel  Four-star " xml:space="preserve">
+    <value>酒店（四星级）</value>
+  </data>
+  <data name="Industry_Hotel  Five-stat " xml:space="preserve">
+    <value>酒店（五星级）</value>
+  </data>
+  <data name="Industry_Hospital" xml:space="preserve">
+    <value>医院</value>
+  </data>
+  <data name="Industry_School" xml:space="preserve">
+    <value>学校</value>
+  </data>
+  <data name="Industry_Retail" xml:space="preserve">
+    <value>零售业</value>
+  </data>
+  <data name="Industry_Supermarket" xml:space="preserve">
+    <value>超市</value>
+  </data>
+  <data name="Industry_Clothing retail" xml:space="preserve">
+    <value>服装零售</value>
+  </data>
+  <data name="Industry_Mall" xml:space="preserve">
+    <value>商场</value>
+  </data>
+  <data name="Industry_Telecommunication" xml:space="preserve">
+    <value>通讯</value>
+  </data>
+  <data name="Industry_Telecommunication workshop" xml:space="preserve">
+    <value>机房</value>
+  </data>
+  <data name="Industry_Telecommunication base station" xml:space="preserve">
+    <value>通讯基站</value>
+  </data>
+  <data name="Industry_Telecommunication business hall" xml:space="preserve">
+    <value>通讯营业厅</value>
+  </data>
+  <data name="Industry_Rail Transit" xml:space="preserve">
+    <value>轨道交通</value>
+  </data>
+  <data name="Industry_Airport" xml:space="preserve">
+    <value>机场</value>
+  </data>
+  <data name="Industry_Manufacturing" xml:space="preserve">
+    <value>制造业</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_HVAC" xml:space="preserve">
+    <value>空调</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_PowerSystem" xml:space="preserve">
+    <value>动力</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ElectricityComsumptionInFunctionArea" xml:space="preserve">
+    <value>功能区域用电</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ElectricityComsumptionInSecondZone" xml:space="preserve">
+    <value>辅助区域用电</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_KeySystem" xml:space="preserve">
+    <value>关键</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Special" xml:space="preserve">
+    <value>特殊</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_CoolingHeatingSource" xml:space="preserve">
+    <value>冷热源</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_CoolingMachine" xml:space="preserve">
+    <value>供冷主机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_HeatingMachine" xml:space="preserve">
+    <value>供热主机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_CoolingOrHeatingMachine" xml:space="preserve">
+    <value>冷热兼供主机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_AirCooledCoolingMachine" xml:space="preserve">
+    <value>风冷冷水机组</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ChilledHeatWaterPump" xml:space="preserve">
+    <value>冷冻换热泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ChilledOrHeatWaterPump" xml:space="preserve">
+    <value>冷冻/换热泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ChilledWaterPump" xml:space="preserve">
+    <value>冷冻泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_HeatWaterPump" xml:space="preserve">
+    <value>换热泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_CoolingWaterPump" xml:space="preserve">
+    <value>冷却泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_CoolingTower" xml:space="preserve">
+    <value>冷却塔风机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_AirTerminal" xml:space="preserve">
+    <value>空调末端</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ExhausteFan" xml:space="preserve">
+    <value>排风机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_FCU" xml:space="preserve">
+    <value>风机盘管</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_AHU" xml:space="preserve">
+    <value>空调箱</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_FAHU" xml:space="preserve">
+    <value>新风机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_TerminalReheat" xml:space="preserve">
+    <value>末端再热</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_DecentralizedAirConditioning" xml:space="preserve">
+    <value>分散空调</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_VRV" xml:space="preserve">
+    <value>VRV空调</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_LiquidDesiccantAirCondition" xml:space="preserve">
+    <value>溶液除湿机组</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ElectricHeating" xml:space="preserve">
+    <value>电采暖设备</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Boiler" xml:space="preserve">
+    <value>锅炉</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_DrainagePump" xml:space="preserve">
+    <value>给排水泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_DomesticWaterPump" xml:space="preserve">
+    <value>生活水泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_SewagePump" xml:space="preserve">
+    <value>排污泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_RecycledWaterPump" xml:space="preserve">
+    <value>中水泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_SubmersiblePump" xml:space="preserve">
+    <value>潜水泵</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Elevator" xml:space="preserve">
+    <value>电梯</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Staircase" xml:space="preserve">
+    <value>扶梯</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_PassengerElevator" xml:space="preserve">
+    <value>客梯</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_FreightElevator" xml:space="preserve">
+    <value>货梯</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_DebrisElevator" xml:space="preserve">
+    <value>污梯</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Outlet" xml:space="preserve">
+    <value>插座</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Lighting" xml:space="preserve">
+    <value>照明</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Lobby" xml:space="preserve">
+    <value>大堂</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_GarageLighting" xml:space="preserve">
+    <value>车库照明</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Service" xml:space="preserve">
+    <value>服务部门</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ServiceLight" xml:space="preserve">
+    <value>服务部门照明</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ServiceOutlet" xml:space="preserve">
+    <value>服务部门插座</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_InformationRoom" xml:space="preserve">
+    <value>信息机房</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_InformationEquipment" xml:space="preserve">
+    <value>信息设备</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_HVACEquipment" xml:space="preserve">
+    <value>信息设备专用空调</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Canteen" xml:space="preserve">
+    <value>厨房餐厅</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_CookingAppliances" xml:space="preserve">
+    <value>厨房炊事设备</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_HVACCooking" xml:space="preserve">
+    <value>厨房空调机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_SmokeExhaustMachine" xml:space="preserve">
+    <value>厨房排烟机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_OutletLighting" xml:space="preserve">
+    <value>厨房照明插座</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_PublicLighting" xml:space="preserve">
+    <value>公共照明</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_NightSceneLighting" xml:space="preserve">
+    <value>夜景照明</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_WaterHeater" xml:space="preserve">
+    <value>热水器</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_XMachine" xml:space="preserve">
+    <value>X光机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_CTMachine" xml:space="preserve">
+    <value>CT机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_NMR" xml:space="preserve">
+    <value>核磁共振</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Dialyzer" xml:space="preserve">
+    <value>血透</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_HyperbaricOxygenChamber" xml:space="preserve">
+    <value>高压氧舱</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Server" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Router" xml:space="preserve">
+    <value>交换机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_AirPurifier" xml:space="preserve">
+    <value>空气净化器</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Transmitter" xml:space="preserve">
+    <value>发射机</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_PrecisionAirConditioner" xml:space="preserve">
+    <value>精密空调</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_UPSLoss" xml:space="preserve">
+    <value>UPS损耗</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ICU" xml:space="preserve">
+    <value>ICU病房</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_LaundryEquipment" xml:space="preserve">
+    <value>洗衣房设备</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_ElectricitySwimmingPool" xml:space="preserve">
+    <value>游泳池用电</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_OutsourcingCanteen" xml:space="preserve">
+    <value>外包餐厅</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_OutsourceingClient" xml:space="preserve">
+    <value>外包商户</value>
+  </data>
+  <data name="SystemDimensionTemplateItem_Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Zone_All Zones" xml:space="preserve">
+    <value>全部区域</value>
+  </data>
+  <data name="Zone_Extreme Cold Region A" xml:space="preserve">
+    <value>严寒地区A区</value>
+  </data>
+  <data name="Zone_Extreme Cold Region B" xml:space="preserve">
+    <value>严寒地区B区</value>
+  </data>
+  <data name="Zone_Cold Region" xml:space="preserve">
+    <value>寒冷地区</value>
+  </data>
+  <data name="Zone_Hot Summer and Cold Winter Region" xml:space="preserve">
+    <value>夏热冬冷地区</value>
+  </data>
+  <data name="Zone_Subtropical Region" xml:space="preserve">
+    <value>夏热冬暖地区</value>
+  </data>
+  <data name="Zone_Temperate Region" xml:space="preserve">
+    <value>温和地区</value>
+  </data>
+</root>
