@@ -1,1 +1,1 @@
-﻿<%@ServiceHost language="c#" Debug="true" Service="SE.DSP.Foundation.Service.IndustryService" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SE.DSP.Foundation.AppHost.API.Industry" CodeBehind="Industry.svc.cs" %>

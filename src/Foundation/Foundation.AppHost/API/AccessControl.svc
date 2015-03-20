@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="SE.DSP.Foundation.Service.AccessControlService" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SE.DSP.Foundation.AppHost.API.AccessControl" CodeBehind="AccessControl.svc.cs" %>

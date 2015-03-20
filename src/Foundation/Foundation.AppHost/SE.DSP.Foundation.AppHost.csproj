@@ -40,6 +40,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetGear2012.Core, Version=7.1.2.102, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\SpreadsheetGear2012.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetGear2012.Drawing, Version=7.1.2.102, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\SpreadsheetGear2012.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetGear2012.Windows.WPF, Version=7.1.2.102, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\SpreadsheetGear2012.Windows.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -59,16 +76,37 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="API\Zone.svc" />
-    <Content Include="API\User.svc" />
-    <Content Include="API\Uom.svc" />
-    <Content Include="API\ServiceProvider.svc" />
-    <Content Include="API\Industry.svc" />
-    <Content Include="API\Commodity.svc" />
     <Content Include="API\AccessControl.svc" />
+    <Content Include="API\Commodity.svc" />
+    <Content Include="API\Industry.svc" />
+    <Content Include="API\ServiceProvider.svc" />
+    <Content Include="API\Uom.svc" />
+    <Content Include="API\User.svc" />
+    <Content Include="API\Zone.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AccessControl.svc.cs">
+      <DependentUpon>AccessControl.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\Commodity.svc.cs">
+      <DependentUpon>Commodity.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\Industry.svc.cs">
+      <DependentUpon>Industry.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\ServiceProvider.svc.cs">
+      <DependentUpon>ServiceProvider.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\Uom.svc.cs">
+      <DependentUpon>Uom.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\User.svc.cs">
+      <DependentUpon>User.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\Zone.svc.cs">
+      <DependentUpon>Zone.svc</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +127,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Foundation.API\SE.DSP.Foundation.API.csproj">
+      <Project>{d56ea6b0-0888-4a18-a913-191116282c26}</Project>
+      <Name>SE.DSP.Foundation.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Foundation.DA.Interface\SE.DSP.Foundation.DA.Interface.csproj">
       <Project>{fb472a23-e616-4035-9651-3f38f7bd71b5}</Project>
       <Name>SE.DSP.Foundation.DA.Interface</Name>
@@ -97,9 +139,9 @@
       <Project>{38e014fd-0116-43de-b80d-b44c22caad38}</Project>
       <Name>SE.DSP.Foundation.DA.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Foundation.Service\SE.DSP.Foundation.Service.csproj">
-      <Project>{04a09280-17c3-4bb5-a094-ac8ab2b590ac}</Project>
-      <Name>SE.DSP.Foundation.Service</Name>
+    <ProjectReference Include="..\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
+      <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>
+      <Name>SE.DSP.Foundation.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

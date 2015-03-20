@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B4BAD06-6FD4-4741-95D3-EC02E155A3EB}</ProjectGuid>
+    <ProjectGuid>{4D10FE80-23F4-4975-A384-8106F4677A31}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SE.DSP.BL.API</RootNamespace>
-    <AssemblyName>SE.DSP.BL.API</AssemblyName>
+    <RootNamespace>SE.DSP.Pop.MSSQL</RootNamespace>
+    <AssemblyName>SE.DSP.Pop.MSSQL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,8 +39,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="HierarchyRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Foundation\SE.DSP.Foundation.ResourceAccess\SE.DSP.Foundation.DataAccess.csproj">
+      <Project>{930d100c-72c5-4743-9a3a-572aae8b8bdb}</Project>
+      <Name>SE.DSP.Foundation.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Contract\Contract.csproj">
+      <Project>{915be01d-d433-4457-9f75-69ecb4e29d98}</Project>
+      <Name>Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{2acf21d3-01b0-4b18-b42c-0202c62df270}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
