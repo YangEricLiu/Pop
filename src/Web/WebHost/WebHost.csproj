@@ -116,12 +116,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj">
-      <Project>{0fe6dc63-03f5-425c-b1fd-9c78c0ca362b}</Project>
-      <Name>API</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
