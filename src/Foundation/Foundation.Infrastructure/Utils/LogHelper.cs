@@ -7,7 +7,7 @@
  * Copyright    : Schneider Electric (China) Co., Ltd.
 --------------------------------------------------------------------------------------------*/
 
-using Aliyun.OpenServices.OpenTableService;
+//using Aliyun.OpenServices.OpenTableService;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF;
 using Microsoft.Practices.Unity;
@@ -52,23 +52,24 @@ namespace SE.DSP.Foundation.Infrastructure.Utils
         {
             string message;
 
-            if (ex is OtsException)
-            {
-                OtsException otsEx = (OtsException)ex;
+            //if (ex is OtsException)
+            //{
+            //    //OtsException otsEx = (OtsException)ex;
 
-                message = new StringBuilder(otsEx.Message)
-                    .AppendLine()
-                    .Append("OTS error code is ")
-                    .Append(otsEx.ErrorCode)
-                    .Append("; OTS request id is ")
-                    .Append(otsEx.RequestId)
-                    .Append("; OTS host id is ")
-                    .Append(otsEx.HostId)
-                    .AppendLine()
-                    .Append(ex.StackTrace)
-                    .ToString();
-            }
-            else if (ex is FaultException<REMExceptionDetail>) //BL exception
+            //    //message = new StringBuilder(otsEx.Message)
+            //    //    .AppendLine()
+            //    //    .Append("OTS error code is ")
+            //    //    .Append(otsEx.ErrorCode)
+            //    //    .Append("; OTS request id is ")
+            //    //    .Append(otsEx.RequestId)
+            //    //    .Append("; OTS host id is ")
+            //    //    .Append(otsEx.HostId)
+            //    //    .AppendLine()
+            //    //    .Append(ex.StackTrace)
+            //    //    .ToString();
+            //}
+            //else 
+            if (ex is FaultException<REMExceptionDetail>) //BL exception
             {
                 //log the error code
                 message = new StringBuilder((ex as FaultException<REMExceptionDetail>).Detail.ErrorCode).AppendLine().Append(ex.StackTrace).ToString();

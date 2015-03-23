@@ -96,7 +96,9 @@
     <Content Include="Config\system.servicemodel.bindings.config" />
     <Content Include="Config\system.servicemodel.extensions.config" />
     <Content Include="Config\unity.config" />
-    <Content Include="Config\system.servicemodel.clients.config" />
+    <Content Include="Config\system.servicemodel.clients.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
