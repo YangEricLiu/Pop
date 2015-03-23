@@ -25,7 +25,6 @@ using Microsoft.Practices.Unity;
 
 namespace SE.DSP.Foundation.AppHost.API
 {
-    [ServiceContract(Namespace = "")]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class User : ServiceBase, IUserService
     {
@@ -343,7 +342,8 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
         public void SendSPInitPassword(long spId)
         {
             ServiceProviderDto sp = null;
-            ValidateSP(out sp, spId);
+            
+            ValidateSP(out sp, spId);             
 
             var previousDeployStatus = sp.DeployStatus;
 
@@ -472,19 +472,18 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 ts.Complete();
             }
         }
-        public bool ValidateUserForPasswordReset(PasswordResetDto dto, out UserDto user)
+        public UserDto ValidateUserForPasswordReset(PasswordResetDto dto)
         {
             var users = UserAPI.RetrieveUsers(new UserFilter { Name = dto.UserName, SpId = -1 });
             if (users == null || users.Length == 0) ThrowBusinessLogicException(UserErrorCode.UserNameDoesNotExist);
 
             var userEntity = users[0];
             if (userEntity.PasswordToken != dto.PasswordToken) ThrowBusinessLogicException(UserErrorCode.PasswordTokenDontMatch);
-            if (userEntity.PasswordTokenDate < DateTime.UtcNow) ThrowBusinessLogicException(UserErrorCode.PasswordTokenIsExpired);
-            //if (userEntity.PasswordTokenDate == InitPasswordExpirationTime) ThrowBusinessLogicException(UserErrorCode.ActionIsProhibited);
-            user = UserTranslator.UserEntity2UserDto(userEntity);
-            return true;
+            if (userEntity.PasswordTokenDate < DateTime.UtcNow) ThrowBusinessLogicException(UserErrorCode.PasswordTokenIsExpired); 
+            var user = UserTranslator.UserEntity2UserDto(userEntity);
+            return user;
         }
-        public bool ValidateUserForInitPassword(PasswordResetDto dto, out UserDto user)
+        public UserDto ValidateUserForInitPassword(PasswordResetDto dto)
         {
             var users = UserAPI.RetrieveUsers(new UserFilter { Name = dto.UserName, SpId = -1 });
             if (users == null || users.Length == 0) ThrowBusinessLogicException(UserErrorCode.UserNameDoesNotExist);
@@ -492,21 +491,20 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
             var userEntity = users[0];
             if (userEntity.PasswordToken != dto.PasswordToken) ThrowBusinessLogicException(UserErrorCode.PasswordTokenDontMatch);
             if (userEntity.PasswordTokenDate.HasValue && userEntity.PasswordTokenDate != InitPasswordExpirationTime) ThrowBusinessLogicException(UserErrorCode.PasswordTokenIsExpired);
-            user = UserTranslator.UserEntity2UserDto(userEntity);
-            return true;
+            var user = UserTranslator.UserEntity2UserDto(userEntity);
+            return user;
         }
 
-        public bool ValidateUserForDemoLogin(PasswordResetDto dto, out UserDto user)
+        public UserDto ValidateUserForDemoLogin(PasswordResetDto dto)
         {
             var users = UserAPI.RetrieveUsers(new UserFilter { Name = dto.UserName, SpId = -1 });
             if (users == null || users.Length == 0) ThrowBusinessLogicException(UserErrorCode.DemoUserNameDoesNotExist);
 
             var userEntity = users[0];
             if (userEntity.PasswordToken != dto.PasswordToken) ThrowBusinessLogicException(UserErrorCode.PasswordTokenDontMatch);
-            if (userEntity.PasswordTokenDate < DateTime.UtcNow) ThrowBusinessLogicException(UserErrorCode.PasswordTokenIsExpired);
-            //if (userEntity.PasswordTokenDate == InitPasswordExpirationTime) ThrowBusinessLogicException(UserErrorCode.ActionIsProhibited);
-            user = UserTranslator.UserEntity2UserDto(userEntity);
-            return true;
+            if (userEntity.PasswordTokenDate < DateTime.UtcNow) ThrowBusinessLogicException(UserErrorCode.PasswordTokenIsExpired); 
+            var user = UserTranslator.UserEntity2UserDto(userEntity);
+            return user;
         }
         public void RequestForgottenPasswordReset(PasswordResetDto dto)
         {
@@ -964,22 +962,16 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
         }
 
 
-        public bool ValidateLogin(string userName, string password, out UserDto currentUser)
+        public UserDto ValidateLogin(string userName, string password)
         {
-            currentUser = null;
+            UserDto currentUser = null;
 
-            //#region SP
-
-            //else if (loginMode == LoginQueryMode.ServiceProvider.ToString())
-            //{
-            // TODO: CONN
             var users = UserAPI.RetrieveUsers(new UserFilter { Name = userName, DemoStatus = null, SpId = -1 });
 
-            if (users == null || users.Length == 0 || users[0] == null) return false;
+            if (users == null || users.Length == 0 || users[0] == null) return null;
 
             var user = UserTranslator.UserEntity2UserDto(users[0]);
-            //user.UserType = -1;
-            //user.UserTypeName = "PlatformAdmin";
+ 
 
             var roleFilter = new RoleFilter();
             roleFilter.UserIds = new[] { user.Id.Value };
@@ -998,18 +990,19 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                     StatusFilter = new StatusFilter { },
                     Ids = new[] { user.SpId },
                 });
+
                 if (allSps.Length == 0)
                 {
-                    return false;
+                    return null;
                 }
                 var sp = allSps[0];
                 if (sp.Status == EntityStatus.Deleted)
                 {
-                    return false;
+                    return null;
                 }
                 if (sp.DeployStatus == DeployStatus.Processing)
                 {
-                    return false;
+                    return null;
                 }
 
                 user.SpStatus = sp.Status;
@@ -1017,17 +1010,17 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 if (sp.Status == EntityStatus.Inactive)
                 {
                     currentUser = user;
-                    return false;
+                    return null;
                 }
                 if (user.Password.ToLower() == CryptographyHelper.MD5(password).ToLower() && sp.Status == EntityStatus.Active)
                 {
                     currentUser = user;
-                    return true;
+                    return user;
                 }
                 else
                 {
                     currentUser = user;
-                    return false;
+                    return null;
                 }
             }
             else
@@ -1035,26 +1028,23 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 if (user.Password.ToLower() == CryptographyHelper.MD5(password).ToLower())
                 {
                     currentUser = user;
-                    return true;
+                    return user;
                 }
                 else
                 {
                     currentUser = user;
-                    return false;
+                    return null;
                 }
             }
-            //}
-            //#endregion
-
-            //return false;
+            
         }
-        public bool ValidateSpLogin(string spdomain, string userName, string password, out UserDto currentUser)
+        public UserDto ValidateSpLogin(string spdomain, string userName, string password)
         {
-            currentUser = null;
+            UserDto currentUser = null;
 
             var users = UserAPI.RetrieveUsers(new UserFilter { Name = userName, DemoStatus = null, SpId = -1 });
 
-            if (users == null || users.Length == 0 || users[0] == null) return false;
+            if (users == null || users.Length == 0 || users[0] == null) return null;
 
             var user = UserTranslator.UserEntity2UserDto(users[0]);
 
@@ -1077,20 +1067,20 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 });
                 if (allSps.Length == 0)
                 {
-                    return false;
+                    return null;
                 }
                 var sp = allSps[0];
                 if (!String.IsNullOrEmpty(sp.Domain) && spdomain.ToLower().IndexOf(sp.Domain.ToLower()) < 0)
                 {
-                    return false;
+                    return null;
                 }
                 if (sp.Status == EntityStatus.Deleted)
                 {
-                    return false;
+                    return null;
                 }
                 if (sp.DeployStatus == DeployStatus.Processing)
                 {
-                    return false;
+                    return null;
                 }
 
                 user.SpStatus = sp.Status;
@@ -1098,17 +1088,17 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 if (sp.Status == EntityStatus.Inactive)
                 {
                     currentUser = user;
-                    return false;
+                    return null;
                 }
                 if (user.Password.ToLower() == CryptographyHelper.MD5(password).ToLower() && sp.Status == EntityStatus.Active)
                 {
                     currentUser = user;
-                    return true;
+                    return user;
                 }
                 else
                 {
                     currentUser = user;
-                    return false;
+                    return user;
                 }
             }
             else
@@ -1116,18 +1106,18 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 var platformDomain = ConfigHelper.Get(DeploymentConfigKey.LoginPlatformDomain);
                 if (!String.IsNullOrEmpty(platformDomain) && spdomain.ToLower() != platformDomain)
                 {
-                    return false;
+                    return null;
                 }
 
                 if (user.Password.ToLower() == CryptographyHelper.MD5(password).ToLower())
                 {
                     currentUser = user;
-                    return true;
+                    return user;
                 }
                 else
                 {
                     currentUser = user;
-                    return false;
+                    return null;
                 }
             }
         }

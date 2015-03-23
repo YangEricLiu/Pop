@@ -15,7 +15,6 @@ using Microsoft.Practices.Unity;
 
 namespace SE.DSP.Foundation.AppHost.API
 {
-    [ServiceContract(Namespace = "")]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Uom : ServiceBase, IUomService
     {

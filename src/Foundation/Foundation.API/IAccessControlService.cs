@@ -47,12 +47,6 @@ namespace SE.DSP.Foundation.API
         String[] GetFuncPrivilegesByFilter(UserRoleFilterDto filter);
 
         [OperationContract]
-        bool ValidateUser(string userName, string password, out UserDto currentUser);
-
-        [OperationContract]
-        bool ValidateSpUser(string domain, string userName, string password, out UserDto currentUser);
-        
-        [OperationContract]
         bool HasDataAuth(long userId, DataAuthType privilegeType, long privilegeItemId);
 
         [OperationContract]

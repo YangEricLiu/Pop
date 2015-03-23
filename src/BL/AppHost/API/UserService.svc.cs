@@ -18,33 +18,17 @@ namespace SE.DSP.Pop.BL.AppHost.API
         }
 
         public UserDto Login(string userName, string password)
-        {
-            Entity.UserDto dto;
+        { 
+            var result = this.userServiceProxy.ValidateLogin(userName, password);
 
-            var result = this.userServiceProxy.ValidateLogin(userName, password, out dto);
-
-            if(!result)
-            {
-                //todo:
-                //throw login failed exception
-            }
-
-            return AutoMapper.Mapper.Map<UserDto>(dto);
+            return AutoMapper.Mapper.Map<UserDto>(result);
         }
 
         public UserDto SpLogin(string spdomain, string userName, string password)
         {
-            Entity.UserDto dto;
+            var result = this.userServiceProxy.ValidateSpLogin(spdomain, userName, password);
 
-            var result = this.userServiceProxy.ValidateSpLogin(spdomain, userName, password, out dto);
-
-            if (!result)
-            {
-                //todo:
-                //throw login failed exception
-            }
-
-            return AutoMapper.Mapper.Map<UserDto>(dto);
+            return AutoMapper.Mapper.Map<UserDto>(result);
         }
  
     }

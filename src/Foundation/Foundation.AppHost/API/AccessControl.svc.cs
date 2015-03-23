@@ -18,7 +18,6 @@ using Microsoft.Practices.Unity;
 
 namespace SE.DSP.Foundation.AppHost.API
 {
-    [ServiceContract(Namespace = "")]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class AccessControl : ServiceBase, IAccessControlService
     {
@@ -297,17 +296,6 @@ namespace SE.DSP.Foundation.AppHost.API
 
             return users;
         }
-
-        public bool ValidateUser(string userName, string password, out UserDto currentUser)
-        {
-            return UserBL.ValidateLogin(userName, password, out currentUser);
-        }
-
-        public bool ValidateSpUser(string domain, string userName, string password, out UserDto currentUser)
-        {
-            return UserBL.ValidateSpLogin(domain, userName, password, out currentUser);
-        }
-
 
         public bool HasDataAuth(long userId, DataAuthType privilegeType, long privilegeItemId)
         {

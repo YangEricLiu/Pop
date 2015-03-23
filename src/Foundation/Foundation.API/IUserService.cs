@@ -48,19 +48,19 @@ namespace SE.DSP.Foundation.API
         bool ValidateName(UserDto dto);
 
         [OperationContract]
-        bool ValidateLogin(string userName, string password, out UserDto currentUser);
+        UserDto ValidateLogin(string userName, string password);
 
         [OperationContract]
-        bool ValidateSpLogin(string spdomain, string userName, string password, out UserDto currentUser);
+        UserDto ValidateSpLogin(string spdomain, string userName, string password);
 
         [OperationContract]
-        bool ValidateUserForPasswordReset(PasswordResetDto dto, out UserDto user);
+        UserDto ValidateUserForPasswordReset(PasswordResetDto dto);
 
         [OperationContract]
-        bool ValidateUserForInitPassword(PasswordResetDto dto, out UserDto user);
+        UserDto ValidateUserForInitPassword(PasswordResetDto dto);
 
         [OperationContract]
-        bool ValidateUserForDemoLogin(PasswordResetDto dto, out UserDto user);
+        UserDto ValidateUserForDemoLogin(PasswordResetDto dto);
 
         [OperationContract]
         void SetInitPassword(PasswordResetDto dto);
