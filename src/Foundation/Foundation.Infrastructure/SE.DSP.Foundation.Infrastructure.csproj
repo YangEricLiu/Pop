@@ -304,7 +304,6 @@
     <Compile Include="Utils\MathHelper.cs" />
     <Compile Include="Utils\MessageHelper.cs" />
     <Compile Include="Utils\OssHelper.cs" />
-    <Compile Include="Utils\OtsHelper.cs" />
     <Compile Include="Utils\PagingHelper.cs" />
     <Compile Include="Utils\ParallelHelper.cs" />
     <Compile Include="Utils\ServiceContextConstant.cs" />
@@ -334,12 +333,6 @@
     <EmbeddedResource Include="Resource\en-US\DB.resx" />
     <EmbeddedResource Include="Resource\zh-CN\App.resx" />
     <EmbeddedResource Include="Resource\zh-CN\DB.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AliYunApi\AliYunApi.csproj">
-      <Project>{67bdc800-084c-4f84-8a80-661b5afe499a}</Project>
-      <Name>AliYunApi</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
