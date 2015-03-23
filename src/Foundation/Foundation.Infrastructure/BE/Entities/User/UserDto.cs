@@ -11,33 +11,48 @@ using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Foundation.Infrastructure.Validators;
 using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils;
+using System.Runtime.Serialization;
 
 namespace SE.DSP.Foundation.Infrastructure.BE.Entities
 {
+    [DataContract]
     public class UserDto
     {
         [IdValidator(Ruleset = "update", MessageTemplate = FieldCode.ID)]
+        [DataMember]
         public long? Id { get; set; }
+        [DataMember]
         public String RealName { get; set; }
+        [DataMember]
         public long UserType { get; set; }
+        [DataMember]
         public String UserTypeName { get; set; }
-        //[IgnoreNulls]
-        //[PasswordValidator(Ruleset = "create", MessageTemplate = FieldCode.Password)]
-        //[PasswordValidator(Ruleset = "update", MessageTemplate = FieldCode.Password)]
+
+        [DataMember]
         public String Password { get; set; }
         //public long[] RoleIds { get; set; }
+        [DataMember]
         public long[] CustomerIds { get; set; }
+        [DataMember]
         public UserTitle Title { get; set; }
+        [DataMember]
         public String Telephone { get; set; }
-        //[RegexValidator(Schneider.REM.Common.ConstantValue.PASSWORDREGEX, Ruleset = "update", MessageTemplate = FieldCode.Email)]
+
+        [DataMember]
         public String Email { get; set; }
+        [DataMember]
         public String Comment { get; set; }
+        [DataMember]
         public String Name { get; set; }
+        [DataMember]
         public int DemoStatus { get; set; }
+        [DataMember]
         public long SpId { get; set; }
+        [DataMember]
         public EntityStatus SpStatus { get; set; }
 
         [VersionValidator(Ruleset = "update", MessageTemplate = FieldCode.VERSION)]
+        [DataMember]
         public long? Version { get; set; }
 
         public override string ToString()
