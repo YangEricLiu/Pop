@@ -10,7 +10,7 @@ using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Foundation.DA.Interface;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
-using System.Data.Common;
+using System.Data.Common; 
 
 namespace SE.DSP.Foundation.DA.Service
 {

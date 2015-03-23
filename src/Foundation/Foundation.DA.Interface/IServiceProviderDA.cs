@@ -5,7 +5,7 @@ using System.Text;
 
 using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Foundation.Infrastructure.Structure;
-using SE.DSP.Foundation.Infrastructure.BE.Entities;
+using SE.DSP.Foundation.Infrastructure.BE.Entities; 
 
 
 namespace SE.DSP.Foundation.DA.Interface

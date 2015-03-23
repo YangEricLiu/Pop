@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="Utility\ServiceEndpointHelper.cs" />
     <Compile Include="Utility\WebErrorCodeFactory.cs" />
+    <Compile Include="Wcf\ServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

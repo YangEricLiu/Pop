@@ -17,7 +17,7 @@ namespace SE.DSP.Foundation.DA.Service
     using SE.DSP.Foundation.Infrastructure.Constant;
     using SE.DSP.Foundation.Infrastructure.BE.Entities;
     using SE.DSP.Foundation.DA.Interface;
-    using System.Configuration;
+    using System.Configuration;  
 
     public class UserDA : DABase, IUserDA
     {

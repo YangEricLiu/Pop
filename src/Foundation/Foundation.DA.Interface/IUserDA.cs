@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using SE.DSP.Foundation.Infrastructure.Structure;
-using SE.DSP.Foundation.Infrastructure.BE.Entities;
+using SE.DSP.Foundation.Infrastructure.BE.Entities;  
 
 
 namespace SE.DSP.Foundation.DA.Interface
@@ -24,8 +24,5 @@ namespace SE.DSP.Foundation.DA.Interface
         void DeleteUserRole(RoleFilter filter, ConnectionOption option = null);
 
         UserEntity RetrieveUserById(long userId);
-        //UserEntity[] RetrieveAllUsers();
-        //void UpdateUserCustomer(UserCustomerEntity userCustomerEntity);
-        //UserCustomerEntity RetrieveUserCustomerByUser(long userId);
     }
 }

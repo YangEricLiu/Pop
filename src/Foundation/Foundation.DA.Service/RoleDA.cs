@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.Structure;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
-using SE.DSP.Foundation.DA.Interface;
+using SE.DSP.Foundation.DA.Interface; 
 
 namespace SE.DSP.Foundation.DA.Service
 {
