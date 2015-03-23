@@ -15,6 +15,6 @@ namespace SE.DSP.Pop.BL.API
         UserDto Login(string userName, string password);
 
         [OperationContract]
-        UserDto Login(string spdomain, string userName, string password);
+        UserDto SpLogin(string spdomain, string userName, string password);
     }
 }
