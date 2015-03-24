@@ -11,6 +11,7 @@ namespace SE.DSP.Pop.MSSQL
 {
     public class HierarchyRepository : Repository<Hierarchy, long>, IHierarchyRepository
     {
+
         public override Entity.Hierarchy GetById(long id)
         {
             var result = this.Db.SingleOrDefault<Hierarchy>(id);
@@ -29,7 +30,7 @@ namespace SE.DSP.Pop.MSSQL
 
         public override void Update(Hierarchy entity)
         {
-            throw new NotImplementedException();
+            //this.Db.Update()
         }
 
         public override void Delete(long id)

@@ -86,9 +86,7 @@
       <DependentUpon>UserService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Config\deploy.config" />
     <Content Include="Config\logging.config" />
