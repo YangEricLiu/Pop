@@ -14,30 +14,30 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 {
     public class HierarchyController : ApiController
     {
-        private IHierarchyService HierarchyServiceProxy;
+        private readonly IHierarchyService HierarchyService;
 
         public HierarchyController()
         {
-            HierarchyServiceProxy = ServiceProxy<IHierarchyService>.GetClient("IHierarchyService.EndPoint");
+            HierarchyService = ServiceProxy<IHierarchyService>.GetClient("IHierarchyService.EndPoint");
         }
 
         public HierarchyModel Get(long customerId)
         {
-            var tree = this.HierarchyServiceProxy.GetHierarchyTree(customerId);
+            var tree = this.HierarchyService.GetHierarchyTree(customerId);
 
             return Mapper.Map<HierarchyDto, HierarchyModel>(tree);
         }
 
         public void Delete(long hierarchyId)
         {
-            this.HierarchyServiceProxy.DeleteHierarchy(hierarchyId, false);            
+            this.HierarchyService.DeleteHierarchy(hierarchyId, false);            
         }
 
         public HierarchyModel Post([FromBody]HierarchyModel hierarchy)
         {
             var dto = Mapper.Map<HierarchyModel, HierarchyDto>(hierarchy);
 
-            dto = this.HierarchyServiceProxy.CreateHierarchy(dto);
+            dto = this.HierarchyService.CreateHierarchy(dto);
 
             return Mapper.Map<HierarchyDto, HierarchyModel>(dto);
         }
@@ -46,7 +46,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         {
             var dto = Mapper.Map<HierarchyModel, HierarchyDto>(hierarchy);
 
-            this.HierarchyServiceProxy.UpdateHierarchy(dto);
+            this.HierarchyService.UpdateHierarchy(dto);
         }
     }
 }

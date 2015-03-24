@@ -13,9 +13,15 @@ namespace SE.DSP.Foundation.DataAccess
 
         TEntity Add(TEntity entity);
 
+        TEntity Add(IUnitOfWork unitOfWork, TEntity entity);
+
         void Update(TEntity entity);
 
+        void Update(IUnitOfWork unitOfWork, TEntity entity);
+
         void Delete(TIdType id);
+
+        void Delete(IUnitOfWork unitOfWork, TIdType id);
 
         TEntity GetOne(ISingleResultQuery<TEntity> singleResultQuery);
 
