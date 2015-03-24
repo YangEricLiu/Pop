@@ -1,23 +1,42 @@
-﻿using System;
+﻿using SE.DSP.Pop.Web.WebHost.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Filters;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace WebHost
+namespace SE.DSP.Pop.Web.WebHost
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
+            AppInitialize();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RouteConfig.RegisterRoutes(RouteTable.Routes); 
+
+
+        }
+
+        public static void AppInitialize()
+        {
+            IEnumerable<IGlobalConfiguration> configurations = new IGlobalConfiguration[]
+                {
+                    new AutoMapperConfiguration()
+                    
+                };
+
+            foreach (var configuration in configurations)
+            {
+                configuration.Configure();
+            }
         }
     }
     public class FilterConfig

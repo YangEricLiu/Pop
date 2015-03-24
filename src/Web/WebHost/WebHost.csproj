@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\..\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -48,6 +54,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Entity">
       <Private>True</Private>
     </Reference>
@@ -107,19 +114,19 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <HintPath>..\..\..\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AutoMapperConfiguration.cs" />
+    <Compile Include="IGlobalConfiguration.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +139,30 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\BL\API\API.csproj">
+      <Project>{0b4bad06-6fd4-4741-95d3-ec02e155a3eb}</Project>
+      <Name>API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
+      <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>
+      <Name>SE.DSP.Foundation.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\Foundation.Web\SE.DSP.Foundation.Web.csproj">
+      <Project>{ae31828f-8dff-4e37-a844-01d307532f35}</Project>
+      <Name>SE.DSP.Foundation.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\system.servicemodel.clients.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\system.servicemodel.bindings.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
