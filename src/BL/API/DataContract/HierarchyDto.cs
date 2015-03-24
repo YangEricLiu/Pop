@@ -14,6 +14,6 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public long Id { get; set; }
 
         [DataMember]
-        HierarchyDto[] Children { get; set; }
+        public HierarchyDto[] Children { get; set; }
     }
 }

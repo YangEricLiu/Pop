@@ -12,10 +12,10 @@ namespace SE.DSP.Pop.BL.API
     public interface IHierarchyService
     {
         [OperationContract]
-        HierarchyDto[] GetHierarchyTree(long customerId);
+        HierarchyDto GetHierarchyTree(long rootId);
 
         [OperationContract]
-        void CreateHierarchy(HierarchyDto hierarchy);
+        HierarchyDto CreateHierarchy(HierarchyDto hierarchy);
 
         [OperationContract]
         void DeleteHierarchy(long hierarchyId, bool isRecursive);

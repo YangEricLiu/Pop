@@ -10,5 +10,6 @@ namespace SE.DSP.Pop.Contract
 {
     public interface IHierarchyRepository : IRepository<Hierarchy, long>
     {
+        Hierarchy[] GetByParentId(long parentId);
     }
 }

@@ -12,14 +12,22 @@ namespace SE.DSP.Pop.MSSQL
     public class HierarchyRepository : Repository<Hierarchy, long>, IHierarchyRepository
     {
 
-        public override Entity.Hierarchy GetById(long id)
+        public override Hierarchy GetById(long id)
         {
             var result = this.Db.SingleOrDefault<Hierarchy>(id);
 
             return result;
         }
 
-        public override Entity.Hierarchy Add(Hierarchy entity)
+        public Hierarchy[] GetByParentId(long parentId)
+        {
+            var sql = "select * from [Hierarchy] where ParentId=@parentId";
+            var children = this.Db.Fetch<Hierarchy>(sql, parentId);
+
+            return children.ToArray();
+        }
+
+        public override Hierarchy Add(Hierarchy entity)
         {
             var id = this.Db.Insert("Hierarchy", "Id", entity);
 

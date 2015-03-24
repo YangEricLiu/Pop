@@ -1,7 +1,10 @@
 ﻿using PetaPoco;
 using SE.DSP.Foundation.DataAccess.CustomQueries;
+using SE.DSP.Foundation.Infrastructure.Enumerations;
+using SE.DSP.Foundation.Infrastructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +15,11 @@ namespace SE.DSP.Foundation.DataAccess
     {
         protected readonly Database Db;
         private const string DatabaseConnectionStringName = "REMInformation";
-
+ 
         protected Repository()
         {
-            this.Db = new Database(DatabaseConnectionStringName);
+            var connectionString = this.GetConnectionString();
+            this.Db = new Database(connectionString, "System.Data.SqlClient");
         }
 
         public abstract TEntity GetById(TIdType id);
@@ -113,6 +117,21 @@ namespace SE.DSP.Foundation.DataAccess
         protected PetaPoco.Database GetDatabese(IUnitOfWork unitOfWork)
         {
             return unitOfWork == null ? this.Db : unitOfWork.Db;
+        }
+
+
+        private string GetConnectionString()
+        {
+            var connstr = System.Configuration.ConfigurationManager.ConnectionStrings[DatabaseConnectionStringName].ConnectionString;
+
+            connstr = connstr
+                .Replace("{" + DeploymentConfigKey.SpDbDatabase.ToString() + "}", ConfigHelper.Get(DeploymentConfigKey.SpDbDatabase))
+                .Replace("{" + DeploymentConfigKey.SpDbServerIP.ToString() + "}", ConfigHelper.Get(DeploymentConfigKey.SpDbServerIP))
+                .Replace("{" + DeploymentConfigKey.SpDbUser.ToString() + "}", ConfigHelper.Get(DeploymentConfigKey.SpDbUser))
+                .Replace("{" + DeploymentConfigKey.SpDbPassword.ToString() + "}", ConfigHelper.Get(DeploymentConfigKey.SpDbPassword))
+                .Replace("{" + DeploymentConfigKey.SpDbMaxPoolSize.ToString() + "}", ConfigHelper.Get(DeploymentConfigKey.SpDbMaxPoolSize));
+
+            return connstr;
         }
     }
 }

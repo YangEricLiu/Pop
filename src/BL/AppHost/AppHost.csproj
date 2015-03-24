@@ -55,6 +55,7 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\..\..\lib\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -74,11 +75,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="API\Hierarchy.svc" />
     <Content Include="API\UserService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\InitializeService.cs" />
+    <Compile Include="API\Hierarchy.svc.cs">
+      <DependentUpon>Hierarchy.svc</DependentUpon>
+    </Compile>
     <Compile Include="GlobalConfiguration\AutoMapperConfiguration.cs" />
     <Compile Include="IGlobalConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +110,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DA\Contract\Contract.csproj">
+      <Project>{915be01d-d433-4457-9f75-69ecb4e29d98}</Project>
+      <Name>Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DA\Entity\Entity.csproj">
+      <Project>{2acf21d3-01b0-4b18-b42c-0202c62df270}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DA\MSSQL\MSSQL.csproj">
+      <Project>{4d10fe80-23f4-4975-a384-8106f4677a31}</Project>
+      <Name>MSSQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Foundation\Foundation.API\SE.DSP.Foundation.API.csproj">
       <Project>{d56ea6b0-0888-4a18-a913-191116282c26}</Project>
       <Name>SE.DSP.Foundation.API</Name>
@@ -116,6 +133,10 @@
     <ProjectReference Include="..\..\Foundation\Foundation.Web\SE.DSP.Foundation.Web.csproj">
       <Project>{ae31828f-8dff-4e37-a844-01d307532f35}</Project>
       <Name>SE.DSP.Foundation.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\SE.DSP.Foundation.ResourceAccess\SE.DSP.Foundation.DataAccess.csproj">
+      <Project>{930d100c-72c5-4743-9a3a-572aae8b8bdb}</Project>
+      <Name>SE.DSP.Foundation.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\API\API.csproj">
       <Project>{0b4bad06-6fd4-4741-95d3-ec02e155a3eb}</Project>
