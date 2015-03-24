@@ -1,4 +1,4 @@
-﻿using SE.DSP.Pop.Web.WebHost.Configuration;
+﻿using SE.DSP.Pop.Web.WebHost.StartupConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
