@@ -13,14 +13,14 @@ namespace SE.DSP.Pop.MSSQL
     {
         public override Hierarchy GetById(long id)
         {
-            var result = this.Db.SingleOrDefault<Hierarchy>(id);
+            var result = this.Db.SingleOrDefault<Hierarchy>("select * from [Hierarchy] where Id=@0", id);
 
             return result;
         }
 
         public Hierarchy[] GetByParentId(long parentId)
         {
-            var sql = "select * from [Hierarchy] where ParentId=@parentId";
+            var sql = "select * from [Hierarchy] where ParentId=@0";
             var children = this.Db.Fetch<Hierarchy>(sql, parentId);
 
             return children.ToArray();

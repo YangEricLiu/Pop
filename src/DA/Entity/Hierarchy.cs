@@ -7,7 +7,7 @@ using SE.DSP.Pop.Entity.Enumeration;
 
 namespace SE.DSP.Pop.Entity
 {
-    public class Hierarchy
+    public class Hierarchy 
     {
         public long Id { get; set; }
 
@@ -22,9 +22,10 @@ namespace SE.DSP.Pop.Entity
         public string Comment { get; set; }
 
         public long? ParentId { get; set; }
+
         public long CustomerId { get; set; }
 
-        public string Path { get; set; }
+        //public string Path { get; set; }
 
         public int PathLevel { get; set; }
 
@@ -42,7 +43,6 @@ namespace SE.DSP.Pop.Entity
 
         public DateTime? UpdateTime { get; set; }
 
-        public long Version { get; set; }
-
+        //public long Version { get; set; }
     }
 }

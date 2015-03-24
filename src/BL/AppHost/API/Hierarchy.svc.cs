@@ -20,16 +20,27 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IHierarchyRepository hierarchyRepository;
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
 
-        public HierarchyService(IHierarchyRepository hierarchyRepository, IUnitOfWorkProvider unitOfWorkProvider)
+        public HierarchyService()
         {
-            this.hierarchyRepository = hierarchyRepository;
-            this.unitOfWorkProvider = unitOfWorkProvider;
+            this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
+            this.unitOfWorkProvider = IocHelper.Container.Resolve<IUnitOfWorkProvider>();
         }
+
+        //public HierarchyService(IHierarchyRepository hierarchyRepository, IUnitOfWorkProvider unitOfWorkProvider)
+        //{
+        //    this.hierarchyRepository = hierarchyRepository;
+        //    this.unitOfWorkProvider = unitOfWorkProvider;
+        //}
 
 
         public HierarchyDto GetHierarchyTree(long rootId)
         {
             var entity = this.hierarchyRepository.GetById(rootId);
+
+            if (entity == null)
+            {
+                return null;
+            }
 
             var hierarchy = Mapper.Map<HierarchyDto>(entity);
 

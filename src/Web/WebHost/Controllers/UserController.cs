@@ -1,6 +1,6 @@
 ﻿using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
-using SE.DSP.Pop.Web.WebHost.Models;
+using SE.DSP.Pop.Web.WebHost.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace SE.DSP.Pop.Web.WebHost.Controllers
 {
+    //[RoutePrefix("hierarchy")]
     public class HierarchyController : ApiController
     {
         private readonly IHierarchyService HierarchyService;
@@ -21,6 +22,8 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
             HierarchyService = ServiceProxy<IHierarchyService>.GetClient("IHierarchyService.EndPoint");
         }
 
+        [HttpGet]
+        [Route("api/hierarchy/{customerId}")]
         public HierarchyModel Get(long customerId)
         {
             var tree = this.HierarchyService.GetHierarchyTree(customerId);

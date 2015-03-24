@@ -17,6 +17,6 @@ namespace SE.DSP.Pop.Web.WebHost.Model
         public long ParentId{get;set;}
         public long SpId{get;set;}
         public HierarchyType Type{get;set;}
-        public long Version{get;set;}
+        //public long Version{get;set;}
     }
 }
