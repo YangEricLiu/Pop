@@ -11,6 +11,9 @@ namespace SE.DSP.Pop.Entity.Enumeration
         Customer = -1,
         Organization = 0,
         Site = 1,
-        Building = 2
+        Building = 2,
+        DistributionRoom = 3,
+        DistributionCabinet = 4,
+        Device = 5,
     }
 }

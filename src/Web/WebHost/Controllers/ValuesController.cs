@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace WebHost.Controllers
+namespace SE.DSP.Pop.Web.WebHost.Controllers
 {
     public class ValuesController : ApiController
     {

@@ -11,6 +11,8 @@ using Microsoft.Practices.Unity;
 using SE.DSP.Pop.Entity;
 using System.Collections.Generic;
 using AutoMapper;
+using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
+using SE.DSP.Foundation.Infrastructure.Enumerations;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
@@ -56,37 +58,45 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public void DeleteHierarchy(long hierarchyId, bool isRecursive)
         {
-            if (!isRecursive)
-            {
-                this.HierarchyRepository.Delete(hierarchyId);
-                return;
-            }
-
             using (var ts = TransactionHelper.CreateRepeatableRead())
             {
-                Func<HierarchyDto, IEnumerable<long>> collector = null;
-                collector = (tree) =>
-                 {
-                     List<long> ids = new List<long>();
-
-                     ids.Add(tree.Id);
-
-                     if (tree.Children != null && tree.Children.Length > 0)
-                     {
-                         foreach (HierarchyDto hierarchy in tree.Children)
-                         {
-                             ids.AddRange(collector(hierarchy));
-                         }
-                     }
-
-                     return ids;
-                 };
-
-                var root = this.GetHierarchyTree(hierarchyId);
-
-                foreach (var id in collector(root))
+                if (!isRecursive)
                 {
-                    this.HierarchyRepository.Delete(id);
+                    var children = this.HierarchyRepository.GetByParentId(hierarchyId);
+                    if (children != null && children.Length > 0)
+                    {
+                        //TODO: Pop exception code
+                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, 999);
+                    }
+
+                    this.HierarchyRepository.Delete(hierarchyId);
+                }
+                else
+                {
+                    Func<HierarchyDto, IEnumerable<long>> collector = null;
+                    collector = (tree) =>
+                    {
+                        List<long> ids = new List<long>();
+
+                        ids.Add(tree.Id);
+
+                        if (tree.Children != null && tree.Children.Length > 0)
+                        {
+                            foreach (HierarchyDto hierarchy in tree.Children)
+                            {
+                                ids.AddRange(collector(hierarchy));
+                            }
+                        }
+
+                        return ids;
+                    };
+
+                    var root = this.GetHierarchyTree(hierarchyId);
+
+                    foreach (var id in collector(root))
+                    {
+                        this.HierarchyRepository.Delete(id);
+                    }
                 }
 
                 ts.Complete();

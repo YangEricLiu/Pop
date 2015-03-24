@@ -15,7 +15,7 @@
     <AssemblyName>SE.DSP.Pop.Web.WebHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -48,6 +51,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Entity">
       <Private>True</Private>
     </Reference>
@@ -116,10 +121,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\HierarchyController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\HierarchyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +139,41 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BL\API\API.csproj">
+      <Project>{0b4bad06-6fd4-4741-95d3-ec02e155a3eb}</Project>
+      <Name>API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DA\Entity\Entity.csproj">
+      <Project>{2acf21d3-01b0-4b18-b42c-0202c62df270}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\Foundation.Web\SE.DSP.Foundation.Web.csproj">
+      <Project>{ae31828f-8dff-4e37-a844-01d307532f35}</Project>
+      <Name>SE.DSP.Foundation.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Config\deploy.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\logging.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\system.servicemodel.behaviors.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\system.servicemodel.bindings.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\system.servicemodel.clients.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\system.servicemodel.extensions.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -151,7 +192,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64409</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:64409/</IISUrl>
+          <IISUrl>http://localhost/Pop/Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
