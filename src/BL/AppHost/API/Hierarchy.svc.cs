@@ -63,44 +63,57 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
 
+            entity.UpdateTime = DateTime.Now;
+            entity.TimezoneId = 1;
             entity = this.hierarchyRepository.Add(entity);
 
-            return AutoMapper.Mapper.Map<HierarchyDto>(hierarchy);
+            var dto = AutoMapper.Mapper.Map<HierarchyDto>(entity);
+
+            return dto;
         }
 
         public void DeleteHierarchy(long hierarchyId, bool isRecursive)
         {
-            if (!isRecursive)
-            {
-                this.hierarchyRepository.Delete(hierarchyId);
-                return;
-            }
-
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                Func<HierarchyDto, IEnumerable<long>> collector = null;
-                collector = (tree) =>
+                if (!isRecursive)
                 {
-                    List<long> ids = new List<long>();
+                    var children = this.hierarchyRepository.GetByParentId(hierarchyId);
 
-                    ids.Add(tree.Id);
-
-                    if (tree.Children != null && tree.Children.Length > 0)
+                    if (children != null && children.Length > 0)
                     {
-                        foreach (HierarchyDto hierarchy in tree.Children)
-                        {
-                            ids.AddRange(collector(hierarchy));
-                        }
+                        throw new Exception("Delete not allowed");
                     }
 
-                    return ids;
-                };
-
-                var root = this.GetHierarchyTree(hierarchyId);
-
-                foreach (var id in collector(root))
+                    this.hierarchyRepository.Delete(unitOfWork, hierarchyId);
+                }
+                else
                 {
-                    this.hierarchyRepository.Delete(unitOfWork, id);
+                    Func<HierarchyDto, IEnumerable<long>> collector = null;
+                    collector = (tree) =>
+                    {
+                        List<long> ids = new List<long>();
+
+                        ids.Add(tree.Id);
+
+                        if (tree.Children != null && tree.Children.Length > 0)
+                        {
+                            foreach (HierarchyDto hierarchy in tree.Children)
+                            {
+                                ids.AddRange(collector(hierarchy));
+                            }
+                        }
+
+                        return ids;
+                    };
+
+                    var root = this.GetHierarchyTree(hierarchyId);
+                    var list = collector(root);
+
+                    foreach (var id in list)
+                    {
+                        this.hierarchyRepository.Delete(unitOfWork, id);
+                    }
                 }
 
                 unitOfWork.Commit();

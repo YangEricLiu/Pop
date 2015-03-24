@@ -17,7 +17,8 @@ namespace SE.DSP.Foundation.DataAccess
 
         public PetaPocoUnitOfWork()
         {
-            this.db = new Database(this.GetConnectionString());
+            var connectionString = this.GetConnectionString();
+            this.db = new Database(connectionString, "System.Data.SqlClient");
             this.petaTransaction = new Transaction(this.db);
         }
 

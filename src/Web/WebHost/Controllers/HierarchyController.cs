@@ -31,11 +31,15 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
             return Mapper.Map<HierarchyDto, HierarchyModel>(tree);
         }
 
+        [HttpPost]
+        [Route("api/hierarchy/delete/{hierarchyId}")]
         public void Delete(long hierarchyId)
         {
             this.HierarchyService.DeleteHierarchy(hierarchyId, false);            
         }
 
+        [HttpPost]
+        [Route("api/hierarchy/create")]
         public HierarchyModel Post([FromBody]HierarchyModel hierarchy)
         {
             var dto = Mapper.Map<HierarchyModel, HierarchyDto>(hierarchy);
@@ -45,6 +49,8 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
             return Mapper.Map<HierarchyDto, HierarchyModel>(dto);
         }
 
+        [HttpPost]
+        [Route("api/hierarchy/update")]
         public void Put([FromBody]HierarchyModel hierarchy)
         {
             var dto = Mapper.Map<HierarchyModel, HierarchyDto>(hierarchy);
