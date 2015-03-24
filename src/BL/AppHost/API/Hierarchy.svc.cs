@@ -11,26 +11,29 @@ using Microsoft.Practices.Unity;
 using SE.DSP.Pop.Entity;
 using System.Collections.Generic;
 using AutoMapper;
+using SE.DSP.Foundation.DataAccess;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
     public class HierarchyService : IHierarchyService
     {
-        private IHierarchyRepository _HierarchyRepository;
-        private IHierarchyRepository HierarchyRepository
+        private readonly IHierarchyRepository hierarchyRepository;
+        private readonly IUnitOfWorkProvider unitOfWorkProvider;
+
+        public HierarchyService(IHierarchyRepository hierarchyRepository, IUnitOfWorkProvider unitOfWorkProvider)
         {
-            set { this._HierarchyRepository = value; }
-            get { return this._HierarchyRepository ?? (this._HierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>()); }
+            this.hierarchyRepository = hierarchyRepository;
+            this.unitOfWorkProvider = unitOfWorkProvider;
         }
 
 
         public HierarchyDto GetHierarchyTree(long rootId)
         {
-            var entity = this.HierarchyRepository.GetById(rootId);
+            var entity = this.hierarchyRepository.GetById(rootId);
 
             var hierarchy = Mapper.Map<HierarchyDto>(entity);
 
-            var children = this.HierarchyRepository.GetByParentId(rootId);
+            var children = this.hierarchyRepository.GetByParentId(rootId);
             if (children != null && children.Length > 0)
             {
                 List<HierarchyDto> list = new List<HierarchyDto>();
@@ -49,7 +52,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
 
-            entity = this.HierarchyRepository.Add(entity);
+            entity = this.hierarchyRepository.Add(entity);
 
             return AutoMapper.Mapper.Map<HierarchyDto>(hierarchy);
         }
@@ -58,11 +61,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             if (!isRecursive)
             {
-                this.HierarchyRepository.Delete(hierarchyId);
+                this.hierarchyRepository.Delete(hierarchyId);
                 return;
             }
 
-            using (var ts = TransactionHelper.CreateRepeatableRead())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 Func<HierarchyDto, IEnumerable<long>> collector = null;
                 collector = (tree) =>
@@ -86,10 +89,10 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 foreach (var id in collector(root))
                 {
-                    this.HierarchyRepository.Delete(id);
+                    this.hierarchyRepository.Delete(unitOfWork, id);
                 }
 
-                ts.Complete();
+                unitOfWork.Commit();
             }
         }
 
@@ -97,7 +100,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
 
-            this.HierarchyRepository.Update(entity);
+            this.hierarchyRepository.Update(entity);
         }
     }
 }

@@ -123,7 +123,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\AutoMapperConfiguration.cs" />
+    <Compile Include="StartupConfiguration\AutoMapperConfiguration.cs" />
     <Compile Include="IGlobalConfiguration.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\UserModel.cs" />
