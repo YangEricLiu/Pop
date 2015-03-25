@@ -30,7 +30,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(user.Name, true);
+                FormsAuthentication.SetAuthCookie(login.UserName, true);
             }
 
             return AutoMapper.Mapper.Map<UserModel>(user);
@@ -45,7 +45,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(user.Name, true);
+                FormsAuthentication.SetAuthCookie(login.UserName, true);
             }
 
             return AutoMapper.Mapper.Map<UserModel>(user);
