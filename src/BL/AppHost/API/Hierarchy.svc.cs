@@ -66,8 +66,6 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
 
-
-
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 entity.UpdateTime = DateTime.Now;
