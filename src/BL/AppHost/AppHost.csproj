@@ -15,7 +15,7 @@
     <AssemblyName>SE.DSP.Pop.BL.AppHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -159,7 +159,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55806</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55806/</IISUrl>
+          <IISUrl>http://localhost/Pop/App</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
