@@ -111,6 +111,9 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Model\HierarchyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartupConfiguration\RouteConfig.cs" />
+    <Compile Include="StartupConfiguration\FilterConfig.cs" />
+    <Compile Include="WebApiConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -194,4 +197,13 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Import Project="$(SolutionDir)\Dependencies\StyleCop\StyleCop.targets" />
+  <PropertyGroup>
+    <Dependencies>$(SolutionDir)\Dependencies</Dependencies>
+    <FxCopDir>$(ProgramFiles)\Microsoft Fxcop 10.0</FxCopDir>
+    <StyleCopOverrideSettingsFile>$(SolutionDir)\Dependencies\StyleCop\Settings.StyleCop</StyleCopOverrideSettingsFile>
+    <StyleCopOutputFile>StyleCopReport.xml</StyleCopOutputFile>
+    <StyleCopForceFullAnalysis>true</StyleCopForceFullAnalysis>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+  </PropertyGroup>
 </Project>

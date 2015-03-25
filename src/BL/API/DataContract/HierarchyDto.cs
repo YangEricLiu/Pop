@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 
@@ -51,7 +47,7 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public long? ZoneId { get; set; }
 
         [DataMember]
-        public bool CalcStatus { set; get; }
+        public bool CalcStatus { get; set; }
 
         [DataMember]
         public long SpId { get; set; }

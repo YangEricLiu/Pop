@@ -1,10 +1,6 @@
 ﻿using SE.DSP.Foundation.Web.Wcf;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
-using System;
-using System.ServiceModel;
-using System.ServiceModel.Activation;
-using Entity = SE.DSP.Foundation.Infrastructure.BE.Entities;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
@@ -30,6 +26,5 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             return AutoMapper.Mapper.Map<UserDto>(result);
         }
- 
     }
 }

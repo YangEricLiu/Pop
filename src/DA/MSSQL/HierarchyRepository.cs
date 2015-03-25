@@ -1,12 +1,13 @@
-﻿using SE.DSP.Foundation.DataAccess;
-using SE.DSP.Pop.Contract;
-using SE.DSP.Pop.Entity;
-using SE.DSP.Pop.Entity.Enumeration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using SE.DSP.Foundation.DataAccess;
+using SE.DSP.Pop.Contract;
+using SE.DSP.Pop.Entity;
+using SE.DSP.Pop.Entity.Enumeration;
 
 namespace SE.DSP.Pop.MSSQL
 {
@@ -65,7 +66,6 @@ namespace SE.DSP.Pop.MSSQL
             db.Delete<Hierarchy>(id);
         }
 
-
         public long RetrieveSiblingHierarchyCountByCodeUnderParentCustomer(long hierarchyId, string hierarchyCode, long customerId)
         {
             string sql = @"SELECT COUNT(0) FROM Hierarchy WHERE Id<>@0 AND Code=@1 AND CustomerId=@2";
@@ -74,6 +74,7 @@ namespace SE.DSP.Pop.MSSQL
 
             return count;
         }
+
         public long RetrieveChildHierarchyCountByCodeUnderParentCustomer(string hierarchyCode, long customerId)
         {
             string sql = @"SELECT COUNT(*) FROM Hierarchy WHERE Code=@0 AND CustomerId=@1";
@@ -117,7 +118,6 @@ namespace SE.DSP.Pop.MSSQL
 
             return count;
         }
-
 
         public long RetrieveSiblingHierarchyCountByNameUnderParentHierarchy(long hierarchyId, string hierarchyName, long parentHierarchyId)
         {

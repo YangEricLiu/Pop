@@ -1,20 +1,16 @@
-﻿using SE.DSP.Foundation.Infrastructure.Utils;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
+using Microsoft.Practices.Unity;
+using SE.DSP.Foundation.DataAccess;
+using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
+using SE.DSP.Foundation.Infrastructure.Enumerations;
+using SE.DSP.Foundation.Infrastructure.Utils;
+using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.Contract;
-using System;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Activation;
-using Microsoft.Practices.Unity;
 using SE.DSP.Pop.Entity;
-using System.Collections.Generic;
-using AutoMapper;
-using SE.DSP.Foundation.DataAccess;
-using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
-using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
-using SE.DSP.Foundation.Infrastructure.Enumerations;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
@@ -28,14 +24,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
             this.unitOfWorkProvider = IocHelper.Container.Resolve<IUnitOfWorkProvider>();
         }
-
-        //public HierarchyService(IHierarchyRepository hierarchyRepository, IUnitOfWorkProvider unitOfWorkProvider)
-        //{
-        //    this.hierarchyRepository = hierarchyRepository;
-        //    this.unitOfWorkProvider = unitOfWorkProvider;
-        //}
-
-
+ 
         public HierarchyDto GetHierarchyTree(long rootId)
         {
             var entity = this.hierarchyRepository.GetById(rootId);
@@ -66,36 +55,35 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
 
-
-
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 entity.UpdateTime = DateTime.Now;
                 entity.TimezoneId = 1;
 
-                if (hierarchy.Type != HierarchyType.Customer && !DoesHierarchyHaveParent(hierarchy)) //doesn't have
+                ////doesn't have  CustomerErrorCode.HierarchyHasNoParent
+                if (hierarchy.Type != HierarchyType.Customer && !this.DoesHierarchyHaveParent(hierarchy)) 
                 {
-                    throw new ConcurrentException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999/*CustomerErrorCode.HierarchyHasNoParent*/));
+                    throw new ConcurrentException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
                 }
 
-                //check code is duplicate under the same customer
-                if (this.IsHierarchyCodeDuplicate(hierarchy)) //duplicate
-                {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999/*CustomerErrorCode.HierarchyCodeIsDuplicate*/));
+                ////check code is duplicate under the same customer CustomerErrorCode.HierarchyCodeIsDuplicate
+                if (this.IsHierarchyCodeDuplicate(hierarchy)) 
+                {                    
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
                 }
 
-                //check name is duplicate under the same parent code
-                if (this.IsHierarchyNameDuplicate(hierarchy)) //duplicate
+                ////check name is duplicate under the same parent code  CustomerErrorCode.HierarchyNameIsDuplicate
+                if (this.IsHierarchyNameDuplicate(hierarchy))  
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999/*CustomerErrorCode.HierarchyNameIsDuplicate*/));
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
                 }
 
-                //check hierarchy level over limitation
+                ////check hierarchy level over limitation CustomerErrorCode.OrganizationNestingOverLimitation
                 if (hierarchy.Type == HierarchyType.Organization)
                 {
-                    if (this.IsOrganizationNestingOverLimitation(hierarchy)) //over
-                    {
-                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999/*CustomerErrorCode.OrganizationNestingOverLimitation*/));
+                    if (this.IsOrganizationNestingOverLimitation(hierarchy))  
+                    {                       
+                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
                     }
                 }
 
@@ -103,7 +91,6 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 unitOfWork.Commit();
             }
-
 
             var dto = AutoMapper.Mapper.Map<HierarchyDto>(entity);
 
@@ -168,16 +155,19 @@ namespace SE.DSP.Pop.BL.AppHost.API
         #region validation
         private bool IsHierarchyCodeDuplicate(HierarchyDto hierarchy)
         {
-            if (hierarchy.Id != 0)  //modify
+            ////modify
+            if (hierarchy.Id != 0) 
             {
-                if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByCodeUnderParentCustomer(hierarchy.Id, hierarchy.Code, hierarchy.CustomerId) > 0) //check with sibling hierarchy
+                ////check with sibling hierarchy
+                if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByCodeUnderParentCustomer(hierarchy.Id, hierarchy.Code, hierarchy.CustomerId) > 0)
                 {
                     return true;
                 }
-            }
-            else //create
+            } 
+            else 
             {
-                if (this.hierarchyRepository.RetrieveChildHierarchyCountByCodeUnderParentCustomer(hierarchy.Code, hierarchy.CustomerId) > 0) //check with existing hierarchy
+                ////check with existing hierarchy
+                if (this.hierarchyRepository.RetrieveChildHierarchyCountByCodeUnderParentCustomer(hierarchy.Code, hierarchy.CustomerId) > 0) 
                 {
                     return true;
                 }
@@ -188,18 +178,20 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private bool IsHierarchyNameDuplicate(HierarchyDto hierarchy)
         {
-            if (hierarchy.ParentId.HasValue) //check parent hierarchy
+            if (hierarchy.ParentId.HasValue) 
             {
-                if (hierarchy.Id != 0)  //modify
+                if (hierarchy.Id != 0)
                 {
-                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentHierarchy(hierarchy.Id, hierarchy.Name, hierarchy.ParentId.Value) > 0) //check with sibling hierarchy
+                    ////check with sibling hierarchy
+                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentHierarchy(hierarchy.Id, hierarchy.Name, hierarchy.ParentId.Value) > 0) 
                     {
                         return true;
                     }
                 }
-                else //create
+                else 
                 {
-                    if (this.hierarchyRepository.RetrieveChildHierarchyCountByNameUnderParentHierarchy(hierarchy.Name, hierarchy.ParentId.Value) > 0) //check existing hierarchy
+                    ////check existing hierarchy
+                    if (this.hierarchyRepository.RetrieveChildHierarchyCountByNameUnderParentHierarchy(hierarchy.Name, hierarchy.ParentId.Value) > 0) 
                     {
                         return true;
                     }
@@ -207,18 +199,21 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 return false;
             }
-            else //check parent customer
+            else  
             {
-                if (hierarchy.Id != 0)  //modify
+                ////modify
+                if (hierarchy.Id != 0) 
                 {
-                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentCustomer(hierarchy.Id, hierarchy.Name, hierarchy.CustomerId) > 0) //check with sibling hierarchy
+                    ////check with sibling hierarchy
+                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentCustomer(hierarchy.Id, hierarchy.Name, hierarchy.CustomerId) > 0) 
                     {
                         return true;
                     }
                 }
-                else //create
+                else 
                 {
-                    if (this.hierarchyRepository.RetrieveChildHierarchyCountByNameUnderParentCustomer(hierarchy.Name, hierarchy.CustomerId) > 0) //check with existing hierarchy
+                    ////check with existing hierarchy
+                    if (this.hierarchyRepository.RetrieveChildHierarchyCountByNameUnderParentCustomer(hierarchy.Name, hierarchy.CustomerId) > 0)
                     {
                         return true;
                     }
@@ -230,12 +225,13 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private bool IsOrganizationNestingOverLimitation(HierarchyDto organization)
         {
-            if (organization.ParentId.HasValue) //check parent organization
+            ////check parent organization
+            if (organization.ParentId.HasValue) 
             {
-                //+ 1 means current level
+                ////+ 1 means current level
                 return this.hierarchyRepository.RetrieveAncestorAndSelfOrganizationCount(organization.ParentId.Value) + 1 > 5;
             }
-            else //check parent customer
+            else  
             {
                 return false;
             }
@@ -243,7 +239,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private bool DoesHierarchyHaveParent(HierarchyDto hierarchy)
         {
-            if (hierarchy.ParentId.HasValue) //check parent hierarchy
+            ////check parent hierarchy
+            if (hierarchy.ParentId.HasValue) 
             {
                 Hierarchy parentHierarchy = this.hierarchyRepository.GetById(hierarchy.ParentId.Value);
 
@@ -253,12 +250,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 }
                 else
                 {
-                    //set customer id because client can set customer to null when the new hierarchy not in top level
+                    ////set customer id because client can set customer to null when the new hierarchy not in top level
                     hierarchy.CustomerId = parentHierarchy.Type == SE.DSP.Pop.Entity.Enumeration.HierarchyType.Customer ? parentHierarchy.Id : parentHierarchy.CustomerId;
                     return true;
                 }
             }
-            else //check parent customer
+            else 
             {
                 return this.hierarchyRepository.GetById(hierarchy.CustomerId) != null;
             }

@@ -60,4 +60,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="$(SolutionDir)\Dependencies\StyleCop\StyleCop.targets" />
+  <PropertyGroup>
+    <Dependencies>$(SolutionDir)\Dependencies</Dependencies>
+    <FxCopDir>$(ProgramFiles)\Microsoft Fxcop 10.0</FxCopDir>
+    <StyleCopOverrideSettingsFile>$(SolutionDir)\Dependencies\StyleCop\Settings.StyleCop</StyleCopOverrideSettingsFile>
+    <StyleCopOutputFile>StyleCopReport.xml</StyleCopOutputFile>
+    <StyleCopForceFullAnalysis>true</StyleCopForceFullAnalysis>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+  </PropertyGroup>
 </Project>

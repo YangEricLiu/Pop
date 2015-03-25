@@ -1,20 +1,19 @@
-﻿using SE.DSP.Pop.BL.API;
-using SE.DSP.Pop.BL.API.DataContract;
-using SE.DSP.Pop.Web.WebHost.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Security;
+using SE.DSP.Pop.BL.API;
+using SE.DSP.Pop.BL.API.DataContract;
+using SE.DSP.Pop.Web.WebHost.Model;
 
 namespace SE.DSP.Pop.Web.WebHost.Controllers
 {
     [Authorize]
     public class UserController : ApiController
     {
-
         private readonly IUserService userService;
 
         public UserController()
@@ -29,7 +28,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         {
             var user = this.userService.Login(login.UserName, login.Password);
 
-            if(user != null)
+            if (user != null)
             {
                 FormsAuthentication.SetAuthCookie(user.Name, true);
             }
@@ -53,4 +52,3 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
     }
 }
-
