@@ -35,7 +35,8 @@ namespace SE.DSP.Pop.BL.API.DataContract
         [DataMember]
         public long CustomerId { get; set; }
 
-        //public string Path { get; set; }
+        [DataMember]
+        public string Path { get; set; }
 
         [DataMember]
         public int PathLevel { get; set; }
@@ -61,7 +62,8 @@ namespace SE.DSP.Pop.BL.API.DataContract
         [DataMember]
         public DateTime? UpdateTime { get; set; }
 
-        //public long Version { get; set; }
+        [DataMember]
+        public long Version { get; set; }
 
         [DataMember]
         public HierarchyDto[] Children { get; set; }

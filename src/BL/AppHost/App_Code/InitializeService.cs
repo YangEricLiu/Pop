@@ -12,7 +12,7 @@ namespace SE.DSP.Pop.BL.AppHost.App_Code
         {
             IEnumerable<IGlobalConfiguration> configurations = new IGlobalConfiguration[]
                 {
-                    new AutoMapperConfiguration()
+                    new AutoMapperConfiguration(), new PetaPocoConfiguration()
                     
                 };
 

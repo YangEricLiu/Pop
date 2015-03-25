@@ -25,7 +25,7 @@ namespace SE.DSP.Pop.Entity
 
         public long CustomerId { get; set; }
 
-        //public string Path { get; set; }
+        public string Path { get; set; }
 
         public int PathLevel { get; set; }
 
@@ -43,6 +43,6 @@ namespace SE.DSP.Pop.Entity
 
         public DateTime? UpdateTime { get; set; }
 
-        //public long Version { get; set; }
+        public long? Version { get; set; }
     }
 }

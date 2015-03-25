@@ -15,7 +15,7 @@
     <AssemblyName>SE.DSP.Pop.BL.AppHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -85,6 +85,7 @@
       <DependentUpon>Hierarchy.svc</DependentUpon>
     </Compile>
     <Compile Include="GlobalConfiguration\AutoMapperConfiguration.cs" />
+    <Compile Include="GlobalConfiguration\PetaPocoConfiguration.cs" />
     <Compile Include="IGlobalConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\UserService.svc.cs">
@@ -158,7 +159,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55806</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Pop/App</IISUrl>
+          <IISUrl>http://localhost:55806/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

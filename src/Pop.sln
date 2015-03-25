@@ -14,9 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLTest", "..\test\BLTest\BLTest.csproj", "{1EE26884-492C-4EB5-A0B5-0D42DCC65484}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHost", "Web\WebHost\WebHost.csproj", "{A9B896E8-F7D9-4CFC-800D-E323C93C5D6A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AD2CA0D7-2D3D-4BD9-A493-A73BF5CF94E5} = {AD2CA0D7-2D3D-4BD9-A493-A73BF5CF94E5}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Foundation", "Foundation", "{E5CC806A-ABD4-492F-9717-C0B61E8B6A18}"
 EndProject
