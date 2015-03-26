@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.DataAccess;
+using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Foundation.Infrastructure.Utils;
@@ -14,7 +15,7 @@ using SE.DSP.Pop.Entity;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
-    public class HierarchyService : IHierarchyService
+    public class HierarchyService : ServiceBase, IHierarchyService
     {
         private readonly IHierarchyRepository hierarchyRepository;
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
@@ -103,7 +104,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                     if (children != null && children.Length > 0)
                     {
-                        throw new Exception("Delete not allowed");
+                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
                     }
 
                     this.hierarchyRepository.Delete(unitOfWork, hierarchyId);

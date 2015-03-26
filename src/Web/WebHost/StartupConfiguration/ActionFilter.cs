@@ -17,6 +17,11 @@ namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
         {
             base.OnActionExecuted(actionExecutedContext);
 
+            if (actionExecutedContext.Response == null || actionExecutedContext.Response.Content == null)
+            {
+                return;
+            }
+
             var result = actionExecutedContext.Response.Content as ObjectContent;
 
             var data = new ErrorModel()

@@ -15,23 +15,21 @@ namespace SE.DSP.Pop.MSSQL
     {
         public override Hierarchy GetById(long id)
         {
-            var result = this.Db.SingleOrDefault<Hierarchy>("select * from [Hierarchy] where Id=@0", id);
+            var result = this.Db.SingleOrDefault<Hierarchy>(id);
 
             return result;
         }
 
         public Hierarchy[] GetByIds(long[] ids)
         {
-            var sql = new StringBuilder("select * from [Hierarchy] where Id in (" + ids.ToString().Replace("[", string.Empty).Replace("]", string.Empty) + ")");
-            var hierarchies = this.Db.Fetch<Hierarchy>(sql.ToString());
+            var hierarchies = this.Db.Fetch<Hierarchy>("where Id in (@0)", ids);
 
             return hierarchies.ToArray();
         }
 
         public Hierarchy[] GetByParentId(long parentId)
         {
-            var sql = "select * from [Hierarchy] where ParentId=@0";
-            var children = this.Db.Fetch<Hierarchy>(sql, parentId);
+            var children = this.Db.Fetch<Hierarchy>("where ParentId=@0", parentId);
 
             return children.ToArray();
         }
