@@ -20,6 +20,14 @@ namespace SE.DSP.Pop.MSSQL
             return result;
         }
 
+        public Hierarchy[] GetByIds(long[] ids)
+        {
+            var sql = new StringBuilder("select * from [Hierarchy] where Id in (" + ids.ToString().Replace("[", string.Empty).Replace("]", string.Empty) + ")");
+            var hierarchies = this.Db.Fetch<Hierarchy>(sql.ToString());
+
+            return hierarchies.ToArray();
+        }
+
         public Hierarchy[] GetByParentId(long parentId)
         {
             var sql = "select * from [Hierarchy] where ParentId=@0";
