@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogoRepository.cs" />
     <Compile Include="HierarchyRepository.cs" />
     <Compile Include="Mapper\PopMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

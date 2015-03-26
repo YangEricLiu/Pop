@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Enumeration\HieraychyType.cs" />
     <Compile Include="Hierarchy.cs" />
+    <Compile Include="Logo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -60,5 +61,4 @@
     <StyleCopForceFullAnalysis>true</StyleCopForceFullAnalysis>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
-  
 </Project>
