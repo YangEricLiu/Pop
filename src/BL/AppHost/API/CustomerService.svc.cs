@@ -151,5 +151,28 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             return customer;
         }
+
+        public DataContract.HierarchyAdministratorDto[] SaveHierarchyAdministrators(DataContract.HierarchyAdministratorDto[] administrators)
+        {
+            var hierarchyId = administrators.First().HierarchyId;
+
+            var hierarchyAdmins = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
+
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                if (hierarchyAdmins != null && hierarchyAdmins.Length > 0)
+                {
+                    this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
+                }
+
+                var hierarchyAdminList = administrators.Select(ad => new HierarchyAdministrator(ad.HierarchyId, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToList();
+
+                hierarchyAdmins = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hierarchyAdminList).ToArray();
+
+                unitOfWork.Commit();
+
+                return hierarchyAdmins.Select(ha => AutoMapper.Mapper.Map<DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+            }
+        }
     }
 }
