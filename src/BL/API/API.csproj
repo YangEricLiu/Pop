@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DataContract\HierarchyDto.cs" />
     <Compile Include="DataContract\CustomerDto.cs" />
+    <Compile Include="DataContract\LogoDto.cs" />
     <Compile Include="DataContract\UserDto.cs" />
     <Compile Include="IHierarchyService.cs" />
     <Compile Include="IUserService.cs" />
