@@ -14,5 +14,8 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         DataContract.CustomerDto CreateCustomer(DataContract.CustomerDto customer);
+
+        [OperationContract]
+        DataContract.CustomerDto UpdateCustomer(DataContract.CustomerDto customer);
     }
 }

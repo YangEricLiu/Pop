@@ -11,5 +11,7 @@ namespace SE.DSP.Pop.Contract
     public interface IHierarchyAdministratorRepository : IRepository<HierarchyAdministrator, long>
     {
         HierarchyAdministrator[] GetByHierarchyId(long hierarchyId);
+
+        void DeleteAdministratorByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
     }
 }

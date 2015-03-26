@@ -48,7 +48,9 @@ namespace SE.DSP.Pop.MSSQL
 
         public override void Update(IUnitOfWork unitOfWork, Customer entity)
         {
-            throw new NotImplementedException();
+            var db = this.GetDatabese(unitOfWork);
+
+            db.Save("Customer", "HierarchyId", entity);
         }
 
         public override void Delete(IUnitOfWork unitOfWork, long id)

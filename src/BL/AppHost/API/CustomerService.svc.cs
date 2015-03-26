@@ -109,5 +109,47 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             return customer;
         }
+
+        public DataContract.CustomerDto UpdateCustomer(DataContract.CustomerDto customer)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchy = this.hierarchyRepository.GetById(customer.HierarchyId);
+
+                hierarchy.Name = customer.CustomerName;
+
+                this.hierarchyRepository.Update(unitOfWork, hierarchy);
+
+                var customerEntity = this.customerRepository.GetById(customer.HierarchyId);
+
+                customerEntity.StartTime = customer.StartTime;
+
+                this.customerRepository.Update(unitOfWork, customerEntity);
+
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, customer.HierarchyId);
+
+                if (customer.Administrators != null)
+                {
+                    var hierarchyAdmins = customer.Administrators.Select(ad => new HierarchyAdministrator(customer.HierarchyId, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToList();
+
+                    customer.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hierarchyAdmins).Select(ha => AutoMapper.Mapper.Map<DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+                }
+
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, customer.HierarchyId);
+
+                if (customer.Logo != null)
+                {
+                    var logo = this.logoRepository.Add(unitOfWork, new Logo(hierarchy.Id));
+
+                    customer.Logo.Id = logo.Id;
+
+                    this.ossRepository.Add(new OssObject(string.Format("img-logo-{0}", logo.Id), customer.Logo.Logo));
+                }
+
+                unitOfWork.Commit();
+            }
+
+            return customer;
+        }
     }
 }

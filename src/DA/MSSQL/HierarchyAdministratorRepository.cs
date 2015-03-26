@@ -55,7 +55,9 @@ namespace SE.DSP.Pop.MSSQL
 
         public override void Update(IUnitOfWork unitOfWork, HierarchyAdministrator entity)
         {
-            throw new NotImplementedException();
+            var db = this.GetDatabese(unitOfWork);
+
+            db.Save("HierarchyAdministrator", "Id", entity);
         }
 
         public override void Delete(IUnitOfWork unitOfWork, long id)
@@ -63,6 +65,13 @@ namespace SE.DSP.Pop.MSSQL
             var db = this.GetDatabese(unitOfWork);
 
             db.Delete<HierarchyAdministrator>(id);
+        }
+
+        public void DeleteAdministratorByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId)
+        {
+            var db = this.GetDatabese(unitOfWork);
+
+            db.Delete<HierarchyAdministrator>("where hierarchyId = @0", hierarchyId);
         }
     }
 }

@@ -11,5 +11,7 @@ namespace SE.DSP.Pop.Contract
     public interface ILogoRepository : IRepository<Logo, long>
     {
         Logo[] GetLogosByHierarchyIds(long[] hierarchyIds);
+
+        void DeleteByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
     }
 }
