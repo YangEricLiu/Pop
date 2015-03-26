@@ -7,7 +7,7 @@ using SE.DSP.Pop.Web.WebHost.Model;
 
 namespace SE.DSP.Pop.Web.WebHost.Controllers
 {
-    ////[Authorize]
+    [Authorize]
     public class HierarchyController : ApiController
     {
         private readonly IHierarchyService hierarchyService;
