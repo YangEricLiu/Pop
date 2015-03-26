@@ -7,6 +7,7 @@ namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
     {
         public void Configure()
         {
+            AutoMapper.Mapper.CreateMap<SE.DSP.Pop.BL.API.DataContract.CustomerDto, SE.DSP.Pop.Web.WebHost.Model.CustomerModel>();
             AutoMapper.Mapper.CreateMap<SE.DSP.Pop.BL.API.DataContract.UserDto, SE.DSP.Pop.Web.WebHost.Model.UserModel>().ForMember(d => d.SpStatus, opt => opt.MapFrom(s => (int)s.SpStatus));
             AutoMapper.Mapper.CreateMap<SE.DSP.Pop.BL.API.DataContract.HierarchyDto, SE.DSP.Pop.Web.WebHost.Model.HierarchyModel>();
             AutoMapper.Mapper.CreateMap<HierarchyModel, HierarchyDto>().ForMember(d => d.TimezoneId, opt => opt.Ignore())

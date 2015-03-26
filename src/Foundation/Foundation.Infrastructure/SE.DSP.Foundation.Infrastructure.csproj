@@ -303,7 +303,6 @@
     <Compile Include="Utils\LogHelper.cs" />
     <Compile Include="Utils\MathHelper.cs" />
     <Compile Include="Utils\MessageHelper.cs" />
-    <Compile Include="Utils\OssHelper.cs" />
     <Compile Include="Utils\PagingHelper.cs" />
     <Compile Include="Utils\ParallelHelper.cs" />
     <Compile Include="Utils\ServiceContextConstant.cs" />
