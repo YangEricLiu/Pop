@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 
 namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
 {
     public class FilterConfig
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        public static void Register(HttpConfiguration config)
         {
-            filters.Add(new HandleErrorAttribute());
+            config.MapHttpAttributeRoutes();
+
+            config.Filters.Add(new ExceptionHandlingFilter());
+            config.Filters.Add(new ActionFilter());
         }
     }
 }

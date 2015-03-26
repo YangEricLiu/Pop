@@ -1,10 +1,12 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http.Filters;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Foundation.Web;
+using SE.DSP.Pop.Web.WebHost.Model;
 
 namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
 {
@@ -14,22 +16,23 @@ namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
         {
             var exception = context.Exception;
 
-            var errorMessage = "{\"Error\":{\"Code\":1,\"Message\":\"\"}}";
+            var error = new ErrorModel()
+            {
+                Error = "0",
+                Message = new string[] { "Server error" },
+            };
 
             if (exception is REMException)
             {
                 var ex = (REMException)exception;
-                var remError = new RemError()
-                                {
-                                    Code = ex.Detail.ErrorCode,
-                                    Messages = ex.Detail.ErrorMessages
-                                };
-                errorMessage = new StringBuilder("{\"error\":").Append(JsonHelper.Serialize2String(remError)).Append("}").ToString();
+
+                error.Error = ex.Detail.ErrorCode;
+                error.Message = ex.Detail.ErrorMessages;
             }
 
             context.Response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(errorMessage)
+                Content = new StringContent(JsonHelper.Serialize2String(error))
             };
         }
     }
