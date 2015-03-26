@@ -23,7 +23,7 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string Password { get; set; }
 
         [DataMember]
-        public CustomerDto[] Customers { get; set; }
+        public UserCustomerDto[] Customers { get; set; }
 
         [DataMember]
         public string Title { get; set; }

@@ -41,11 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContract\CustomerListItemDto.cs" />
     <Compile Include="DataContract\HierarchyDto.cs" />
     <Compile Include="DataContract\CustomerDto.cs" />
+    <Compile Include="DataContract\UserCustomerDto.cs" />
     <Compile Include="DataContract\LogoDto.cs" />
     <Compile Include="DataContract\UserDto.cs" />
     <Compile Include="IHierarchyService.cs" />
+    <Compile Include="ICustomerService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

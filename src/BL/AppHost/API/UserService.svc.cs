@@ -15,10 +15,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly SE.DSP.Foundation.API.IUserService userServiceProxy;
         private readonly ILogoRepository logoRepository;
         private readonly IOssRepository ossRepository;
+        private readonly IHierarchyRepository hierarchyRepository;
 
         public UserService()
         {
             this.userServiceProxy = ServiceProxy<SE.DSP.Foundation.API.IUserService>.GetClient("IUserService.EndPoint");
+            this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
             this.logoRepository = IocHelper.Container.Resolve<ILogoRepository>();
             this.ossRepository = IocHelper.Container.Resolve<IOssRepository>();
         }
@@ -47,17 +49,6 @@ namespace SE.DSP.Pop.BL.AppHost.API
             return this.FillCustomerForUser(result);
         }
 
-        public DataContract.LogoDto GetLogoById(long id)
-        {
-            var oss = this.ossRepository.GetById(string.Format("img-logo-{0}", id));
-
-            return new DataContract.LogoDto
-            {
-                Id = id,
-                Logo = oss.Content
-            };
-        }
-
         private DataContract.UserDto FillCustomerForUser(UserDto user)
         {
             var filter = new UserCustomerFilter
@@ -72,15 +63,19 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             var userCustomerResult = this.userServiceProxy.RetrieveUserCustomers(filter);
 
-            var logos = this.logoRepository.GetLogosByHierarchyIds(userCustomerResult.Select(uc => uc.CustomerId).ToArray()).ToDictionary(lg => lg.HierarchyId);
+            var customerIds = userCustomerResult.Select(uc => uc.CustomerId).ToArray();
+
+            var logos = this.logoRepository.GetLogosByHierarchyIds(customerIds).ToDictionary(lg => lg.HierarchyId);
+
+            var hierarchyMap = this.hierarchyRepository.GetByIds(customerIds).ToDictionary(hr => hr.Id);
 
             var dtoResult = AutoMapper.Mapper.Map<DataContract.UserDto>(user);
 
-            dtoResult.Customers = userCustomerResult.Select(uc => new DataContract.CustomerDto
+            dtoResult.Customers = userCustomerResult.Select(uc => new DataContract.UserCustomerDto
             {
                 CustomerId = uc.CustomerId,
                 CustomerLogoId = logos.ContainsKey(uc.CustomerId) ? new long?(logos[uc.CustomerId].Id) : null,
-                CustomerName = string.Empty
+                CustomerName = hierarchyMap.ContainsKey(uc.CustomerId) ? hierarchyMap[uc.CustomerId].Name : string.Empty
             }).ToArray();
 
             return dtoResult;

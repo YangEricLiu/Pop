@@ -4,12 +4,12 @@ using SE.DSP.Pop.BL.API.DataContract;
 namespace SE.DSP.Pop.BL.API
 {
     [ServiceContract]
-    public interface IUserService
+    public interface ICustomerService
     {
         [OperationContract]
-        UserDto Login(string userName, string password);
+        DataContract.LogoDto GetLogoById(long id);
 
         [OperationContract]
-        UserDto SpLogin(string spdomain, string userName, string password);
+        DataContract.CustomerListItemDto[] GetCustomersByUserId(long userId);
     }
 }
