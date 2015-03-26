@@ -11,7 +11,7 @@ namespace SE.DSP.Foundation.Web
     /// App service api client endpoint behavior for add custom message header.
     /// </summary>
     /// <remarks>This class is for internal use only and is not intended to be used directly from your code.</remarks>
-    public class CustomHeaderEndpointBehavior : IEndpointBehavior
+    public class CustomHeaderEndpointBehavior : IEndpointBehavior 
     {
         /// <summary>
         /// This method is not implemented.
