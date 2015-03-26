@@ -46,6 +46,7 @@ namespace SE.DSP.Pop.Web.WebHost
             filters.Add(new HandleErrorAttribute());
         }
     }
+
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
@@ -59,6 +60,7 @@ namespace SE.DSP.Pop.Web.WebHost
             );
         }
     }
+
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
@@ -73,6 +75,8 @@ namespace SE.DSP.Pop.Web.WebHost
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            
+            config.Filters.Add(new ExceptionHandlingFilter());
         }
     }
 }
