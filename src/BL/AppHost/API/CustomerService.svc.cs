@@ -174,5 +174,18 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 return hierarchyAdmins.Select(ha => AutoMapper.Mapper.Map<DataContract.HierarchyAdministratorDto>(ha)).ToArray();
             }
         }
+
+        public void DeleteCustomer(long customerid)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, customerid);
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, customerid);
+                this.customerRepository.Delete(unitOfWork, customerid);
+                this.hierarchyRepository.Delete(unitOfWork, customerid);
+
+                unitOfWork.Commit();
+            }
+        }
     }
 }
