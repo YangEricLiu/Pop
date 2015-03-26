@@ -75,14 +75,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="API\Hierarchy.svc" />
+    <Content Include="API\HierarchyService.svc" />
     <Content Include="API\UserService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\InitializeService.cs" />
-    <Compile Include="API\Hierarchy.svc.cs">
-      <DependentUpon>Hierarchy.svc</DependentUpon>
+    <Compile Include="API\HierarchyService.svc.cs">
+      <DependentUpon>HierarchyService.svc</DependentUpon>
     </Compile>
     <Compile Include="GlobalConfiguration\AutoMapperConfiguration.cs" />
     <Compile Include="GlobalConfiguration\PetaPocoConfiguration.cs" />
@@ -176,4 +176,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="$(SolutionDir)\Dependencies\StyleCop\StyleCop.targets" />
+  <PropertyGroup>
+    <Dependencies>$(SolutionDir)\Dependencies</Dependencies>
+    <FxCopDir>$(ProgramFiles)\Microsoft Fxcop 10.0</FxCopDir>
+    <StyleCopOverrideSettingsFile>$(SolutionDir)\Dependencies\StyleCop\Settings.StyleCop</StyleCopOverrideSettingsFile>
+    <StyleCopOutputFile>StyleCopReport.xml</StyleCopOutputFile>
+    <StyleCopForceFullAnalysis>true</StyleCopForceFullAnalysis>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+  </PropertyGroup>
 </Project>

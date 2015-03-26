@@ -35,7 +35,7 @@ namespace SE.DSP.Pop.Entity
 
         public long? ZoneId { get; set; }
 
-        public bool CalcStatus { set; get; }
+        public bool CalcStatus { get; set; }
 
         public long SpId { get; set; }
 

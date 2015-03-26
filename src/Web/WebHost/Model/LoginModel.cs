@@ -15,7 +15,6 @@ namespace SE.DSP.Pop.Web.WebHost.Model
         [Required] 
         public string Password { get; set; }
          
-        
         public string SpDomain { get; set; }
     }
 }

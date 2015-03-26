@@ -1,10 +1,6 @@
-﻿using SE.DSP.Foundation.Infrastructure.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using SE.DSP.Foundation.Infrastructure.Enumerations;
 
 namespace SE.DSP.Pop.BL.API.DataContract
 {
@@ -15,16 +11,16 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public long? Id { get; set; }
 
         [DataMember]
-        public String RealName { get; set; }
+        public string RealName { get; set; }
 
         [DataMember]
         public long UserType { get; set; }
 
         [DataMember]
-        public String UserTypeName { get; set; }
+        public string UserTypeName { get; set; }
 
         [DataMember]
-        public String Password { get; set; }
+        public string Password { get; set; }
 
         [DataMember]
         public long[] CustomerIds { get; set; }
@@ -33,16 +29,16 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string Title { get; set; }
 
         [DataMember]
-        public String Telephone { get; set; }
+        public string Telephone { get; set; }
 
         [DataMember]
-        public String Email { get; set; }
+        public string Email { get; set; }
 
         [DataMember]
-        public String Comment { get; set; }
+        public string Comment { get; set; }
         
         [DataMember]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [DataMember]
         public int DemoStatus { get; set; }

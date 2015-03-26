@@ -1,15 +1,10 @@
-﻿using SE.DSP.Foundation.Infrastructure.Utils;
-using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
-using SE.DSP.Foundation.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Web;
-using System.Web.Http;
 using System.Web.Http.Filters;
+using SE.DSP.Foundation.Infrastructure.Utils;
+using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
+using SE.DSP.Foundation.Web;
 
 namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
 {
