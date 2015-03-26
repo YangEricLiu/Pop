@@ -27,12 +27,22 @@ namespace SE.DSP.Pop.BL.AppHost.API
         { 
             var result = this.userServiceProxy.ValidateLogin(userName, password);
 
+            if (result == null)
+            {
+                return null;
+            }
+
             return this.FillCustomerForUser(result);
         }
 
         public DataContract.UserDto SpLogin(string spdomain, string userName, string password)
         {
             var result = this.userServiceProxy.ValidateSpLogin(spdomain, userName, password);
+
+            if (result == null)
+            {
+                return null;
+            }
 
             return this.FillCustomerForUser(result);
         }
@@ -50,11 +60,17 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private DataContract.UserDto FillCustomerForUser(UserDto user)
         {
-            var userCustomerResult = this.userServiceProxy.RetrieveUserCustomers(new UserCustomerFilter
+            var filter = new UserCustomerFilter
             {
-                CustomerIds = user.CustomerIds,
                 WholeCustomer = user.CustomerIds.Length == 1 && user.CustomerIds[0] == 0
-            });
+            };
+
+            if (!filter.WholeCustomer.HasValue || !filter.WholeCustomer.Value)
+            {
+                filter.CustomerIds = user.CustomerIds;
+            }
+
+            var userCustomerResult = this.userServiceProxy.RetrieveUserCustomers(filter);
 
             var logos = this.logoRepository.GetLogosByHierarchyIds(userCustomerResult.Select(uc => uc.CustomerId).ToArray()).ToDictionary(lg => lg.HierarchyId);
 
