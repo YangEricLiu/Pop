@@ -71,51 +71,23 @@ namespace SE.DSP.Foundation.DataAccess
             return pagedResultQuery.Execute();
         }
 
-        public void AddMany(IList<TEntity> entities)
+        public IEnumerable<TEntity> AddMany(IUnitOfWork unitOfWork, IList<TEntity> entities)
         {
-            if (this.Db == null)
+            var result = new List<TEntity>();
+
+            foreach (TEntity entity in entities)
             {
-                throw new ArgumentException("PetaPoco database can not be null.");
+                result.Add(this.Add(unitOfWork, entity));
             }
 
-            try
-            {
-                this.Db.BeginTransaction();
-                foreach (TEntity entity in entities)
-                {
-                    this.Add(entity);
-                }
-
-                this.Db.CompleteTransaction();
-            }
-            catch (Exception)
-            {
-                this.Db.AbortTransaction();
-                throw;
-            }
+            return result;
         }
 
-        public void UpdateMany(IList<TEntity> entities)
+        public void UpdateMany(IUnitOfWork unitOfWork, IList<TEntity> entities)
         {
-            if (this.Db == null)
+            foreach (TEntity entity in entities)
             {
-                throw new ArgumentException("PetaPoco database can not be null.");
-            }
-
-            try
-            {
-                this.Db.BeginTransaction();
-                foreach (TEntity entity in entities)
-                {
-                    this.Update(entity);
-                }
-
-                this.Db.CompleteTransaction();
-            }
-            catch (Exception)
-            {
-                this.Db.AbortTransaction();
-                throw;
+                this.Update(unitOfWork, entity);
             }
         }
 

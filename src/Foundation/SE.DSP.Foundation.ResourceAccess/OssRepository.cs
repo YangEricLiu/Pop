@@ -30,11 +30,7 @@ namespace SE.DSP.Foundation.DataAccess
             Uri url = new Uri(new Uri(host), "simple/" + bucketName + "/" + id);
             byte[] pic = client.GetByteArrayAsync(url).Result;
 
-            return new OssObject
-                {
-                    Key = id,
-                    Content = pic
-                };
+            return new OssObject(id, pic);
         }
 
         public override OssObject Add(OssObject entity)

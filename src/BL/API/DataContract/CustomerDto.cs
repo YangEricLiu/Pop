@@ -28,6 +28,9 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string CustomerName { get; set; }
 
         [DataMember]
-        public long? CustomerLogoId { get; set; }
+        public LogoDto Logo { get; set; }
+
+        [DataMember]
+        public HierarchyAdministratorDto[] Administrators { get; set; }
     }
 }
