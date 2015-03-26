@@ -9,6 +9,21 @@ namespace SE.DSP.Pop.Entity
 {
     public class Hierarchy 
     {
+        public Hierarchy()
+        {
+        }
+
+        public Hierarchy(string name)
+        {
+            this.Type = HierarchyType.Customer;
+            this.Name = name;
+            this.TimezoneId = 1;
+            this.PathLevel = 1;
+            this.Status = 1;
+            this.CalcStatus = true;
+            this.SpId = 1;
+        }
+
         public long Id { get; set; }
 
         public HierarchyType Type { get; set; }

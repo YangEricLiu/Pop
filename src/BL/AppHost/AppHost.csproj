@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="API\HierarchyService.svc" />
+    <Content Include="API\CustomerService.svc" />
     <Content Include="API\UserService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -83,6 +84,9 @@
     <Content Include="App_Code\InitializeService.cs" />
     <Compile Include="API\HierarchyService.svc.cs">
       <DependentUpon>HierarchyService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\CustomerService.svc.cs">
+      <DependentUpon>CustomerService.svc</DependentUpon>
     </Compile>
     <Compile Include="GlobalConfiguration\AutoMapperConfiguration.cs" />
     <Compile Include="GlobalConfiguration\PetaPocoConfiguration.cs" />

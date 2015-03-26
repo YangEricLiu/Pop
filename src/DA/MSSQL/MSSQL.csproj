@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerRepository.cs" />
+    <Compile Include="HierarchyAdministratorRepository.cs" />
     <Compile Include="LogoRepository.cs" />
     <Compile Include="HierarchyRepository.cs" />
     <Compile Include="Mapper\PopMapper.cs" />

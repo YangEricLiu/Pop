@@ -29,8 +29,8 @@ namespace SE.DSP.Foundation.DataAccess
 
         IPaged<TEntity> GetPaged(IPagedResultQuery<TEntity> pagedResultQuery);
 
-        void AddMany(IList<TEntity> entities);
+        IEnumerable<TEntity> AddMany(IUnitOfWork unitOfWork, IList<TEntity> entities);
 
-        void UpdateMany(IList<TEntity> entities);
+        void UpdateMany(IUnitOfWork unitOfWork, IList<TEntity> entities);
     }
 }

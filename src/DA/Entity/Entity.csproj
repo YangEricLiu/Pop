@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs" />
     <Compile Include="Enumeration\HieraychyType.cs" />
+    <Compile Include="HierarchyAdministrator.cs" />
     <Compile Include="Hierarchy.cs" />
     <Compile Include="Logo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

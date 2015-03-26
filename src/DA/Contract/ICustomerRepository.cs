@@ -8,10 +8,8 @@ using SE.DSP.Pop.Entity;
 
 namespace SE.DSP.Pop.Contract
 {
-    public interface ILogoRepository : IRepository<Logo, long>
+    public interface ICustomerRepository : IRepository<Customer, long>
     {
-        Logo[] GetLogosByHierarchyIds(long[] hierarchyIds);
-
-        void DeleteByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
+        Customer[] GetByIds(long[] ids);
     }
 }

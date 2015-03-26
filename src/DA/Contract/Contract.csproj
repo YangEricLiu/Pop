@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICustomerRepository.cs" />
+    <Compile Include="IHierarchyAdministratorRepository.cs" />
     <Compile Include="ILogoRepository.cs" />
     <Compile Include="IHierarchyRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

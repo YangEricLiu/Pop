@@ -8,6 +8,12 @@ namespace SE.DSP.Foundation.DataAccess.Entity
 {
     public class OssObject
     {
+        public OssObject(string key, byte[] content)
+        {
+            this.Key = key;
+            this.Content = content;
+        }
+
         public string Key { get; set; }
 
         public byte[] Content { get; set; }

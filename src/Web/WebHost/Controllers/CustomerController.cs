@@ -15,18 +15,18 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
     [Authorize]
     public class CustomerController : ApiController
     {
-        private readonly IUserService userService;
+        private readonly ICustomerService customerService;
 
         public CustomerController()
         {
-            this.userService = SE.DSP.Foundation.Web.Wcf.ServiceProxy<IUserService>.GetClient("IUserService.EndPoint");
+            this.customerService = SE.DSP.Foundation.Web.Wcf.ServiceProxy<ICustomerService>.GetClient("ICustomerService.EndPoint");
         }
 
         [HttpGet]
         [Route("api/customer/logo/{logoId}")]
         public HttpResponseMessage GetLogoById(long logoId)
         {
-            var logo = this.userService.GetLogoById(logoId);
+            var logo = this.customerService.GetLogoById(logoId);
 
             if (logo == null || logo.Logo == null || logo.Logo.Length == 0)
             {
