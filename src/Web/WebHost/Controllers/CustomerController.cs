@@ -24,7 +24,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
         [HttpGet]
         [Route("api/customer/logo/{logoId}")]
-        public HttpResponseMessage GetLogoById([FromBody]long logoId)
+        public HttpResponseMessage GetLogoById(long logoId)
         {
             var logo = this.userService.GetLogoById(logoId);
 
@@ -41,7 +41,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
             return httpResponse;             
         }
-  
+
         private byte[] GenerateThumbnailImage(byte[] logo)
         {
             var targetWidth = Convert.ToInt32(ConfigurationManager.AppSettings[ConfiguratgionKey.LOGOWIDTH]);
