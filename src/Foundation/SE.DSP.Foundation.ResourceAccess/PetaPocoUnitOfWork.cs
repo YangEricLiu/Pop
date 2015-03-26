@@ -17,8 +17,7 @@ namespace SE.DSP.Foundation.DataAccess
 
         public PetaPocoUnitOfWork()
         {
-            var connectionString = this.GetConnectionString();
-            this.db = new Database(connectionString, "System.Data.SqlClient");
+            this.db = this.GetDatabase();
             this.petaTransaction = new Transaction(this.db);
         }
 
@@ -35,6 +34,12 @@ namespace SE.DSP.Foundation.DataAccess
         public void Commit()
         {
             this.petaTransaction.Complete();
+        }
+
+        private Database GetDatabase()
+        {
+            var connectionString = this.GetConnectionString();
+            return new Database(connectionString, "System.Data.SqlClient");
         }
 
         private string GetConnectionString()

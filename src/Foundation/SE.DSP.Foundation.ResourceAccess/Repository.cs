@@ -18,8 +18,7 @@ namespace SE.DSP.Foundation.DataAccess
  
         protected Repository()
         {
-            var connectionString = this.GetConnectionString();
-            this.Db = new Database(connectionString, "System.Data.SqlClient");
+            this.Db = this.GetDatabase();
         }
 
         public abstract TEntity GetById(TIdType id);
@@ -125,6 +124,11 @@ namespace SE.DSP.Foundation.DataAccess
             return unitOfWork == null ? this.Db : unitOfWork.Db;
         }
 
+        private Database GetDatabase()
+        {
+            var connectionString = this.GetConnectionString();
+            return new Database(connectionString, "System.Data.SqlClient"); 
+        }
 
         private string GetConnectionString()
         {

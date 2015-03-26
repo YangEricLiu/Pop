@@ -111,6 +111,7 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Model\HierarchyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartupConfiguration\ExceptionHandlingFilter.cs" />
     <Compile Include="StartupConfiguration\RouteConfig.cs" />
     <Compile Include="StartupConfiguration\FilterConfig.cs" />
     <Compile Include="WebApiConfig.cs" />
@@ -181,7 +182,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64409</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Pop/Web</IISUrl>
+          <IISUrl>http://localhost/pop/web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
