@@ -17,5 +17,11 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         DataContract.CustomerDto UpdateCustomer(DataContract.CustomerDto customer);
+
+        [OperationContract]
+        DataContract.HierarchyAdministratorDto[] SaveHierarchyAdministrators(DataContract.HierarchyAdministratorDto[] administrators);
+
+        [OperationContract]
+        void DeleteCustomer(long customerid);
     }
 }
