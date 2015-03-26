@@ -11,5 +11,8 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         UserDto SpLogin(string spdomain, string userName, string password);
+
+        [OperationContract]
+        UserDto[] GetUserBySpId(long spId);
     }
 }

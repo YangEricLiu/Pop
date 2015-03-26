@@ -50,5 +50,14 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
             return AutoMapper.Mapper.Map<UserModel>(user);
         }
+
+        [HttpGet]
+        [Route("api/sp/{spid}/users")]
+        public UserModel[] GetUserBySpId(long spId)
+        {
+            var users = this.userService.GetUserBySpId(spId);
+
+            return users.Select(u => AutoMapper.Mapper.Map<UserModel>(u)).ToArray();
+        }
     }
 }

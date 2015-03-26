@@ -49,6 +49,16 @@ namespace SE.DSP.Pop.BL.AppHost.API
             return this.FillCustomerForUser(result);
         }
 
+        public DataContract.UserDto[] GetUserBySpId(long spId)
+        {
+            var users = this.userServiceProxy.RetrieveUserEntitiesByFilter(new UserFilter
+            {
+                SpId = spId
+            });
+
+            return users.Select(u => AutoMapper.Mapper.Map<DataContract.UserDto>(u)).ToArray();
+        }
+
         private DataContract.UserDto FillCustomerForUser(UserDto user)
         {
             var filter = new UserCustomerFilter

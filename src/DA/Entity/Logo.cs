@@ -8,6 +8,10 @@ namespace SE.DSP.Pop.Entity
 {
     public class Logo
     {
+        public Logo()
+        {
+        }
+
         public Logo(long hierarchyId)
         {
             this.HierarchyId = hierarchyId;
