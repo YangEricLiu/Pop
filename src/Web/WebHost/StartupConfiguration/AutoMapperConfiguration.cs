@@ -52,6 +52,9 @@ namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
                 .ForMember(d => d.UpdateTime, opt => opt.Ignore())
                 .ForMember(d => d.UpdateUser, opt => opt.Ignore());
 
+            Mapper.CreateMap<UserCustomerDto, UserCustomerModel>();
+            Mapper.CreateMap<UserCustomerModel, UserCustomerDto>();
+
             Mapper.AssertConfigurationIsValid();
         }
     }

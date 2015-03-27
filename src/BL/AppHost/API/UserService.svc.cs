@@ -88,7 +88,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
 
-        public DataContract.UserCustomerDto[] GetCustomerByUserId(long userId)
+        public DataContract.UserCustomerDto[] GetUserCustomerByUserId(long userId)
         {
             ////todo: get the sp id from context
             var allCustomers = this.customerRepository.GetBySpId(1);

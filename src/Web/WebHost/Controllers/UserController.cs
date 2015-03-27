@@ -84,5 +84,23 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
             return users.Select(u => AutoMapper.Mapper.Map<UserModel>(u)).ToArray();
         }
+
+        [HttpPost]
+        [Route("api/usercustomer/save")]
+        public UserCustomerModel[] SaveUserCustomer([FromBody]long userId, [FromBody]UserCustomerModel[] userCustomers)
+        {
+            var result = this.userService.SaveUserCustomer(userId, userCustomers.Select(u => AutoMapper.Mapper.Map<UserCustomerDto>(u)).ToArray());
+
+            return result.Select(u => AutoMapper.Mapper.Map<UserCustomerModel>(u)).ToArray();
+        }
+
+        [HttpGet]
+        [Route("api/user/{userId}/usercustomers")]
+        public UserCustomerModel[] GetUserCustomerByUserId(long userId)
+        {
+            var result = this.userService.GetUserCustomerByUserId(userId);
+
+            return result.Select(u => AutoMapper.Mapper.Map<UserCustomerModel>(u)).ToArray();
+        }
     }
 }

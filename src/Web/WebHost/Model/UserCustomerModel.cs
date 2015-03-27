@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace SE.DSP.Pop.BL.API.DataContract
+namespace SE.DSP.Pop.Web.WebHost.Model
 {
-    [DataContract]
-    public class UserCustomerDto
+    public class UserCustomerModel
     {
-        [DataMember]
         public long HierarchyId { get; set; }
 
-        [DataMember]
         public string CustomerName { get; set; }
 
-        [DataMember]
         public bool WholeCustomer { get; set; }
 
-        [DataMember]
         public bool IsAuthorized { get; set; }
     }
 }

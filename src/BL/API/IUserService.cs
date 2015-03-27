@@ -28,6 +28,6 @@ namespace SE.DSP.Pop.BL.API
         UserCustomerDto[] SaveUserCustomer(long userId, UserCustomerDto[] userCustomers);
 
         [OperationContract]
-        UserCustomerDto[] GetCustomerByUserId(long userId);
+        UserCustomerDto[] GetUserCustomerByUserId(long userId);
     }
 }
