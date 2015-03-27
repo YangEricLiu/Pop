@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserCustomerRepository.cs" />
     <Compile Include="ICustomerRepository.cs" />
     <Compile Include="IHierarchyAdministratorRepository.cs" />
     <Compile Include="ILogoRepository.cs" />

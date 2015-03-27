@@ -13,5 +13,8 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public long? CustomerLogoId { get; set; }
+
+        [DataMember]
+        public bool IsAuthorized { get; set; }
     }
 }

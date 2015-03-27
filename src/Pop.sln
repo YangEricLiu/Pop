@@ -67,6 +67,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.3", "0.3", "{78FBBD1F-4E32-4184-B8D9-088E6DAF1526}"
 	ProjectSection(SolutionItems) = preProject
 		Script\DB\0.3\01CreateHierarchyAdministrator.sql = Script\DB\0.3\01CreateHierarchyAdministrator.sql
+		02CreateSinglePrimaryKeyForUserCustomer.sql = 02CreateSinglePrimaryKeyForUserCustomer.sql
 	EndProjectSection
 EndProject
 Global

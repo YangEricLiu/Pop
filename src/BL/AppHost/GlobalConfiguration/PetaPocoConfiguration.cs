@@ -8,6 +8,7 @@ namespace SE.DSP.Pop.BL.AppHost.GlobalConfiguration
         public void Configure()
         {
             Mappers.Register(typeof(Hierarchy), new Pop.MSSQL.Mapper.PopMapper());
+            Mappers.Register(typeof(UserCustomer), new Pop.MSSQL.Mapper.PopMapper());
         }
     }
 }
