@@ -59,5 +59,19 @@ namespace SE.DSP.Pop.MSSQL
 
             db.Delete<UserCustomer>(id);
         }
+
+        public UserCustomer[] GetUserCustomersByUserId(long userId)
+        {
+            var result = this.Db.Query<UserCustomer>("where UserId = @0", userId);
+
+            return result.ToArray();
+        }
+
+        public void DeleteByUserId(IUnitOfWork unitOfWork, long userId)
+        {
+            var db = this.GetDatabese(unitOfWork);
+
+            db.Delete<UserCustomer>("where UserId = @0", userId);
+        }
     }
 }

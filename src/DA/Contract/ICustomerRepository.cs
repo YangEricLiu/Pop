@@ -11,5 +11,7 @@ namespace SE.DSP.Pop.Contract
     public interface ICustomerRepository : IRepository<Customer, long>
     {
         Customer[] GetByIds(long[] ids);
+
+        Customer[] GetBySpId(long spId);
     }
 }

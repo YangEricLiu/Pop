@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace SE.DSP.Pop.BL.API.DataContract
 {
@@ -6,15 +7,23 @@ namespace SE.DSP.Pop.BL.API.DataContract
     public class UserCustomerDto
     {
         [DataMember]
-        public long CustomerId { get; set; }
+        public long HierarchyId { get; set; }
 
         [DataMember]
         public string CustomerName { get; set; }
 
         [DataMember]
-        public long? CustomerLogoId { get; set; }
+        public bool WholeCustomer { get; set; }
 
         [DataMember]
         public bool IsAuthorized { get; set; }
+
+        public bool HasAllCustomer
+        {
+            get
+            {
+                return this.HierarchyId == 0 && !this.WholeCustomer;
+            }
+        }
     }
 }

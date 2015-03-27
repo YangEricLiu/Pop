@@ -9,6 +9,9 @@ using SE.DSP.Pop.Entity;
 namespace SE.DSP.Pop.Contract
 {
     public interface IUserCustomerRepository : IRepository<UserCustomer, long>
-    { 
+    {
+        UserCustomer[] GetUserCustomersByUserId(long userId);
+
+        void DeleteByUserId(IUnitOfWork unitOfWork, long userId);
     }
 }

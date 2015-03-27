@@ -66,5 +66,12 @@ namespace SE.DSP.Pop.MSSQL
 
             return result.ToArray();
         }
+
+        public Customer[] GetBySpId(long spId)
+        {
+            var result = this.Db.Query<Customer>("where spid = @0", spId);
+
+            return result.ToArray();
+        }
     }
 }

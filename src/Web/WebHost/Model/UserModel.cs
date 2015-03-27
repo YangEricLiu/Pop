@@ -17,7 +17,7 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         public string Password { get; set; }
 
-        public UserCustomerModel[] Customers { get; set; }
+        public UserPreviligedCustomerModel[] Customers { get; set; }
 
         public string Title { get; set; }
 

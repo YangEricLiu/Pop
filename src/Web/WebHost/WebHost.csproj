@@ -108,7 +108,7 @@
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
     <Compile Include="Model\LogoModel.cs" />
     <Compile Include="StartupConfiguration\ActionFilter.cs" />
-    <Compile Include="Model\UserCustomerModel.cs" />
+    <Compile Include="Model\UserPreviligedCustomerModel.cs" />
     <Compile Include="StartupConfiguration\AutoMapperConfiguration.cs" />
     <Compile Include="IGlobalConfiguration.cs" />
     <Compile Include="Model\LoginModel.cs" />

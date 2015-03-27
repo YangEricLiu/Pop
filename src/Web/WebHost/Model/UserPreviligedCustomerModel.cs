@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SE.DSP.Pop.Web.WebHost.Model
 {
-    public class UserCustomerModel
+    public class UserPreviligedCustomerModel
     {
         public long CustomerId { get; set; }
 

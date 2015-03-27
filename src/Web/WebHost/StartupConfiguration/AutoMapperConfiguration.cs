@@ -40,7 +40,7 @@ namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
                 });
 
             Mapper.CreateMap<CustomerListItemDto, CustomerListItemModel>();
-            Mapper.CreateMap<UserCustomerDto, UserCustomerModel>();
+            Mapper.CreateMap<UserPreviligedCustomerDto, UserPreviligedCustomerModel>();
             Mapper.CreateMap<UserDto, UserModel>().ForMember(d => d.SpStatus, opt => opt.MapFrom(s => (int)s.SpStatus));
             Mapper.CreateMap<HierarchyDto, HierarchyModel>();
             Mapper.CreateMap<HierarchyModel, HierarchyDto>().ForMember(d => d.TimezoneId, opt => opt.Ignore())
