@@ -161,6 +161,67 @@ namespace SE.DSP.Foundation.Web
             }
         }
 
+        public static User CurrentPopUser
+        {
+            get
+            {
+                if (HttpContext.Current != null && HttpContext.Current.User != null)
+                {
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        var identity = HttpContext.Current.User.Identity as FormsIdentity;
+                        if (identity != null)
+                        {
+                            var user = new User
+                            {
+                                Name = identity.Name,
+                                Id = 1,
+                                SPId = 1
+                            };
+
+                            return user;
+                           
+                        }
+                        else
+                        {
+                            var user = CookieUtil.GetCookie();
+                            // TODO: seems in very rare senario, we cant get any user, but current user is logged in. 
+                            // So just use the code below to get rid of exception.
+
+                            // A possible reason is, when set FormIdentity, but the userdata is not saved to cookie.
+                            // When try to deserilize current user, we will run into an exception.
+                            if (user == null)
+                            {
+                                user = new User();
+                                user.Id = 1;
+                                user.Name = "PlatformAdmin";
+                                user.IPSTS = STSConstant.IPSTSRem;
+                            }
+                            return user;
+                        }
+                    }
+                    else
+                    {
+                        //TODO: remove this code when mobile 0.1 is finished
+                        User user = new User();
+                        user.Id = 1;
+                        user.Name = "PlatformAdmin";
+                        user.IPSTS = STSConstant.IPSTSRem;
+                        return user;
+                    }
+                }
+                else
+                {
+                    //TODO: remove this code when mobile 0.1 is finished
+                    User user = new User();
+                    user.Id = 1;
+                    user.Name = "PlatformAdmin";
+                    user.IPSTS = STSConstant.IPSTSRem;
+                    return user;
+                }
+            }
+        }
+
         public static string SessionId
         {
             get

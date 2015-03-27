@@ -44,7 +44,7 @@ namespace SE.DSP.Foundation.Web
           
 
             //current user
-            MessageHeader<User> currentUserHeader = new MessageHeader<User>(ServiceWrapperContext.CurrentUser);
+            MessageHeader<User> currentUserHeader = new MessageHeader<User>(ServiceWrapperContext.CurrentPopUser);
             request.Headers.Add(currentUserHeader.GetUntypedHeader(ServiceContextConstant.CURRENTUSER, ServiceContextConstant.HEADERNAMESPACE));
 
             return null;

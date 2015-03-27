@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
@@ -51,7 +53,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DataContract.UserDto[] GetUserBySpId(long spId)
         {
-            var users = this.userServiceProxy.RetrieveUserEntitiesByFilter(new UserFilter
+            var users = this.userServiceProxy.GetUsersByFilter(new UserFilterDto
             {
                 SpId = spId
             });
