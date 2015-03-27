@@ -42,6 +42,7 @@ namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
 
             Mapper.CreateMap<CustomerListItemDto, CustomerListItemModel>();
             Mapper.CreateMap<UserPreviligedCustomerDto, UserPreviligedCustomerModel>();
+            Mapper.CreateMap<UserPreviligedCustomerModel, UserPreviligedCustomerDto>();
             Mapper.CreateMap<UserModel, UserDto>().ForMember(d => d.SpStatus, opt => opt.MapFrom(s => (EntityStatus)s.SpStatus));
             Mapper.CreateMap<UserDto, UserModel>().ForMember(d => d.SpStatus, opt => opt.MapFrom(s => (int)s.SpStatus));
             Mapper.CreateMap<HierarchyDto, HierarchyModel>();
