@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 
-namespace SE.DSP.Pop.Web.WebHost
+namespace SE.DSP.Pop.Web.WebHost.Common.Startup
 {
     public static class WebApiConfig
     {

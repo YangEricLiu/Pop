@@ -96,6 +96,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ClientBehaviors\CustomHeaderBebaviorElement.cs" />
+    <Compile Include="Common\ClientBehaviors\CustomHeaderClientMessageInspector.cs" />
+    <Compile Include="Common\ClientBehaviors\CustomHeaderEndpointBehavior.cs" />
+    <Compile Include="Common\WebContext.cs" />
     <Compile Include="Controllers\HierarchyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -107,17 +111,17 @@
     <Compile Include="Model\ErrorModel.cs" />
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
     <Compile Include="Model\LogoModel.cs" />
-    <Compile Include="StartupConfiguration\ActionFilter.cs" />
+    <Compile Include="Common\Filters\ActionFilter.cs" />
     <Compile Include="Model\UserPreviligedCustomerModel.cs" />
-    <Compile Include="StartupConfiguration\AutoMapperConfiguration.cs" />
-    <Compile Include="IGlobalConfiguration.cs" />
+    <Compile Include="Common\Startup\AutoMapperConfiguration.cs" />
+    <Compile Include="Common\IGlobalConfiguration.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Model\HierarchyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartupConfiguration\ExceptionHandlingFilter.cs" />
-    <Compile Include="StartupConfiguration\FilterConfig.cs" />
-    <Compile Include="WebApiConfig.cs" />
+    <Compile Include="Common\Filters\ExceptionHandlingFilter.cs" />
+    <Compile Include="Common\Startup\FilterConfig.cs" />
+    <Compile Include="Common\Startup\WebApiConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -167,6 +171,7 @@
   <ItemGroup>
     <Content Include="Config\system.servicemodel.extensions.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

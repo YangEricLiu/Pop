@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SE.DSP.Pop.BL.API.DataContract;
 
 namespace SE.DSP.Pop.Web.WebHost.Model
 { 
@@ -36,5 +37,11 @@ namespace SE.DSP.Pop.Web.WebHost.Model
         public int SpStatus { get; set; }
 
         public long? Version { get; set; }
+
+        public string GetCookieContent()
+        {
+            var cookie = string.Format("{0}|{1}|{2}", this.Name, this.Id, this.SpId);
+            return cookie;
+        }
     }
 }

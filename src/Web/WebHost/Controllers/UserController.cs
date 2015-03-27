@@ -27,13 +27,15 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         public UserModel Login([FromBody]LoginModel login)
         {
             var user = this.userService.Login(login.UserName, login.Password);
+            var model = AutoMapper.Mapper.Map<UserModel>(user);
 
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(login.UserName, true);
+                var cookie = model.GetCookieContent();
+                FormsAuthentication.SetAuthCookie(cookie, true);
             }
-
-            return AutoMapper.Mapper.Map<UserModel>(user);
+            
+            return model;
         }
  
         [AllowAnonymous]
@@ -42,13 +44,15 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         public UserModel SpLogin([FromBody]LoginModel login)
         {
             var user = this.userService.SpLogin(login.SpDomain, login.UserName, login.Password);
+            var model = AutoMapper.Mapper.Map<UserModel>(user);
 
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(login.UserName, true);
+                var cookie = model.GetCookieContent();
+                FormsAuthentication.SetAuthCookie(cookie, true);
             }
 
-            return AutoMapper.Mapper.Map<UserModel>(user);
+            return model;
         }
 
         [HttpPost]

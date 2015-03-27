@@ -6,13 +6,15 @@ using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.Web.WebHost.Model;
 
-namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
+namespace SE.DSP.Pop.Web.WebHost.Common.Filters
 {
     public class ExceptionHandlingFilter : ExceptionFilterAttribute
     {
         public override void OnException(HttpActionExecutedContext context)
         {
             var exception = context.Exception;
+
+            LogHelper.LogException(exception);
             
             var error = new ErrorModel()
             {

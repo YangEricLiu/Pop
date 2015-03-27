@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Routing;
-using SE.DSP.Pop.Web.WebHost.StartupConfiguration;
+using SE.DSP.Pop.Web.WebHost.Common.Startup;
 
 namespace SE.DSP.Pop.Web.WebHost
 {
@@ -11,7 +11,7 @@ namespace SE.DSP.Pop.Web.WebHost
         {
             IEnumerable<IGlobalConfiguration> configurations = new IGlobalConfiguration[]
                 {
-                    new AutoMapperConfiguration()                    
+                    new AutoMapperConfiguration(),
                 };
 
             foreach (var configuration in configurations)
