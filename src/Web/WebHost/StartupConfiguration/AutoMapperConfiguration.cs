@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.Web.WebHost.Model;
 
@@ -41,6 +42,7 @@ namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
 
             Mapper.CreateMap<CustomerListItemDto, CustomerListItemModel>();
             Mapper.CreateMap<UserPreviligedCustomerDto, UserPreviligedCustomerModel>();
+            Mapper.CreateMap<UserModel, UserDto>().ForMember(d => d.SpStatus, opt => opt.MapFrom(s => (EntityStatus)s.SpStatus));
             Mapper.CreateMap<UserDto, UserModel>().ForMember(d => d.SpStatus, opt => opt.MapFrom(s => (int)s.SpStatus));
             Mapper.CreateMap<HierarchyDto, HierarchyModel>();
             Mapper.CreateMap<HierarchyModel, HierarchyDto>().ForMember(d => d.TimezoneId, opt => opt.Ignore())

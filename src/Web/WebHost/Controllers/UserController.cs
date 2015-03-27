@@ -51,6 +51,31 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
             return AutoMapper.Mapper.Map<UserModel>(user);
         }
 
+        [HttpPost]
+        [Route("api/user/create")]
+        public UserModel Create([FromBody]UserModel user)
+        {
+            var userDto = this.userService.CreateUser(AutoMapper.Mapper.Map<UserDto>(user));
+
+            return AutoMapper.Mapper.Map<UserModel>(userDto);
+        }
+
+        [HttpPost]
+        [Route("api/user/update")]
+        public UserModel Update([FromBody]UserModel user)
+        {
+            var userDto = this.userService.UpdateUser(AutoMapper.Mapper.Map<UserDto>(user));
+
+            return AutoMapper.Mapper.Map<UserModel>(userDto);
+        }
+
+        [HttpPost]
+        [Route("api/user/delete/{userId}")]
+        public void Delete(long userId)
+        {
+            this.userService.DeleteUser(userId);
+        }
+
         [HttpGet]
         [Route("api/sp/{spid}/users")]
         public UserModel[] GetUserBySpId(long spId)
