@@ -7,6 +7,15 @@ namespace SE.DSP.Pop.BL.API
     public interface IUserService
     {
         [OperationContract]
+        UserDto CreateUser(UserDto user);
+
+        [OperationContract]
+        UserDto UpdateUser(UserDto user);
+
+        [OperationContract]
+        void DeleteUser(long userId);
+
+        [OperationContract]
         UserDto Login(string userName, string password);
 
         [OperationContract]

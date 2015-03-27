@@ -128,6 +128,32 @@ namespace SE.DSP.Pop.BL.AppHost.API
             return result.ToArray();
         }
 
+        public DataContract.UserDto CreateUser(DataContract.UserDto user)
+        {
+            var userApiDto = AutoMapper.Mapper.Map<UserDto>(user);
+
+            userApiDto = this.userServiceProxy.CreateUser(userApiDto);
+
+            return AutoMapper.Mapper.Map<DataContract.UserDto>(userApiDto);
+        }
+
+        public DataContract.UserDto UpdateUser(DataContract.UserDto user)
+        {
+            var userApiDto = AutoMapper.Mapper.Map<UserDto>(user);
+
+            userApiDto = this.userServiceProxy.ModifyUser(userApiDto);
+
+            return AutoMapper.Mapper.Map<DataContract.UserDto>(userApiDto);
+        }
+
+        public void DeleteUser(long userId)
+        {
+            this.userServiceProxy.DeleteUser(new Foundation.Infrastructure.BaseClass.DtoBase
+                {
+                    Id = userId
+                });
+        }
+
         private DataContract.UserDto FillCustomerForUser(UserDto user)
         {
             var filter = new UserCustomerFilter
