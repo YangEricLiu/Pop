@@ -7,10 +7,14 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 {
     public class CustomerModel
     {
-        public long CustomerId { get; set; }
+        public long? HierarchyId { get; set; } 
+ 
+        public DateTime StartTime { get; set; }
 
         public string CustomerName { get; set; }
 
-        public long? CustomerLogoId { get; set; }
+        public LogoModel Logo { get; set; }
+ 
+        public HierarchyAdministratorModel[] Administrators { get; set; }
     }
 }

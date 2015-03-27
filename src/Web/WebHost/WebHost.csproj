@@ -102,9 +102,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model\ErrorModel.cs" />
-    <Compile Include="StartupConfiguration\ActionFilter.cs" />
+    <Compile Include="Model\CustomerListItemModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
+    <Compile Include="Model\ErrorModel.cs" />
+    <Compile Include="Model\HierarchyAdministratorModel.cs" />
+    <Compile Include="Model\LogoModel.cs" />
+    <Compile Include="StartupConfiguration\ActionFilter.cs" />
+    <Compile Include="Model\UserCustomerModel.cs" />
     <Compile Include="StartupConfiguration\AutoMapperConfiguration.cs" />
     <Compile Include="IGlobalConfiguration.cs" />
     <Compile Include="Model\LoginModel.cs" />

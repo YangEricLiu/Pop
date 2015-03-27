@@ -114,28 +114,28 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchy = this.hierarchyRepository.GetById(customer.HierarchyId);
+                var hierarchy = this.hierarchyRepository.GetById(customer.HierarchyId.Value);
 
                 hierarchy.Name = customer.CustomerName;
 
                 this.hierarchyRepository.Update(unitOfWork, hierarchy);
 
-                var customerEntity = this.customerRepository.GetById(customer.HierarchyId);
+                var customerEntity = this.customerRepository.GetById(customer.HierarchyId.Value);
 
                 customerEntity.StartTime = customer.StartTime;
 
                 this.customerRepository.Update(unitOfWork, customerEntity);
 
-                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, customer.HierarchyId);
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, customer.HierarchyId.Value);
 
                 if (customer.Administrators != null)
                 {
-                    var hierarchyAdmins = customer.Administrators.Select(ad => new HierarchyAdministrator(customer.HierarchyId, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToList();
+                    var hierarchyAdmins = customer.Administrators.Select(ad => new HierarchyAdministrator(customer.HierarchyId.Value, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToList();
 
                     customer.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hierarchyAdmins).Select(ha => AutoMapper.Mapper.Map<DataContract.HierarchyAdministratorDto>(ha)).ToArray();
                 }
 
-                this.logoRepository.DeleteByHierarchyId(unitOfWork, customer.HierarchyId);
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, customer.HierarchyId.Value);
 
                 if (customer.Logo != null)
                 {
@@ -154,7 +154,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DataContract.HierarchyAdministratorDto[] SaveHierarchyAdministrators(DataContract.HierarchyAdministratorDto[] administrators)
         {
-            var hierarchyId = administrators.First().HierarchyId;
+            var hierarchyId = administrators.First().HierarchyId.Value;
 
             var hierarchyAdmins = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
 
@@ -165,7 +165,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                     this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
                 }
 
-                var hierarchyAdminList = administrators.Select(ad => new HierarchyAdministrator(ad.HierarchyId, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToList();
+                var hierarchyAdminList = administrators.Select(ad => new HierarchyAdministrator(ad.HierarchyId.Value, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToList();
 
                 hierarchyAdmins = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hierarchyAdminList).ToArray();
 

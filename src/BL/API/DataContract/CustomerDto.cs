@@ -7,7 +7,7 @@ namespace SE.DSP.Pop.BL.API.DataContract
     public class CustomerDto
     {
         [DataMember]
-        public long HierarchyId { get; set; }
+        public long? HierarchyId { get; set; }
 
         [DataMember]
         public string Address { get; set; }
