@@ -4,7 +4,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using SE.DSP.Pop.Web.WebHost.Model;
 
-namespace SE.DSP.Pop.Web.WebHost.StartupConfiguration
+namespace SE.DSP.Pop.Web.WebHost.Common.Filters
 {
     public class ActionFilter : ActionFilterAttribute
     {

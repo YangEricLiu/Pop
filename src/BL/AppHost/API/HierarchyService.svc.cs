@@ -6,6 +6,7 @@ using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
+using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
@@ -28,6 +29,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public HierarchyDto GetHierarchyTree(long rootId)
         {
+            var user = ServiceContext.CurrentUser;
             var entity = this.hierarchyRepository.GetById(rootId);
 
             if (entity == null)
