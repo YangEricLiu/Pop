@@ -8,7 +8,7 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 { 
     public class UserModel
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         public string RealName { get; set; }
 

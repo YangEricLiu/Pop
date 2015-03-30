@@ -21,7 +21,7 @@ namespace SE.DSP.Pop.Entity
             this.UpdateUser = updateUser;
         }
 
-        public long? Id { get; set; }
+        public long Id { get; set; }
 
         public long UserId { get; set; }
 

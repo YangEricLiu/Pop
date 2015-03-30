@@ -16,6 +16,11 @@ namespace SE.DSP.Pop.MSSQL.Mapper
 
         public ColumnInfo GetColumnInfo(System.Reflection.PropertyInfo pocoProperty)
         {
+            if (pocoProperty.Name == "Version")
+            {
+                return null;
+            }
+
             return ColumnInfo.FromProperty(pocoProperty);
         }
 
@@ -36,7 +41,7 @@ namespace SE.DSP.Pop.MSSQL.Mapper
 
         public Func<object, object> GetToDbConverter(System.Reflection.PropertyInfo sourceProperty)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         private static long DbVersion2Long(byte[] version)

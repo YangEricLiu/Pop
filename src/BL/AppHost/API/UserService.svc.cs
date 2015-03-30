@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
+using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Web.Wcf;
 using SE.DSP.Pop.BL.API;
@@ -88,10 +89,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
 
-        public DataContract.UserCustomerDto[] GetCustomerByUserId(long userId)
+        public DataContract.UserCustomerDto[] GetUserCustomerByUserId(long userId)
         {
-            ////todo: get the sp id from context
-            var allCustomers = this.customerRepository.GetBySpId(1);
+            var allCustomers = this.customerRepository.GetBySpId(ServiceContext.CurrentUser.SPId);
 
             var hierarchyMap = this.hierarchyRepository.GetByIds(allCustomers.Select(c => c.HierarchyId).ToArray()).ToDictionary(hr => hr.Id);
 
