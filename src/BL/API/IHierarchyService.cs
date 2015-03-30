@@ -20,6 +20,9 @@ namespace SE.DSP.Pop.BL.API
         void UpdateHierarchy(HierarchyDto hierarchy);
 
         [OperationContract]
+        OrganizationDto GetOrganizationById(long hierarchyId);
+
+        [OperationContract]
         OrganizationDto CreateOrganization(OrganizationDto organization);
 
         [OperationContract]

@@ -169,6 +169,19 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
 
+        public OrganizationDto GetOrganizationById(long hierarchyId)
+        {
+            var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
+            var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
+
+            return new OrganizationDto
+            {
+                HierarchyId = hierarchy.Id,
+                Name = hierarchy.Name,
+                Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray()
+            };
+        }
+
         private void DeleteHierarchy(IUnitOfWork unitOfWork, long hierarchyId, bool isRecursive)
         {
             if (!isRecursive)
