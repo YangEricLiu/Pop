@@ -106,6 +106,7 @@
     <Compile Include="Common\Startup\FilterConfig.cs" />
     <Compile Include="Common\Startup\WebApiConfig.cs" />
     <Compile Include="Common\WebContext.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\HierarchyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Model\ErrorModel.cs" />
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
     <Compile Include="Model\LogoModel.cs" />
+    <Compile Include="Model\OrganizationModel.cs" />
     <Compile Include="Model\SaveUserCustomerModel.cs" />
     <Compile Include="Model\UserCustomerModel.cs" />
     <Compile Include="Model\UserPreviligedCustomerModel.cs" />
