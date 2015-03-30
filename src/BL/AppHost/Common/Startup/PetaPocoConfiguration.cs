@@ -1,7 +1,7 @@
 ﻿using PetaPoco;
 using SE.DSP.Pop.Entity;
 
-namespace SE.DSP.Pop.BL.AppHost.GlobalConfiguration
+namespace SE.DSP.Pop.BL.AppHost.Common.Startup
 {
     public class PetaPocoConfiguration : IGlobalConfiguration
     {

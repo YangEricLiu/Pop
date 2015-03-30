@@ -1,8 +1,9 @@
-﻿using SE.DSP.Pop.BL.AppHost.GlobalConfiguration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SE.DSP.Pop.BL.AppHost.Common;
+using SE.DSP.Pop.BL.AppHost.Common.Startup;
 
 namespace SE.DSP.Pop.BL.AppHost.App_Code
 {
@@ -12,8 +13,8 @@ namespace SE.DSP.Pop.BL.AppHost.App_Code
         {
             IEnumerable<IGlobalConfiguration> configurations = new IGlobalConfiguration[]
                 {
-                    new AutoMapperConfiguration(), new PetaPocoConfiguration()
-                    
+                    new AutoMapperConfiguration(), 
+                    new PetaPocoConfiguration()
                 };
 
             foreach (var configuration in configurations)

@@ -4,7 +4,7 @@ using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.Entity;
 
-namespace SE.DSP.Pop.BL.AppHost.GlobalConfiguration
+namespace SE.DSP.Pop.BL.AppHost.Common.Startup
 {
     public class AutoMapperConfiguration : IGlobalConfiguration
     {
