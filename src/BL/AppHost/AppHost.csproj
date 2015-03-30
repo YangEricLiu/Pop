@@ -81,7 +81,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common\InitializeService.cs" />
+    <Content Include="App_Code\InitializeService.cs" />
     <Compile Include="API\HierarchyService.svc.cs">
       <DependentUpon>HierarchyService.svc</DependentUpon>
     </Compile>

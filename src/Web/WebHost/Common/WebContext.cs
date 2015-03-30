@@ -34,14 +34,37 @@ namespace SE.DSP.Pop.Web.WebHost.Common
         {
             get
             {
-                var cookie = HttpContext.Current.User.Identity.Name;
-                var userInfo = cookie.Split('|');
-                var user = new User()
+                if (HttpContext.Current == null || HttpContext.Current.User == null || HttpContext.Current.User.Identity == null || string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
                 {
-                    Name = userInfo[0].ToString(),
-                    Id = Convert.ToInt64(userInfo[1]),
-                    SPId = Convert.ToInt64(userInfo[2]),
-                };
+                    return null;
+                }
+
+                var cookie = HttpContext.Current.User.Identity.Name;
+
+                if (!cookie.Contains("|"))
+                {
+                    return null;
+                }
+
+                var userInfo = cookie.Split('|');
+
+                if (userInfo.Length != 3)
+                {
+                    return null;
+                }
+
+                User user = null; 
+                long userId = 0, spId = 0;
+
+                if (long.TryParse(userInfo[1], out userId) && long.TryParse(userInfo[2], out spId))
+                {
+                    user = new User()
+                    {
+                        Name = userInfo[0].ToString(),
+                        Id = Convert.ToInt64(userInfo[1]),
+                        SPId = Convert.ToInt64(userInfo[2]),
+                    };
+                }
 
                 return user;
             }
