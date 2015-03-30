@@ -22,6 +22,7 @@ namespace SE.DSP.Pop.Entity
             this.Status = 1;
             this.CalcStatus = true;
             this.SpId = 1;
+            this.UpdateTime = DateTime.Now;
         }
 
         public long Id { get; set; }

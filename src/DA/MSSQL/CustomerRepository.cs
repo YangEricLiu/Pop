@@ -39,7 +39,7 @@ namespace SE.DSP.Pop.MSSQL
         {
             var db = this.GetDatabese(unitOfWork);
 
-            var id = db.Insert("Customer", "HierarchyId", entity);
+            var id = db.Insert("Customer", "HierarchyId", false, entity);
 
             entity.HierarchyId = (long)id;
 
@@ -57,7 +57,7 @@ namespace SE.DSP.Pop.MSSQL
         {
             var db = this.GetDatabese(unitOfWork);
 
-            db.Delete<Customer>(id);
+            db.Delete<Customer>("where HierarchyId = @0", id);
         }
 
         public Customer[] GetByIds(long[] ids)

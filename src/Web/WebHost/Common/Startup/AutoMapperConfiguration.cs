@@ -21,6 +21,7 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
                         StartTime = s.StartTime,
                         CustomerName = s.CustomerName,
                         Logo = Mapper.Map<LogoDto>(s.Logo),
+                        Address = s.Address,
                         Administrators = s.Administrators == null ? null : s.Administrators.Select(a => Mapper.Map<HierarchyAdministratorDto>(a)).ToArray()
                     };
                 });
@@ -36,6 +37,7 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
                         StartTime = s.StartTime,
                         CustomerName = s.CustomerName,
                         Logo = Mapper.Map<LogoModel>(s.Logo),
+                        Address = s.Address,
                         Administrators = s.Administrators == null ? null : s.Administrators.Select(a => Mapper.Map<HierarchyAdministratorModel>(a)).ToArray()
                     };
                 });

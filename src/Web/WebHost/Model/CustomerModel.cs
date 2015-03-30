@@ -13,6 +13,8 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         public string CustomerName { get; set; }
 
+        public string Address { get; set; }
+
         public LogoModel Logo { get; set; }
  
         public HierarchyAdministratorModel[] Administrators { get; set; }

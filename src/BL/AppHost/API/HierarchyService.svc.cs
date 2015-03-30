@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.DataAccess;
@@ -20,11 +21,13 @@ namespace SE.DSP.Pop.BL.AppHost.API
     {
         private readonly IHierarchyRepository hierarchyRepository;
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
+        private readonly IHierarchyAdministratorRepository hierarchyAdministratorRepository;
 
         public HierarchyService()
         {
             this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
             this.unitOfWorkProvider = IocHelper.Container.Resolve<IUnitOfWorkProvider>();
+            this.hierarchyAdministratorRepository = IocHelper.Container.Resolve<IHierarchyAdministratorRepository>();
         }
 
         public HierarchyDto GetHierarchyTree(long rootId)
@@ -100,45 +103,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                if (!isRecursive)
-                {
-                    var children = this.hierarchyRepository.GetByParentId(hierarchyId);
-
-                    if (children != null && children.Length > 0)
-                    {
-                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
-                    }
-
-                    this.hierarchyRepository.Delete(unitOfWork, hierarchyId);
-                }
-                else
-                {
-                    Func<HierarchyDto, IEnumerable<long>> collector = null;
-                    collector = (tree) =>
-                    {
-                        List<long> ids = new List<long>();
-
-                        ids.Add(tree.Id);
-
-                        if (tree.Children != null && tree.Children.Length > 0)
-                        {
-                            foreach (HierarchyDto hierarchy in tree.Children)
-                            {
-                                ids.AddRange(collector(hierarchy));
-                            }
-                        }
-
-                        return ids;
-                    };
-
-                    var root = this.GetHierarchyTree(hierarchyId);
-                    var list = collector(root);
-
-                    foreach (var id in list)
-                    {
-                        this.hierarchyRepository.Delete(unitOfWork, id);
-                    }
-                }
+                this.DeleteHierarchy(unitOfWork, hierarchyId, isRecursive);
 
                 unitOfWork.Commit();
             }
@@ -151,19 +116,115 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.hierarchyRepository.Update(entity);
         }
 
+        public OrganizationDto CreateOrganization(OrganizationDto organization)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = new Hierarchy(organization.Name);
+
+                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+
+                organization.HierarchyId = hierarchyEntity.Id;
+
+                var hirarchyAdminEntities = organization.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+                organization.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                unitOfWork.Commit();
+
+                return organization;
+            }
+        }
+
+        public OrganizationDto UpdateOrganization(OrganizationDto organization)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = this.hierarchyRepository.GetById(organization.HierarchyId.Value);
+
+                hierarchyEntity.Name = organization.Name;
+
+                this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
+
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                var hirarchyAdminEntities = organization.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+                organization.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                unitOfWork.Commit();
+
+                return organization;
+            }
+        }
+
+        public void DeleteOrganization(long hierarchyId)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
+                this.DeleteHierarchy(unitOfWork, hierarchyId, true);
+
+                unitOfWork.Commit();
+            }
+        }
+
+        private void DeleteHierarchy(IUnitOfWork unitOfWork, long hierarchyId, bool isRecursive)
+        {
+            if (!isRecursive)
+            {
+                var children = this.hierarchyRepository.GetByParentId(hierarchyId);
+
+                if (children != null && children.Length > 0)
+                {
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                }
+
+                this.hierarchyRepository.Delete(unitOfWork, hierarchyId);
+            }
+            else
+            {
+                Func<HierarchyDto, IEnumerable<long>> collector = null;
+                collector = (tree) =>
+                {
+                    List<long> ids = new List<long>();
+
+                    ids.Add(tree.Id);
+
+                    if (tree.Children != null && tree.Children.Length > 0)
+                    {
+                        foreach (HierarchyDto hierarchy in tree.Children)
+                        {
+                            ids.AddRange(collector(hierarchy));
+                        }
+                    }
+
+                    return ids;
+                };
+
+                var root = this.GetHierarchyTree(hierarchyId);
+                var list = collector(root);
+
+                foreach (var id in list)
+                {
+                    this.hierarchyRepository.Delete(unitOfWork, id);
+                }
+            }
+        }
+
         #region validation
         private bool IsHierarchyCodeDuplicate(HierarchyDto hierarchy)
         {
-            if (hierarchy.Id != 0)  
+            if (hierarchy.Id != 0)
             {
-                if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByCodeUnderParentCustomer(hierarchy.Id, hierarchy.Code, hierarchy.CustomerId) > 0) 
+                if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByCodeUnderParentCustomer(hierarchy.Id, hierarchy.Code, hierarchy.CustomerId) > 0)
                 {
                     return true;
                 }
             }
             else
             {
-                if (this.hierarchyRepository.RetrieveChildHierarchyCountByCodeUnderParentCustomer(hierarchy.Code, hierarchy.CustomerId) > 0) 
+                if (this.hierarchyRepository.RetrieveChildHierarchyCountByCodeUnderParentCustomer(hierarchy.Code, hierarchy.CustomerId) > 0)
                 {
                     return true;
                 }
@@ -174,18 +235,18 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private bool IsHierarchyNameDuplicate(HierarchyDto hierarchy)
         {
-            if (hierarchy.ParentId.HasValue) 
+            if (hierarchy.ParentId.HasValue)
             {
-                if (hierarchy.Id != 0) 
+                if (hierarchy.Id != 0)
                 {
-                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentHierarchy(hierarchy.Id, hierarchy.Name, hierarchy.ParentId.Value) > 0) 
+                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentHierarchy(hierarchy.Id, hierarchy.Name, hierarchy.ParentId.Value) > 0)
                     {
                         return true;
                     }
                 }
-                else 
+                else
                 {
-                    if (this.hierarchyRepository.RetrieveChildHierarchyCountByNameUnderParentHierarchy(hierarchy.Name, hierarchy.ParentId.Value) > 0) 
+                    if (this.hierarchyRepository.RetrieveChildHierarchyCountByNameUnderParentHierarchy(hierarchy.Name, hierarchy.ParentId.Value) > 0)
                     {
                         return true;
                     }
@@ -193,11 +254,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 return false;
             }
-            else 
+            else
             {
-                if (hierarchy.Id != 0)  
+                if (hierarchy.Id != 0)
                 {
-                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentCustomer(hierarchy.Id, hierarchy.Name, hierarchy.CustomerId) > 0) 
+                    if (this.hierarchyRepository.RetrieveSiblingHierarchyCountByNameUnderParentCustomer(hierarchy.Id, hierarchy.Name, hierarchy.CustomerId) > 0)
                     {
                         return true;
                     }
@@ -216,11 +277,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private bool IsOrganizationNestingOverLimitation(HierarchyDto organization)
         {
-            if (organization.ParentId.HasValue) 
+            if (organization.ParentId.HasValue)
             {
                 return this.hierarchyRepository.RetrieveAncestorAndSelfOrganizationCount(organization.ParentId.Value) + 1 > 5;
             }
-            else 
+            else
             {
                 return false;
             }
@@ -228,7 +289,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private bool DoesHierarchyHaveParent(HierarchyDto hierarchy)
         {
-            if (hierarchy.ParentId.HasValue) 
+            if (hierarchy.ParentId.HasValue)
             {
                 Hierarchy parentHierarchy = this.hierarchyRepository.GetById(hierarchy.ParentId.Value);
 
@@ -242,7 +303,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                     return true;
                 }
             }
-            else 
+            else
             {
                 return this.hierarchyRepository.GetById(hierarchy.CustomerId) != null;
             }

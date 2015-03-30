@@ -12,10 +12,14 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public Customer(long hierarchyId, DateTime startTime)
+        public Customer(long hierarchyId, string address, DateTime startTime)
         {
             this.HierarchyId = hierarchyId;
+            this.Address = address;
             this.StartTime = startTime;
+            this.Manager = "SchneiderElectric";
+            this.Telephone = "13888888888";
+            this.Email = "test@schneider-electric.com";
             this.SpId = 1;
         }
 

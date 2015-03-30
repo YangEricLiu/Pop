@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="SE.DSP.Pop.BL.AppHost.API.UserService" CodeBehind="CustomerService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SE.DSP.Pop.BL.AppHost.API.CustomerService" CodeBehind="CustomerService.svc.cs" %>

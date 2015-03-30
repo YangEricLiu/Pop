@@ -82,7 +82,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             {
                 hierarchy = this.hierarchyRepository.Add(unitOfWork, hierarchy);
 
-                var customerEntity = new Customer(hierarchy.Id, customer.StartTime);
+                var customerEntity = new Customer(hierarchy.Id, customer.Address, customer.StartTime);
 
                 customerEntity = this.customerRepository.Add(unitOfWork, customerEntity);
 
