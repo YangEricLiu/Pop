@@ -34,6 +34,11 @@ namespace SE.DSP.Pop.Web.WebHost.Common
         {
             get
             {
+                if (HttpContext.Current == null || HttpContext.Current.User == null || HttpContext.Current.User.Identity == null || string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
+                {
+                    return null;
+                }
+
                 var cookie = HttpContext.Current.User.Identity.Name;
                 var userInfo = cookie.Split('|');
                 var user = new User()
