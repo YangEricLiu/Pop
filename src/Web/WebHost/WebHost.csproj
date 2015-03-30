@@ -117,6 +117,7 @@
     <Compile Include="Model\ErrorModel.cs" />
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
     <Compile Include="Model\LogoModel.cs" />
+    <Compile Include="Model\SaveUserCustomerModel.cs" />
     <Compile Include="Model\UserCustomerModel.cs" />
     <Compile Include="Model\UserPreviligedCustomerModel.cs" />
     <Compile Include="Model\LoginModel.cs" />

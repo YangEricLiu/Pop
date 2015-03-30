@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Security;
+using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.Web.WebHost.Model;
@@ -59,8 +56,12 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         [Route("api/user/create")]
         public UserModel Create([FromBody]UserModel user)
         {
-            var userDto = this.userService.CreateUser(AutoMapper.Mapper.Map<UserDto>(user));
+            user.SpId = ServiceContext.CurrentUser.SPId;
+            user.UserType = 400001;
+            user.UserTypeName = "SP管理员";
 
+            var userDto = this.userService.CreateUser(AutoMapper.Mapper.Map<UserDto>(user));
+           
             return AutoMapper.Mapper.Map<UserModel>(userDto);
         }
 
@@ -69,7 +70,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         public UserModel Update([FromBody]UserModel user)
         {
             var userDto = this.userService.UpdateUser(AutoMapper.Mapper.Map<UserDto>(user));
-
+ 
             return AutoMapper.Mapper.Map<UserModel>(userDto);
         }
 
@@ -90,10 +91,10 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpPost]
-        [Route("api/usercustomer/save")]
-        public UserCustomerModel[] SaveUserCustomer([FromBody]long userId, [FromBody]UserCustomerModel[] userCustomers)
+        [Route("api/user/{userId}/usercustomer/save")]
+        public UserCustomerModel[] SaveUserCustomer([FromBody]SaveUserCustomerModel saveUserCustomer)
         {
-            var result = this.userService.SaveUserCustomer(userId, userCustomers.Select(u => AutoMapper.Mapper.Map<UserCustomerDto>(u)).ToArray());
+            var result = this.userService.SaveUserCustomer(saveUserCustomer.UserId, saveUserCustomer.UserCustomers.Select(u => AutoMapper.Mapper.Map<UserCustomerDto>(u)).ToArray());
 
             return result.Select(u => AutoMapper.Mapper.Map<UserCustomerModel>(u)).ToArray();
         }
