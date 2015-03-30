@@ -30,8 +30,8 @@ namespace SE.DSP.Pop.Web.WebHost.Model
         public long IndustryId { get; set; }
         public long ZoneId { get; set; }
 
-        ////public long Version { get; set; }
+        public long Version { get; set; }
 
-        ////public string Path { get; set; }
+        public string Path { get; set; }
     }
 }
