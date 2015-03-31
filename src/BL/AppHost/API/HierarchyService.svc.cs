@@ -10,6 +10,7 @@ using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
+using SE.DSP.Pop.BL.API.ErrorCode;
 using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
@@ -83,24 +84,24 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 if (hierarchy.Type != HierarchyType.Customer && !this.DoesHierarchyHaveParent(hierarchy))
                 {
-                    throw new ConcurrentException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new ConcurrentException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasNoParent);
                 }
 
                 if (this.IsHierarchyCodeDuplicate(hierarchy))
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyCodeDuplicate);
                 }
 
                 if (this.IsHierarchyNameDuplicate(hierarchy))
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyNameDuplicate);
                 }
 
                 if (hierarchy.Type == HierarchyType.Organization)
                 {
                     if (this.IsOrganizationNestingOverLimitation(hierarchy))
                     {
-                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.OrganizationNestingOverLimitation);
                     }
                 }
 
@@ -443,7 +444,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 if (children != null && children.Length > 0)
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasChildren);
                 }
 
                 this.hierarchyRepository.Delete(unitOfWork, hierarchyId);
