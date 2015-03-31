@@ -23,6 +23,18 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                 {
                     return new BuildingLocation(s.BuildingId, s.Latitude, s.Longtitude, s.Province, ServiceContext.CurrentUser.Name);
                 });
+            AutoMapper.Mapper.CreateMap<LogoDto, Logo>().ConvertUsing(s =>
+                {
+                    return new Logo(s.HierarchyId.Value);
+                });
+            AutoMapper.Mapper.CreateMap<Logo, LogoDto>().ConvertUsing(s =>
+            {
+                return new LogoDto
+                {
+                    Id = s.Id,
+                    HierarchyId = s.HierarchyId
+                };
+            });
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
     }

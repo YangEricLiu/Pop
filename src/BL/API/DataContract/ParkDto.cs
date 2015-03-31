@@ -18,6 +18,9 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public decimal BuildingArea { get; set; }
 
         [DataMember]
+        public LogoDto Logo { get; set; }
+
+        [DataMember]
         public BuildingLocationDto Location { get; set; }
 
         [DataMember]

@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.DataAccess;
+using SE.DSP.Foundation.DataAccess.Entity;
 using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
@@ -24,6 +25,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IHierarchyAdministratorRepository hierarchyAdministratorRepository;
         private readonly IGatewayRepository gatewayRepository;
         private readonly IBuildingLocationRepository buildingLocationRepository;
+        private readonly ILogoRepository logoRepository;
+        private readonly IOssRepository ossRepository;
 
         public HierarchyService()
         {
@@ -32,6 +35,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.hierarchyAdministratorRepository = IocHelper.Container.Resolve<IHierarchyAdministratorRepository>();
             this.gatewayRepository = IocHelper.Container.Resolve<IGatewayRepository>();
             this.buildingLocationRepository = IocHelper.Container.Resolve<IBuildingLocationRepository>();
+            this.logoRepository = IocHelper.Container.Resolve<ILogoRepository>();
+            this.ossRepository = IocHelper.Container.Resolve<IOssRepository>();
         }
 
         public HierarchyDto GetHierarchyTree(long rootId)
@@ -206,6 +211,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
             var location = this.buildingLocationRepository.GetById(hierarchyId);
+            var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
 
             return new ParkDto
             {
@@ -213,7 +219,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 Name = hierarchy.Name,
                 Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
                 Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray(),
-                Location  = Mapper.Map<BuildingLocationDto>(location)
+                Location  = Mapper.Map<BuildingLocationDto>(location),
+                Logo = logos.Length > 0 ? Mapper.Map<LogoDto>(logos[0]) : null
             };
         }
 
@@ -245,6 +252,15 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 var location = Mapper.Map<BuildingLocation>(park.Location);
 
                 this.buildingLocationRepository.Add(unitOfWork, location);
+
+                if (park.Logo != null)
+                {
+                    park.Logo.HierarchyId = hierarchyEntity.Id;
+
+                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(park.Logo));
+
+                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), park.Logo.Logo));
+                }
 
                 unitOfWork.Commit();
 
@@ -278,6 +294,17 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.buildingLocationRepository.Update(unitOfWork, location);
 
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                if (park.Logo != null)
+                {
+                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(park.Logo));
+ 
+                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), park.Logo.Logo));
+
+                    park.Logo.Id = logoEntity.Id;
+                }
+
                 unitOfWork.Commit();
 
                 return park;
@@ -291,6 +318,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
                 this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
                 this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
