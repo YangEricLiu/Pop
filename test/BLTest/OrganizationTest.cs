@@ -134,9 +134,7 @@ namespace SE.DSP.Pop.Test.BLTest
             Assert.Equal(result.Administrators[1].HierarchyId, hierarchy.Id);
             Assert.Equal(result.Gateways[0].HierarchyId, hierarchy.Id);
             Assert.Equal(result.Gateways[1].HierarchyId, hierarchy.Id);
-
         }
-
     }
 }
  
