@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Customer.cs" />
     <Compile Include="Enumeration\HieraychyType.cs" />
+    <Compile Include="Gateway.cs" />
     <Compile Include="HierarchyAdministrator.cs" />
     <Compile Include="Hierarchy.cs" />
     <Compile Include="Logo.cs" />
