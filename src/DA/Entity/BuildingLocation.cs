@@ -12,6 +12,16 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
+        public BuildingLocation(long id, decimal? latitude, decimal? longtitude, string province, string updateUser)
+        {
+            this.BuildingId = id;
+            this.Latitude = latitude;
+            this.Longtitude = longtitude;
+            this.UpdateTime = DateTime.Now;
+            this.UpdateUser = updateUser;
+            this.Province = province;
+        }
+
         public long BuildingId { get; set; }
 
         public decimal? Latitude { get; set; }

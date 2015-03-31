@@ -22,12 +22,16 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IHierarchyRepository hierarchyRepository;
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
         private readonly IHierarchyAdministratorRepository hierarchyAdministratorRepository;
+        private readonly IGatewayRepository gatewayRepository;
+        private readonly IBuildingLocationRepository buildingLocationRepository;
 
         public HierarchyService()
         {
             this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
             this.unitOfWorkProvider = IocHelper.Container.Resolve<IUnitOfWorkProvider>();
             this.hierarchyAdministratorRepository = IocHelper.Container.Resolve<IHierarchyAdministratorRepository>();
+            this.gatewayRepository = IocHelper.Container.Resolve<IGatewayRepository>();
+            this.buildingLocationRepository = IocHelper.Container.Resolve<IBuildingLocationRepository>();
         }
 
         public HierarchyDto GetHierarchyTree(long rootId)
@@ -130,6 +134,10 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 organization.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
 
+                var gatewayentities = organization.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
+
+                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+
                 unitOfWork.Commit();
 
                 return organization;
@@ -152,6 +160,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 organization.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
 
+                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                var gatewayentities = organization.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
+
+                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+
                 unitOfWork.Commit();
 
                 return organization;
@@ -163,6 +177,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
+                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
+
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
                 unitOfWork.Commit();
@@ -173,55 +189,112 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
+            var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
 
             return new OrganizationDto
             {
                 HierarchyId = hierarchy.Id,
                 Name = hierarchy.Name,
-                Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray()
+                Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
+                Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray()
             };
         }
 
-        private void DeleteHierarchy(IUnitOfWork unitOfWork, long hierarchyId, bool isRecursive)
+        public ParkDto GetParkById(long hierarchyId)
         {
-            if (!isRecursive)
-            {
-                var children = this.hierarchyRepository.GetByParentId(hierarchyId);
+            var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
+            var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
+            var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
+            var location = this.buildingLocationRepository.GetById(hierarchyId);
 
-                if (children != null && children.Length > 0)
+            return new ParkDto
+            {
+                HierarchyId = hierarchy.Id,
+                Name = hierarchy.Name,
+                Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
+                Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray(),
+                Location  = Mapper.Map<BuildingLocationDto>(location)
+            };
+        }
+
+        public ParkDto CreatePark(ParkDto park)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = new Hierarchy(park.Name);
+
+                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+
+                park.HierarchyId = hierarchyEntity.Id;
+
+                park.Location.BuildingId = hierarchyEntity.Id;
+
+                var hirarchyAdminEntities = park.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+                park.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                foreach (var gw in park.Gateways)
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    gw.HierarchyId = hierarchyEntity.Id;
                 }
 
-                this.hierarchyRepository.Delete(unitOfWork, hierarchyId);
+                var gatewayentities = park.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
+
+                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+
+                var location = Mapper.Map<BuildingLocation>(park.Location);
+
+                this.buildingLocationRepository.Add(unitOfWork, location);
+
+                unitOfWork.Commit();
+
+                return park;
             }
-            else
+        }
+
+        public ParkDto UpdatePark(ParkDto park)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                Func<HierarchyDto, IEnumerable<long>> collector = null;
-                collector = (tree) =>
-                {
-                    List<long> ids = new List<long>();
+                var hierarchyEntity = this.hierarchyRepository.GetById(park.HierarchyId.Value);
 
-                    ids.Add(tree.Id);
+                hierarchyEntity.Name = park.Name;
 
-                    if (tree.Children != null && tree.Children.Length > 0)
-                    {
-                        foreach (HierarchyDto hierarchy in tree.Children)
-                        {
-                            ids.AddRange(collector(hierarchy));
-                        }
-                    }
+                this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
 
-                    return ids;
-                };
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
 
-                var root = this.GetHierarchyTree(hierarchyId);
-                var list = collector(root);
+                var hirarchyAdminEntities = park.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
 
-                foreach (var id in list)
-                {
-                    this.hierarchyRepository.Delete(unitOfWork, id);
-                }
+                park.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                var gatewayentities = park.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
+
+                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+
+                var location = Mapper.Map<BuildingLocation>(park.Location);
+
+                this.buildingLocationRepository.Update(unitOfWork, location);
+
+                unitOfWork.Commit();
+
+                return park;
+            }
+        }
+
+        public void DeletePark(long hierarchyId)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
+                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
+                this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);
+
+                this.DeleteHierarchy(unitOfWork, hierarchyId, true);
+
+                unitOfWork.Commit();
             }
         }
 
@@ -322,5 +395,48 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
         #endregion
+
+        private void DeleteHierarchy(IUnitOfWork unitOfWork, long hierarchyId, bool isRecursive)
+        {
+            if (!isRecursive)
+            {
+                var children = this.hierarchyRepository.GetByParentId(hierarchyId);
+
+                if (children != null && children.Length > 0)
+                {
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                }
+
+                this.hierarchyRepository.Delete(unitOfWork, hierarchyId);
+            }
+            else
+            {
+                Func<HierarchyDto, IEnumerable<long>> collector = null;
+                collector = (tree) =>
+                {
+                    List<long> ids = new List<long>();
+
+                    ids.Add(tree.Id);
+
+                    if (tree.Children != null && tree.Children.Length > 0)
+                    {
+                        foreach (HierarchyDto hierarchy in tree.Children)
+                        {
+                            ids.AddRange(collector(hierarchy));
+                        }
+                    }
+
+                    return ids;
+                };
+
+                var root = this.GetHierarchyTree(hierarchyId);
+                var list = collector(root);
+
+                foreach (var id in list)
+                {
+                    this.hierarchyRepository.Delete(unitOfWork, id);
+                }
+            }
+        }
     }
 }

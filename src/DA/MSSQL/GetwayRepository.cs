@@ -66,5 +66,19 @@ namespace SE.DSP.Pop.MSSQL
 
             return result.ToArray();
         }
+
+        public void DeleteGatewayByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId)
+        {
+            var db = this.GetDatabese(unitOfWork);
+
+            db.Update<Gateway>("set hierarchyId = null where hierarchyId = @0", hierarchyId);
+        }
+
+        public Gateway[] GetByHierarchyId(long hierarchyId)
+        {
+            var result = this.Db.Query<Gateway>("where HierarchyId = @0", hierarchyId);
+
+            return result.ToArray();
+        }
     }
 }

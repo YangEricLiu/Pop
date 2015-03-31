@@ -11,5 +11,9 @@ namespace SE.DSP.Pop.Contract
     public interface IGatewayRepository : IRepository<Gateway, long>
     {
         Gateway[] GetByCustomerId(long customerId);
+
+        Gateway[] GetByHierarchyId(long hierarchyId);
+
+        void DeleteGatewayByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
     }
 }

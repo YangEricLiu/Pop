@@ -30,5 +30,17 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         void DeleteOrganization(long hierarchyId);
+
+        [OperationContract]
+        ParkDto GetParkById(long hierarchyId);
+
+        [OperationContract]
+        ParkDto CreatePark(ParkDto park);
+
+        [OperationContract]
+        ParkDto UpdatePark(ParkDto park);
+
+        [OperationContract]
+        void DeletePark(long hierarchyId);
     }
 }

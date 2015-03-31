@@ -12,10 +12,17 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
+        public Park(long hierarchyId, decimal floorSpace, decimal buildingArea)
+        {
+            this.HierarchyId = hierarchyId;
+            this.FloorSpace = floorSpace;
+            this.BuildingArea = buildingArea;
+        }
+
         public long HierarchyId { get; set; }
 
         public decimal FloorSpace { get; set; }
 
-        public decimal BuildArea { get; set; }
+        public decimal BuildingArea { get; set; }
     }
 }

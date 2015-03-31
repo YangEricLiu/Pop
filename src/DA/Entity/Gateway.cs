@@ -8,6 +8,10 @@ namespace SE.DSP.Pop.Entity
 {
     public class Gateway
     {
+        public Gateway()
+        {
+        }
+
         public long Id { get; set; }
 
         public string Name { get; set; }
