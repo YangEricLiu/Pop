@@ -81,6 +81,7 @@
   <ItemGroup>
     <Content Include="API\HierarchyService.svc" />
     <Content Include="API\CustomerService.svc" />
+    <Content Include="API\PopClientService.svc" />
     <Content Include="API\UserService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -91,6 +92,9 @@
     </Compile>
     <Compile Include="API\CustomerService.svc.cs">
       <DependentUpon>CustomerService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="API\PopClientService.svc.cs">
+      <DependentUpon>PopClientService.svc</DependentUpon>
     </Compile>
     <Compile Include="Common\ClientBehaviors\CustomHeaderBebaviorElement.cs" />
     <Compile Include="Common\ClientBehaviors\CustomHeaderClientMessageInspector.cs" />

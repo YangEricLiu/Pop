@@ -15,6 +15,18 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
             AutoMapper.Mapper.CreateMap<Hierarchy, HierarchyDto>().ForMember(d => d.Children, opt => opt.Ignore());
             AutoMapper.Mapper.CreateMap<HierarchyDto, Hierarchy>();
             AutoMapper.Mapper.CreateMap<HierarchyAdministrator, HierarchyAdministratorDto>();
+            AutoMapper.Mapper.CreateMap<Gateway, GatewayDto>().ConvertUsing(s =>
+                {
+                    return new GatewayDto
+                    {
+                        Id = s.Id,
+                        HierarchyId = s.HierarchyId,
+                        Name = s.Name,
+                        Mac = s.Mac,
+                        RegisterTime = s.RegisterTime
+                    };
+                });
+
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
     }
