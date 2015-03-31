@@ -99,7 +99,10 @@
     <Compile Include="Common\ClientBehaviors\CustomHeaderBebaviorElement.cs" />
     <Compile Include="Common\ClientBehaviors\CustomHeaderClientMessageInspector.cs" />
     <Compile Include="Common\ClientBehaviors\CustomHeaderEndpointBehavior.cs" />
+    <Compile Include="Common\Ioc\IocInstanceProvider.cs" />
+    <Compile Include="Common\Ioc\IocServiceBehavior.cs" />
     <Compile Include="Common\Startup\AutoMapperConfiguration.cs" />
+    <Compile Include="Common\Startup\IocConfiguration.cs" />
     <Compile Include="Common\Startup\PetaPocoConfiguration.cs" />
     <Compile Include="Common\IGlobalConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

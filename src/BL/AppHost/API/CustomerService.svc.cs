@@ -6,12 +6,14 @@ using SE.DSP.Foundation.Infrastructure.BE.Entities;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Web.Wcf;
 using SE.DSP.Pop.BL.API;
+using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
 using DataContract = SE.DSP.Pop.BL.API.DataContract;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
+    [IocServiceBehavior]
     public class CustomerService : ICustomerService
     { 
         private readonly IOssRepository ossRepository;
@@ -22,15 +24,22 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
         private readonly ILogoRepository logoRepository;
 
-        public CustomerService()
+        public CustomerService(
+                          IOssRepository ossRepository,
+                          ICustomerRepository customerRepository,
+                          SE.DSP.Foundation.API.IUserService userService,
+                          IHierarchyRepository hierarchyRepository,
+                          IHierarchyAdministratorRepository hierarchyAdministratorRepository,
+                          IUnitOfWorkProvider unitOfWorkProvider,
+                          ILogoRepository logoRepository)
         {
-            this.ossRepository = IocHelper.Container.Resolve<IOssRepository>();
-            this.customerRepository = IocHelper.Container.Resolve<ICustomerRepository>();
-            this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
-            this.unitOfWorkProvider = IocHelper.Container.Resolve<IUnitOfWorkProvider>();
-            this.hierarchyAdministratorRepository = IocHelper.Container.Resolve<IHierarchyAdministratorRepository>();
-            this.logoRepository = IocHelper.Container.Resolve<ILogoRepository>();
-            this.userService = ServiceProxy<SE.DSP.Foundation.API.IUserService>.GetClient("IUserService.EndPoint");
+            this.ossRepository = ossRepository;
+            this.customerRepository = customerRepository;
+            this.hierarchyRepository = hierarchyRepository;
+            this.unitOfWorkProvider = unitOfWorkProvider;
+            this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
+            this.logoRepository = logoRepository;
+            this.userService = userService;
         }
 
         public DataContract.LogoDto GetLogoById(long id)

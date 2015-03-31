@@ -1,21 +1,19 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Practices.Unity;
-using SE.DSP.Foundation.Infrastructure.BaseClass;
-using SE.DSP.Foundation.Infrastructure.Utils;
+﻿using System.Linq;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
+using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
-    public class PopClientService : ServiceBase, IPopClientService
+    [IocServiceBehavior]
+    public class PopClientService : IPopClientService
     {
         private readonly IGatewayRepository gatewayRepository;
 
-        public PopClientService()
+        public PopClientService(IGatewayRepository gatewayRepository)
         {
-            this.gatewayRepository = IocHelper.Container.Resolve<IGatewayRepository>();
+            this.gatewayRepository = gatewayRepository;
         }
 
         public GatewayDto[] GetGatewayByCustomerId(long customerId)

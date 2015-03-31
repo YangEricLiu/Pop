@@ -7,12 +7,14 @@ using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Web.Wcf;
 using SE.DSP.Pop.BL.API;
+using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
 using DataContract = SE.DSP.Pop.BL.API.DataContract;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
+    [IocServiceBehavior]
     public class UserService : IUserService
     {
         private readonly SE.DSP.Foundation.API.IUserService userServiceProxy;
@@ -23,15 +25,15 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
         private readonly ICustomerRepository customerRepository;
 
-        public UserService()
+        public UserService(SE.DSP.Foundation.API.IUserService userServiceProxy, IHierarchyRepository hierarchyRepository, ILogoRepository logoRepository, IOssRepository ossRepository, IUserCustomerRepository userCustomerRepository, IUnitOfWorkProvider unitOfWorkProvider, ICustomerRepository customerRepository)
         {
-            this.userServiceProxy = ServiceProxy<SE.DSP.Foundation.API.IUserService>.GetClient("IUserService.EndPoint");
-            this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
-            this.logoRepository = IocHelper.Container.Resolve<ILogoRepository>();
-            this.ossRepository = IocHelper.Container.Resolve<IOssRepository>();
-            this.userCustomerRepository = IocHelper.Container.Resolve<IUserCustomerRepository>();
-            this.unitOfWorkProvider = IocHelper.Container.Resolve<IUnitOfWorkProvider>();
-            this.customerRepository = IocHelper.Container.Resolve<ICustomerRepository>();
+            this.userServiceProxy = userServiceProxy;
+            this.hierarchyRepository = hierarchyRepository;
+            this.logoRepository = logoRepository;
+            this.ossRepository = ossRepository;
+            this.userCustomerRepository = userCustomerRepository;
+            this.unitOfWorkProvider = unitOfWorkProvider;
+            this.customerRepository = customerRepository;
         }
 
         public DataContract.UserDto Login(string userName, string password)

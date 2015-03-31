@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.DataAccess.Entity;
-using SE.DSP.Foundation.Infrastructure.BaseClass;
 using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Foundation.Infrastructure.Interception;
-using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
+using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
-    public class HierarchyService : ServiceBase, IHierarchyService
+    [IocServiceBehavior]
+    public class HierarchyService : IHierarchyService
     {
         private readonly IHierarchyRepository hierarchyRepository;
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
@@ -28,15 +27,22 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly ILogoRepository logoRepository;
         private readonly IOssRepository ossRepository;
 
-        public HierarchyService()
+        public HierarchyService(
+                                IHierarchyRepository hierarchyRepository,
+                                IUnitOfWorkProvider unitOfWorkProvider,
+                                IHierarchyAdministratorRepository hierarchyAdministratorRepository,
+                                IGatewayRepository gatewayRepository,
+                                IBuildingLocationRepository buildingLocationRepository,
+                                ILogoRepository logoRepository,
+                                IOssRepository ossRepository)
         {
-            this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
-            this.unitOfWorkProvider = IocHelper.Container.Resolve<IUnitOfWorkProvider>();
-            this.hierarchyAdministratorRepository = IocHelper.Container.Resolve<IHierarchyAdministratorRepository>();
-            this.gatewayRepository = IocHelper.Container.Resolve<IGatewayRepository>();
-            this.buildingLocationRepository = IocHelper.Container.Resolve<IBuildingLocationRepository>();
-            this.logoRepository = IocHelper.Container.Resolve<ILogoRepository>();
-            this.ossRepository = IocHelper.Container.Resolve<IOssRepository>();
+            this.hierarchyRepository = hierarchyRepository;
+            this.unitOfWorkProvider = unitOfWorkProvider;
+            this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
+            this.gatewayRepository = gatewayRepository;
+            this.buildingLocationRepository = buildingLocationRepository;
+            this.logoRepository = logoRepository;
+            this.ossRepository = ossRepository;
         }
 
         public HierarchyDto GetHierarchyTree(long rootId)
