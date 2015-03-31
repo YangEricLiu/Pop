@@ -34,7 +34,14 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
             
             return model;
         }
- 
+
+        [HttpPost]
+        [Route("api/user/logout")]
+        public void Logout()
+        {
+            FormsAuthentication.SignOut();
+        }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("api/user/splogin")]
