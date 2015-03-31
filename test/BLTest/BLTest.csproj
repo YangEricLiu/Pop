@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\src\packages\xunit.runner.visualstudio.2.0.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\src\packages\xunit.runner.visualstudio.2.0.0\build\net20\xunit.runner.visualstudio.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -35,7 +36,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="xunit">
+      <HintPath>..\..\lib\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,7 +57,34 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="OrganizationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BL\API\API.csproj">
+      <Project>{0b4bad06-6fd4-4741-95d3-ec02e155a3eb}</Project>
+      <Name>API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\BL\AppHost\AppHost.csproj">
+      <Project>{ad2ca0d7-2d3d-4bd9-a493-a73bf5cf94e5}</Project>
+      <Name>AppHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DA\Contract\Contract.csproj">
+      <Project>{915be01d-d433-4457-9f75-69ecb4e29d98}</Project>
+      <Name>Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DA\Entity\Entity.csproj">
+      <Project>{2acf21d3-01b0-4b18-b42c-0202c62df270}</Project>
+      <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Foundation\SE.DSP.Foundation.ResourceAccess\SE.DSP.Foundation.DataAccess.csproj">
+      <Project>{930d100c-72c5-4743-9a3a-572aae8b8bdb}</Project>
+      <Name>SE.DSP.Foundation.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

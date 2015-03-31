@@ -151,6 +151,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 unitOfWork.Commit();
 
+                foreach (var gateway in organization.Gateways)
+                {
+                    gateway.HierarchyId = hierarchyEntity.Id;
+                }
+
                 return organization;
             }
         }
