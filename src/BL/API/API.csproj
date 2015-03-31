@@ -43,11 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContract\BuildingLocationDto.cs" />
     <Compile Include="DataContract\CustomerListItemDto.cs" />
     <Compile Include="DataContract\GatewayDto.cs" />
     <Compile Include="DataContract\HierarchyAdministratorDto.cs" />
     <Compile Include="DataContract\HierarchyDto.cs" />
     <Compile Include="DataContract\CustomerDto.cs" />
+    <Compile Include="DataContract\ParkDto.cs" />
     <Compile Include="DataContract\OrganizationDto.cs" />
     <Compile Include="DataContract\UserCustomerDto.cs" />
     <Compile Include="DataContract\UserPreviligedCustomerDto.cs" />

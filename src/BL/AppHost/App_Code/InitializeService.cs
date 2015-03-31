@@ -14,7 +14,8 @@ namespace SE.DSP.Pop.BL.AppHost.App_Code
             IEnumerable<IGlobalConfiguration> configurations = new IGlobalConfiguration[]
                 {
                     new AutoMapperConfiguration(), 
-                    new PetaPocoConfiguration()
+                    new PetaPocoConfiguration(),
+                    new IocConfiguration()
                 };
 
             foreach (var configuration in configurations)

@@ -69,6 +69,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.3", "0.3", "{78FBBD1F-4E3
 		Script\DB\0.3\01CreateHierarchyAdministrator.sql = Script\DB\0.3\01CreateHierarchyAdministrator.sql
 		Script\DB\0.3\02CreateSinglePrimaryKeyForUserCustomer.sql = Script\DB\0.3\02CreateSinglePrimaryKeyForUserCustomer.sql
 		Script\DB\0.3\03CreateGateway.sql = Script\DB\0.3\03CreateGateway.sql
+		Script\DB\0.3\03CreatePark.sql = Script\DB\0.3\03CreatePark.sql
 	EndProjectSection
 EndProject
 Global

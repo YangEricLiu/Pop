@@ -16,15 +16,15 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string Mac { get; set; }
 
         [DataMember]
-        public DateTime RegisterTime { get; set; }
-
-        [DataMember]
-        public long? HierarchyId { get; set; }
-
-        [DataMember]
         public string UniqueId { get; set; }
 
         [DataMember]
         public long CustomerId { get; set; }
+
+        [DataMember]
+        public DateTime RegisterTime { get; set; }
+
+        [DataMember]
+        public long? HierarchyId { get; set; }
     }
 }

@@ -12,6 +12,10 @@ namespace SE.DSP.Pop.Contract
     {
         Gateway[] GetByCustomerId(long customerId);
 
+        Gateway[] GetByHierarchyId(long hierarchyId);
+
+        void DeleteGatewayByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
+
         Gateway GetByName(string name);
     }
 }

@@ -8,23 +8,23 @@ using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.BL.API.ErrorCode;
+using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
 using SE.DSP.Pop.Entity.Enumeration;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
-    public class PopClientService : ServiceBase, IPopClientService
+    [IocServiceBehavior]
+    public class PopClientService : IPopClientService
     {
         private readonly IGatewayRepository gatewayRepository;
-        private readonly ICustomerRepository customerRepository;
         private readonly IHierarchyRepository hierarchyRepository;
-        
-        public PopClientService()
+
+        public PopClientService(IGatewayRepository gatewayRepository, IHierarchyRepository hierarchyRepository)
         {
-            this.gatewayRepository = IocHelper.Container.Resolve<IGatewayRepository>();
-            this.customerRepository = IocHelper.Container.Resolve<ICustomerRepository>();
-            this.hierarchyRepository = IocHelper.Container.Resolve<IHierarchyRepository>();
+            this.gatewayRepository = gatewayRepository;
+            this.hierarchyRepository = hierarchyRepository;
         }
 
         public GatewayDto[] GetGatewayByCustomerId(long customerId)
