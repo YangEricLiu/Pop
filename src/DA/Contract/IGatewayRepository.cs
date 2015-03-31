@@ -11,5 +11,7 @@ namespace SE.DSP.Pop.Contract
     public interface IGatewayRepository : IRepository<Gateway, long>
     {
         Gateway[] GetByCustomerId(long customerId);
+
+        Gateway GetByName(string name);
     }
 }

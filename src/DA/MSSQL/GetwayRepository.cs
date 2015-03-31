@@ -66,5 +66,12 @@ namespace SE.DSP.Pop.MSSQL
 
             return result.ToArray();
         }
+
+        public Gateway GetByName(string name) 
+        {
+            var result = this.Db.Query<Gateway>("where Name = @0", name);
+
+            return result.SingleOrDefault();
+        }
     }
 }

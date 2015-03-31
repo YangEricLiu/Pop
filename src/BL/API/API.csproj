@@ -53,6 +53,7 @@
     <Compile Include="DataContract\UserPreviligedCustomerDto.cs" />
     <Compile Include="DataContract\LogoDto.cs" />
     <Compile Include="DataContract\UserDto.cs" />
+    <Compile Include="ErrorCode\BoxError.cs" />
     <Compile Include="ErrorCode\HierarchyError.cs" />
     <Compile Include="IHierarchyService.cs" />
     <Compile Include="ICustomerService.cs" />

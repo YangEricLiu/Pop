@@ -20,5 +20,11 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public long? HierarchyId { get; set; }
+
+        [DataMember]
+        public string UniqueId { get; set; }
+
+        [DataMember]
+        public long CustomerId { get; set; }
     }
 }
