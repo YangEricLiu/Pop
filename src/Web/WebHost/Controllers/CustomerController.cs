@@ -46,6 +46,15 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpGet]
+        [Route("api/customer/{customerId}")]
+        public CustomerModel GetCustomerById(long customerId)
+        {
+            var resut = this.customerService.GetCustomerById(customerId);
+
+            return AutoMapper.Mapper.Map<CustomerModel>(resut);
+        }
+
+        [HttpGet]
         [Route("api/user/{userId}/customers")]
         public CustomerListItemModel[] GetCustomersByUserId(long userId)
         {

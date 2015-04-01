@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using Microsoft.Practices.Unity;
 using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.DataAccess.Entity;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
-using SE.DSP.Foundation.Infrastructure.Utils;
-using SE.DSP.Foundation.Web.Wcf;
 using SE.DSP.Pop.BL.API;
+using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
@@ -195,6 +193,37 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 unitOfWork.Commit();
             }
+        }
+
+        public DataContract.CustomerDto GetCustomerById(long customerId)
+        {
+            var customer = this.customerRepository.GetById(customerId);
+
+            var hierarchy = this.hierarchyRepository.GetById(customerId);
+
+            var hierarchyAdministrators = this.hierarchyAdministratorRepository.GetByHierarchyId(customerId);
+
+            var logo = this.logoRepository.GetLogosByHierarchyIds(new long[] { customerId });
+
+            OssObject logoObject = null;
+
+            if (logo.Length == 1)
+            {
+                logoObject = this.ossRepository.GetById(string.Format("img-logo-{0}", logo[0].Id));
+            }
+
+            return new DataContract.CustomerDto
+            {
+                Address = customer.Address,
+                CustomerName = hierarchy.Name,
+                Email = customer.Email,
+                Manager = customer.Manager,
+                StartTime = customer.StartTime,
+                Telephone = customer.Telephone,
+                HierarchyId = customer.HierarchyId,
+                Logo = logoObject == null ? null : new LogoDto { HierarchyId = customer.HierarchyId, Id = logo[0].Id, Logo = logoObject.Content },
+                Administrators = hierarchyAdministrators.Select(ha => AutoMapper.Mapper.Map<HierarchyAdministratorDto>(ha)).ToArray()
+            };
         }
     }
 }

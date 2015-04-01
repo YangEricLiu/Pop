@@ -13,6 +13,9 @@ namespace SE.DSP.Pop.BL.API
         DataContract.CustomerListItemDto[] GetCustomersByUserId(long userId);
 
         [OperationContract]
+        DataContract.CustomerDto GetCustomerById(long customerId);
+
+        [OperationContract]
         DataContract.CustomerDto CreateCustomer(DataContract.CustomerDto customer);
 
         [OperationContract]
