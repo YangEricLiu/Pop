@@ -42,7 +42,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
             httpResponse.Content.Headers.ContentType  = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
 
-            return httpResponse;             
+            return httpResponse;
         }
 
         [HttpGet]

@@ -99,6 +99,7 @@
     <Compile Include="Common\ClientBehaviors\CustomHeaderBebaviorElement.cs" />
     <Compile Include="Common\ClientBehaviors\CustomHeaderClientMessageInspector.cs" />
     <Compile Include="Common\ClientBehaviors\CustomHeaderEndpointBehavior.cs" />
+    <Compile Include="Common\Exceptions\WebApiException.cs" />
     <Compile Include="Common\Filters\ActionFilter.cs" />
     <Compile Include="Common\Filters\ExceptionHandlingFilter.cs" />
     <Compile Include="Common\IGlobalConfiguration.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Common\Startup\FilterConfig.cs" />
     <Compile Include="Common\Startup\WebApiConfig.cs" />
     <Compile Include="Common\WebContext.cs" />
+    <Compile Include="Controllers\GatewayController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\HierarchyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -116,6 +118,8 @@
     <Compile Include="Model\CustomerListItemModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\ErrorModel.cs" />
+    <Compile Include="Model\GatewayRegisterModel.cs" />
+    <Compile Include="Model\GatewayRegisterResultModel.cs" />
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
     <Compile Include="Model\LogoModel.cs" />
     <Compile Include="Model\OrganizationModel.cs" />

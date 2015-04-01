@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.Web.Http.Filters;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
+using SE.DSP.Pop.Web.WebHost.Common.Exceptions;
 using SE.DSP.Pop.Web.WebHost.Model;
 
 namespace SE.DSP.Pop.Web.WebHost.Common.Filters
@@ -21,6 +22,13 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Filters
                 Error = "-1",
                 Message = new string[] { "Server error" },
             };
+
+            if (exception is ApiException)
+            {
+                var ex = exception as ApiException;
+
+                error.Error = ex.ErrorCode.ToString();
+            }
 
             if (exception is FaultException<REMExceptionDetail>)
             {

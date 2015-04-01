@@ -8,5 +8,11 @@ namespace SE.DSP.Pop.BL.API
     {
         [OperationContract]
         GatewayDto[] GetGatewayByCustomerId(long customerId);
+        
+        [OperationContract]
+        GatewayDto RegisterGateway(GatewayDto gateway);
+
+        [OperationContract]
+        GatewayDto ReplaceGateway(GatewayDto gateway);
     }
 }
