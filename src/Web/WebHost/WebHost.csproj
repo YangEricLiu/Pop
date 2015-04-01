@@ -109,16 +109,20 @@
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\HierarchyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\ParkController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\BuildingLocationModel.cs" />
     <Compile Include="Model\CustomerListItemModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\ErrorModel.cs" />
+    <Compile Include="Model\GatewayModel.cs" />
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
     <Compile Include="Model\LogoModel.cs" />
     <Compile Include="Model\OrganizationModel.cs" />
+    <Compile Include="Model\ParkModel.cs" />
     <Compile Include="Model\SaveUserCustomerModel.cs" />
     <Compile Include="Model\UserCustomerModel.cs" />
     <Compile Include="Model\UserPreviligedCustomerModel.cs" />
