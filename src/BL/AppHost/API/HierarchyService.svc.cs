@@ -27,6 +27,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IBuildingLocationRepository buildingLocationRepository;
         private readonly ILogoRepository logoRepository;
         private readonly IOssRepository ossRepository;
+        private readonly IDeviceRepository deviceRepository;
 
         public HierarchyService(
                                 IHierarchyRepository hierarchyRepository,
@@ -35,7 +36,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                                 IGatewayRepository gatewayRepository,
                                 IBuildingLocationRepository buildingLocationRepository,
                                 ILogoRepository logoRepository,
-                                IOssRepository ossRepository)
+                                IOssRepository ossRepository,
+                                IDeviceRepository deviceRepository)
         {
             this.hierarchyRepository = hierarchyRepository;
             this.unitOfWorkProvider = unitOfWorkProvider;
@@ -44,6 +46,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.buildingLocationRepository = buildingLocationRepository;
             this.logoRepository = logoRepository;
             this.ossRepository = ossRepository;
+            this.deviceRepository = deviceRepository;
         }
 
         public HierarchyDto GetHierarchyTree(long rootId)
@@ -331,6 +334,50 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
                 this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+
+                this.DeleteHierarchy(unitOfWork, hierarchyId, true);
+
+                unitOfWork.Commit();
+            }
+        }
+
+        public DeviceDto GetDeviceById(long hierarchyId)
+        {
+            var device = this.deviceRepository.GetById(hierarchyId);
+
+            return AutoMapper.Mapper.Map<Device, DeviceDto>(device);
+        }
+
+        public DeviceDto CreateDevice(DeviceDto device)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = new Hierarchy(null);
+
+                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+
+                device.HierarchyId = hierarchyEntity.Id;
+
+                this.deviceRepository.Add(unitOfWork, Mapper.Map<Device>(device));
+
+                unitOfWork.Commit();
+
+                return device;
+            }
+        }
+
+        public DeviceDto UpdateDevice(DeviceDto device)
+        {
+            this.deviceRepository.Update(Mapper.Map<DeviceDto, Device>(device));
+
+            return device;
+        }
+
+        public void DeleteDevice(long hierarchyId)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.deviceRepository.Delete(unitOfWork, hierarchyId);                
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 

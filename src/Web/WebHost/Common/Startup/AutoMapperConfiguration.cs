@@ -57,7 +57,12 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
 
             Mapper.CreateMap<UserCustomerDto, UserCustomerModel>();
             Mapper.CreateMap<UserCustomerModel, UserCustomerDto>();
-
+            Mapper.CreateMap<GatewayDto, GatewayModel>();
+            Mapper.CreateMap<GatewayModel, GatewayDto>();
+            Mapper.CreateMap<BuildingLocationModel, BuildingLocationDto>();
+            Mapper.CreateMap<BuildingLocationDto, BuildingLocationModel>();
+            Mapper.CreateMap<ParkModel, ParkDto>();
+            Mapper.CreateMap<ParkDto, ParkModel>();
             Mapper.AssertConfigurationIsValid();
         }
     }

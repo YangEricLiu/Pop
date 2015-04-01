@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DataContract\BuildingLocationDto.cs" />
     <Compile Include="DataContract\CustomerListItemDto.cs" />
+    <Compile Include="DataContract\DeviceDto.cs" />
     <Compile Include="DataContract\GatewayDto.cs" />
     <Compile Include="DataContract\HierarchyAdministratorDto.cs" />
     <Compile Include="DataContract\HierarchyDto.cs" />

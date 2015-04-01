@@ -42,5 +42,17 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         void DeletePark(long hierarchyId);
+
+        [OperationContract]
+        DeviceDto GetDeviceById(long hierarchyId);
+
+        [OperationContract]
+        DeviceDto CreateDevice(DeviceDto park);
+
+        [OperationContract]
+        DeviceDto UpdateDevice(DeviceDto park);
+
+        [OperationContract]
+        void DeleteDevice(long hierarchyId);
     }
 }

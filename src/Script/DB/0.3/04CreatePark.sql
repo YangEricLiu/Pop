@@ -1,4 +1,4 @@
-/****** Object:  Table [dbo].[Gateway]    Script Date: 03/31/2015 10:33:50 ******/
+/****** Object:  Table [dbo].[Park]    Script Date: 03/31/2015 10:33:50 ******/
 SET ANSI_NULLS ON
 GO
 
