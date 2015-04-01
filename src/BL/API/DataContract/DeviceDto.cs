@@ -16,5 +16,8 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public long? GatewayId { get; set; }
+
+        [DataMember]
+        public LogoDto Picture { get; set; }
     }
 }

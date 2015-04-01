@@ -228,6 +228,20 @@ namespace SE.DSP.Pop.BL.AppHost.API
             var location = this.buildingLocationRepository.GetById(hierarchyId);
             var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
 
+            LogoDto logoDto = null;
+
+            if (logos.Length == 1)
+            {
+                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", logos[0].Id));
+
+                logoDto = new LogoDto
+                {
+                    Logo = ossobject.Content,
+                    Id = logos[0].Id,
+                    HierarchyId = hierarchy.Id
+                };
+            }
+
             return new ParkDto
             {
                 HierarchyId = hierarchy.Id,
@@ -235,7 +249,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
                 Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray(),
                 Location = Mapper.Map<BuildingLocationDto>(location),
-                Logo = logos.Length > 0 ? Mapper.Map<LogoDto>(logos[0]) : null
+                Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null
             };
         }
 
@@ -344,8 +358,27 @@ namespace SE.DSP.Pop.BL.AppHost.API
         public DeviceDto GetDeviceById(long hierarchyId)
         {
             var device = this.deviceRepository.GetById(hierarchyId);
+            var pics = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
 
-            return AutoMapper.Mapper.Map<Device, DeviceDto>(device);
+            LogoDto logoDto = null;
+
+            if (pics.Length == 1)
+            {
+                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", pics[0].Id));
+
+                logoDto = new LogoDto
+                {
+                    Logo = ossobject.Content,
+                    Id = pics[0].Id,
+                    HierarchyId = hierarchyId
+                };
+            }
+
+            var result = AutoMapper.Mapper.Map<Device, DeviceDto>(device);
+
+            result.Picture = logoDto;
+
+            return result;
         }
 
         public DeviceDto CreateDevice(DeviceDto device)
@@ -360,6 +393,16 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.deviceRepository.Add(unitOfWork, Mapper.Map<Device>(device));
 
+                if (device.Picture != null)
+                {
+                    var logoEntity = this.logoRepository.Add(unitOfWork, new Logo(device.HierarchyId.Value));
+
+                    device.Picture.Id = logoEntity.Id;
+                    device.Picture.HierarchyId = device.HierarchyId;
+
+                    this.ossRepository.Add(unitOfWork, new OssObject(string.Format("img-pic-{0}", logoEntity.Id), device.Picture.Logo));
+                }
+
                 unitOfWork.Commit();
 
                 return device;
@@ -368,16 +411,33 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DeviceDto UpdateDevice(DeviceDto device)
         {
-            this.deviceRepository.Update(Mapper.Map<DeviceDto, Device>(device));
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.deviceRepository.Update(unitOfWork, Mapper.Map<DeviceDto, Device>(device));
 
-            return device;
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, device.HierarchyId.Value);
+
+                if (device.Picture != null)
+                {
+                    var logoEntity = this.logoRepository.Add(unitOfWork, new Logo(device.HierarchyId.Value));
+
+                    device.Picture.Id = logoEntity.Id;
+                    device.Picture.HierarchyId = device.HierarchyId;
+
+                    this.ossRepository.Add(unitOfWork, new OssObject(string.Format("img-pic-{0}", logoEntity.Id), device.Picture.Logo));
+                }
+
+                return device;
+            }
         }
 
         public void DeleteDevice(long hierarchyId)
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                this.deviceRepository.Delete(unitOfWork, hierarchyId);                
+                this.deviceRepository.Delete(unitOfWork, hierarchyId);
+
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 

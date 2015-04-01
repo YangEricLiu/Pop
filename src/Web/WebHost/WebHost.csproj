@@ -109,6 +109,7 @@
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\HierarchyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\ParkController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -117,6 +118,7 @@
     <Compile Include="Model\BuildingLocationModel.cs" />
     <Compile Include="Model\CustomerListItemModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
+    <Compile Include="Model\DeviceModel.cs" />
     <Compile Include="Model\ErrorModel.cs" />
     <Compile Include="Model\GatewayModel.cs" />
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
