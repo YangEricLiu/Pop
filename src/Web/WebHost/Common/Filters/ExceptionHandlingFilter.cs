@@ -28,6 +28,7 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Filters
                 var ex = exception as ApiException;
 
                 error.Error = ex.ErrorCode.ToString();
+                error.Message = new string[] { };
             }
 
             if (exception is FaultException<REMExceptionDetail>)

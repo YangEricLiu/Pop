@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Web;
 using System.Web.Http;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
@@ -13,6 +14,7 @@ using SE.DSP.Pop.Web.WebHost.Model;
 
 namespace SE.DSP.Pop.Web.WebHost.Controllers
 {
+    [RoutePrefix("api/gateway")]
     public class GatewayController : ApiController
     {
         private readonly IPopClientService clientService;
@@ -23,7 +25,8 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpGet]
-        public GatewayRegisterResultModel Register(GatewayRegisterModel model)
+        [Route("register")]
+        public GatewayRegisterResultModel Register([FromUri]GatewayRegisterModel model)
         {
             var gateway = new GatewayDto()
             {
@@ -41,11 +44,12 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
                     Timestamp = model.Timestamp
                 };
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                if (ex is BusinessLogicException)
+                if (exception is FaultException<REMExceptionDetail>)
                 {
-                    var detailCode = ((BusinessLogicException)ex).Detail.DetailCode;
+                    var ex = exception as FaultException<REMExceptionDetail>;
+                    var detailCode = ex.Detail.DetailCode;
 
                     throw new ApiException() { ErrorCode = detailCode };
                 }
@@ -55,7 +59,8 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpGet]
-        public GatewayRegisterResultModel Replace(GatewayRegisterModel model)
+        [Route("replace")]
+        public GatewayRegisterResultModel Replace([FromUri]GatewayRegisterModel model)
         {
             var gateway = new GatewayDto()
             {

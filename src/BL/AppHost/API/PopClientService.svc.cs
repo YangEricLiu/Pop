@@ -70,6 +70,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             gateway.UniqueId = uniqueId;
             gateway.CustomerId = customer.CustomerId;
+            gateway.RegisterTime = DateTime.Now;
             
             entity = this.gatewayRepository.Add(AutoMapper.Mapper.Map<Gateway>(gateway));
 
@@ -106,6 +107,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
             {
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.GatewayNotExist);
             }
+
+            entity.Mac = gateway.Mac;
+            this.gatewayRepository.Update(entity);
 
             return AutoMapper.Mapper.Map<GatewayDto>(entity);
         }
@@ -160,7 +164,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             if (!string.IsNullOrEmpty(gateway.Mac) && gateway.Mac.Length == 12)
             {
-                return false;
+                return true;
             }
 
             return false;
