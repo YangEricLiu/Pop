@@ -63,6 +63,8 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
             Mapper.CreateMap<BuildingLocationDto, BuildingLocationModel>();
             Mapper.CreateMap<ParkModel, ParkDto>();
             Mapper.CreateMap<ParkDto, ParkModel>();
+            Mapper.CreateMap<DeviceModel, DeviceDto>();
+            Mapper.CreateMap<DeviceDto, DeviceModel>();
             Mapper.AssertConfigurationIsValid();
         }
     }
