@@ -26,6 +26,7 @@ namespace SE.DSP.Pop.Test.BLTest
         protected IBuildingLocationRepository buildingLocationRepositor = Mocks.StrictMock<IBuildingLocationRepository>();
         protected ILogoRepository logoRepository = Mocks.StrictMock<ILogoRepository>();
         protected IOssRepository ossRepository = Mocks.StrictMock<IOssRepository>();
+        protected IDeviceRepository deviceRepository = Mocks.StrictMock<IDeviceRepository>();
 
 
         protected TestsBase()
@@ -74,7 +75,8 @@ namespace SE.DSP.Pop.Test.BLTest
                 this.gatewayRepository, 
                 this.buildingLocationRepositor, 
                 this.logoRepository, 
-                this.ossRepository);
+                this.ossRepository,
+                this.deviceRepository);
         }
     }
 }

@@ -35,6 +35,9 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                     HierarchyId = s.HierarchyId
                 };
             });
+            AutoMapper.Mapper.CreateMap<Device, DeviceDto>();
+            AutoMapper.Mapper.CreateMap<DeviceDto, Device>();
+
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
     }
