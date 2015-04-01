@@ -112,11 +112,15 @@ namespace SE.DSP.Foundation.Infrastructure.Enumerations
 
         VEE = 20,
 
+        DataReport = 21,
+        
         /// <summary>
         /// Add by Kim 2015
         /// </summary>
         ImpExpHierarchy=22,
 
-        DataReport = 21,
+        #region Pop modules
+        Box = 50,
+        #endregion
     }
 }

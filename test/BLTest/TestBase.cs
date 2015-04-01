@@ -68,7 +68,13 @@ namespace SE.DSP.Pop.Test.BLTest
 
         protected IHierarchyService GetHierarchyService()
         {
-            return new HierarchyService(this.hierarchyRepository, this.unitOfWorkProvider, this.hierarchyAdministratorRepository, this.gatewayRepository, this.buildingLocationRepositor, this.logoRepository, this.ossRepository);
+            return new HierarchyService(this.hierarchyRepository, 
+                this.unitOfWorkProvider, 
+                this.hierarchyAdministratorRepository, 
+                this.gatewayRepository, 
+                this.buildingLocationRepositor, 
+                this.logoRepository, 
+                this.ossRepository);
         }
     }
 }

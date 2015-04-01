@@ -10,6 +10,7 @@ using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
+using SE.DSP.Pop.BL.API.ErrorCode;
 using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
@@ -83,24 +84,24 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 if (hierarchy.Type != HierarchyType.Customer && !this.DoesHierarchyHaveParent(hierarchy))
                 {
-                    throw new ConcurrentException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new ConcurrentException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasNoParent);
                 }
 
-                if (this.IsHierarchyCodeDuplicate(hierarchy)) 
+                if (this.IsHierarchyCodeDuplicate(hierarchy))
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyCodeDuplicate);
                 }
 
-                if (this.IsHierarchyNameDuplicate(hierarchy)) 
+                if (this.IsHierarchyNameDuplicate(hierarchy))
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyNameDuplicate);
                 }
 
                 if (hierarchy.Type == HierarchyType.Organization)
                 {
-                    if (this.IsOrganizationNestingOverLimitation(hierarchy)) 
+                    if (this.IsOrganizationNestingOverLimitation(hierarchy))
                     {
-                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.OrganizationNestingOverLimitation);
                     }
                 }
 
@@ -230,7 +231,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 Name = hierarchy.Name,
                 Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
                 Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray(),
-                Location  = Mapper.Map<BuildingLocationDto>(location),
+                Location = Mapper.Map<BuildingLocationDto>(location),
                 Logo = logos.Length > 0 ? Mapper.Map<LogoDto>(logos[0]) : null
             };
         }
@@ -310,7 +311,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 if (park.Logo != null)
                 {
                     var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(park.Logo));
- 
+
                     this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), park.Logo.Logo));
 
                     park.Logo.Id = logoEntity.Id;
@@ -443,7 +444,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 if (children != null && children.Length > 0)
                 {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, Convert.ToInt32(999));
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasChildren);
                 }
 
                 this.hierarchyRepository.Delete(unitOfWork, hierarchyId);
