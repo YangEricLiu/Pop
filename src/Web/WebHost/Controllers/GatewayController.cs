@@ -26,7 +26,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
 
         [HttpGet]
         [Route("register")]
-        public GatewayRegisterResultModel Register([FromUri]GatewayRegisterModel model)
+        public GatewayRegisterModel Register([FromUri]GatewayRegisterModel model)
         {
             var gateway = new GatewayDto()
             {
@@ -38,29 +38,21 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
             {
                 gateway = this.clientService.RegisterGateway(gateway);
 
-                return new GatewayRegisterResultModel()
-                {
-                    BoxId = gateway.UniqueId,
-                    Timestamp = model.Timestamp
-                };
+                model.BoxId = gateway.UniqueId;
+
+                return model;
             }
-            catch (Exception exception)
+            catch (FaultException<REMExceptionDetail> ex)
             {
-                if (exception is FaultException<REMExceptionDetail>)
-                {
-                    var ex = exception as FaultException<REMExceptionDetail>;
-                    var detailCode = ex.Detail.DetailCode;
+                var detailCode = ex.Detail.DetailCode;
 
-                    throw new ApiException() { ErrorCode = detailCode };
-                }
-
-                throw;
+                throw new ApiException() { ErrorCode = detailCode };
             }
         }
 
         [HttpGet]
         [Route("replace")]
-        public GatewayRegisterResultModel Replace([FromUri]GatewayRegisterModel model)
+        public GatewayRegisterModel Replace([FromUri]GatewayRegisterModel model)
         {
             var gateway = new GatewayDto()
             {
@@ -72,22 +64,15 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
             {
                 gateway = this.clientService.ReplaceGateway(gateway);
 
-                return new GatewayRegisterResultModel()
-                {
-                    BoxId = gateway.UniqueId,
-                    Timestamp = model.Timestamp
-                };
+                model.BoxId = gateway.UniqueId;
+
+                return model;
             }
-            catch (Exception ex)
+            catch (FaultException<REMExceptionDetail> ex)
             {
-                if (ex is BusinessLogicException)
-                {
-                    var detailCode = ((BusinessLogicException)ex).Detail.DetailCode;
+                var detailCode = ex.Detail.DetailCode;
 
-                    throw new ApiException() { ErrorCode = detailCode };
-                }
-
-                throw;
+                throw new ApiException() { ErrorCode = detailCode };
             }
         }
     }

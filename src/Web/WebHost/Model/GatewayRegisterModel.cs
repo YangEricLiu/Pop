@@ -12,5 +12,7 @@ namespace SE.DSP.Pop.Web.WebHost.Model
         public string BoxName { get; set; }
 
         public string BoxMac { get; set; }
+
+        public string BoxId { get; set; }
     }
 }

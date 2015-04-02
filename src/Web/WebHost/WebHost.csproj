@@ -123,7 +123,6 @@
     <Compile Include="Model\DeviceModel.cs" />
     <Compile Include="Model\ErrorModel.cs" />
     <Compile Include="Model\GatewayRegisterModel.cs" />
-    <Compile Include="Model\GatewayRegisterResultModel.cs" />
     <Compile Include="Model\GatewayModel.cs" />
     <Compile Include="Model\HierarchyAdministratorModel.cs" />
     <Compile Include="Model\LogoModel.cs" />
