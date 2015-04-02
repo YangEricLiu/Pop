@@ -491,7 +491,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(building.Name);
+                var hierarchyEntity = new Hierarchy(building.Name, building.IndustryId);
 
                 hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
 
@@ -533,6 +533,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 var hierarchyEntity = this.hierarchyRepository.GetById(building.HierarchyId.Value);
 
                 hierarchyEntity.Name = building.Name;
+                hierarchyEntity.IndustryId = building.IndustryId;
 
                 this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
 

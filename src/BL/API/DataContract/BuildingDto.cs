@@ -13,6 +13,9 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string Name { get; set; }
 
         [DataMember]
+        public long IndustryId { get; set; }
+
+        [DataMember]
         public decimal BuildingArea { get; set; }
 
         [DataMember]
