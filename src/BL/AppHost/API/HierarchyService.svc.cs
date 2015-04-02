@@ -145,6 +145,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 organization.HierarchyId = hierarchyEntity.Id;
 
+                foreach (var gateway in organization.Gateways)
+                {
+                    gateway.HierarchyId = hierarchyEntity.Id;
+                }
+
                 var hirarchyAdminEntities = organization.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
 
                 organization.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
@@ -154,11 +159,6 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
 
                 unitOfWork.Commit();
-
-                foreach (var gateway in organization.Gateways)
-                {
-                    gateway.HierarchyId = hierarchyEntity.Id;
-                }
 
                 return organization;
             }
@@ -173,6 +173,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 hierarchyEntity.Name = organization.Name;
 
                 this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
+
+                foreach (var gateway in organization.Gateways)
+                {
+                    gateway.HierarchyId = hierarchyEntity.Id;
+                }
 
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
 

@@ -65,6 +65,8 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
             Mapper.CreateMap<ParkDto, ParkModel>();
             Mapper.CreateMap<DeviceModel, DeviceDto>();
             Mapper.CreateMap<DeviceDto, DeviceModel>();
+            Mapper.CreateMap<OrganizationDto, OrganizationModel>();
+            Mapper.CreateMap<OrganizationModel, OrganizationDto>();
             Mapper.AssertConfigurationIsValid();
         }
     }
