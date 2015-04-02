@@ -83,7 +83,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DataContract.CustomerDto CreateCustomer(DataContract.CustomerDto customer)
         {
-            var hierarchy = new Hierarchy(customer.CustomerName);
+            var hierarchy = new Hierarchy(customer.CustomerName, customer.Code);
 
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
@@ -124,6 +124,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 var hierarchy = this.hierarchyRepository.GetById(customer.HierarchyId.Value);
 
                 hierarchy.Name = customer.CustomerName;
+                hierarchy.Code = customer.Code;
 
                 this.hierarchyRepository.Update(unitOfWork, hierarchy);
 
@@ -216,6 +217,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             {
                 Address = customer.Address,
                 CustomerName = hierarchy.Name,
+                Code = hierarchy.Code,
                 Email = customer.Email,
                 Manager = customer.Manager,
                 StartTime = customer.StartTime,

@@ -7,7 +7,9 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 {
     public class CustomerModel
     {
-        public long? HierarchyId { get; set; } 
+        public long? HierarchyId { get; set; }
+
+        public string Code { get; set; }
  
         public DateTime StartTime { get; set; }
 
