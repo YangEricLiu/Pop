@@ -9,6 +9,7 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
         {
             Mappers.Register(typeof(Hierarchy), new Pop.MSSQL.Mapper.PopMapper());
             Mappers.Register(typeof(UserCustomer), new Pop.MSSQL.Mapper.PopMapper());
+            Mappers.Register(typeof(BuildingLocation), new Pop.MSSQL.Mapper.PopMapper());
         }
     }
 }

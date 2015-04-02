@@ -21,7 +21,7 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
             AutoMapper.Mapper.CreateMap<BuildingLocation, BuildingLocationDto>().ForSourceMember(s => s.UpdateTime, opt => opt.Ignore()).ForSourceMember(s => s.UpdateUser, opt => opt.Ignore()).ForSourceMember(s => s.Version, opt => opt.Ignore());
             AutoMapper.Mapper.CreateMap<BuildingLocationDto, BuildingLocation>().ConvertUsing(s =>
                 {
-                    return new BuildingLocation(s.BuildingId, s.Latitude, s.Longtitude, s.Province, ServiceContext.CurrentUser.Name);
+                    return new BuildingLocation(s.BuildingId, s.Latitude, s.Longitude, s.Province, ServiceContext.CurrentUser.Name);
                 });
             AutoMapper.Mapper.CreateMap<LogoDto, Logo>().ConvertUsing(s =>
                 {

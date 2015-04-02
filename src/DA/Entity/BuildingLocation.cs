@@ -12,11 +12,11 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public BuildingLocation(long id, decimal? latitude, decimal? longtitude, string province, string updateUser)
+        public BuildingLocation(long id, decimal? latitude, decimal? longitude, string province, string updateUser)
         {
             this.BuildingId = id;
             this.Latitude = latitude;
-            this.Longtitude = longtitude;
+            this.Longitude = longitude;
             this.UpdateTime = DateTime.Now;
             this.UpdateUser = updateUser;
             this.Province = province;
@@ -26,7 +26,7 @@ namespace SE.DSP.Pop.Entity
 
         public decimal? Latitude { get; set; }
 
-        public decimal? Longtitude { get; set; }
+        public decimal? Longitude { get; set; }
 
         public string UpdateUser { get; set; }
 

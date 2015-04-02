@@ -7,11 +7,11 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 {
     public class BuildingLocationModel
     {
-        public long BuildingId { get; set; }
+        public long? BuildingId { get; set; }
 
         public decimal? Latitude { get; set; }
 
-        public decimal? Longtitude { get; set; }
+        public decimal? Longitude { get; set; }
 
         public string Province { get; set; }
     }
