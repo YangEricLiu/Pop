@@ -28,6 +28,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly ILogoRepository logoRepository;
         private readonly IOssRepository ossRepository;
         private readonly IDeviceRepository deviceRepository;
+        private readonly IBuildingRepository buildingRepository;
 
         public HierarchyService(
                                 IHierarchyRepository hierarchyRepository,
@@ -37,7 +38,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                                 IBuildingLocationRepository buildingLocationRepository,
                                 ILogoRepository logoRepository,
                                 IOssRepository ossRepository,
-                                IDeviceRepository deviceRepository)
+                                IDeviceRepository deviceRepository,
+                                IBuildingRepository buildingRepository)
         {
             this.hierarchyRepository = hierarchyRepository;
             this.unitOfWorkProvider = unitOfWorkProvider;
@@ -47,6 +49,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.logoRepository = logoRepository;
             this.ossRepository = ossRepository;
             this.deviceRepository = deviceRepository;
+            this.buildingRepository = buildingRepository;
         }
 
         public HierarchyDto GetHierarchyTree(long rootId)
@@ -443,6 +446,133 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.deviceRepository.Delete(unitOfWork, hierarchyId);
 
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+
+                this.DeleteHierarchy(unitOfWork, hierarchyId, true);
+
+                unitOfWork.Commit();
+            }
+        }
+
+        public BuildingDto GetBuildingById(long hierarchyId)
+        {
+            var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
+            var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
+            var location = this.buildingLocationRepository.GetById(hierarchyId);
+            var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
+            var building = this.buildingRepository.GetById(hierarchyId);
+
+            LogoDto logoDto = null;
+
+            if (logos.Length == 1)
+            {
+                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", logos[0].Id));
+
+                logoDto = new LogoDto
+                {
+                    Logo = ossobject.Content,
+                    Id = logos[0].Id,
+                    HierarchyId = hierarchy.Id
+                };
+            }
+
+            return new BuildingDto
+            {
+                HierarchyId = hierarchy.Id,
+                Name = hierarchy.Name,
+                BuildingArea = building.BuildingArea,
+                FinishingDate = building.FinishingDate,
+                Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
+                Location = Mapper.Map<BuildingLocationDto>(location),
+                Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null
+            };
+        }
+
+        public BuildingDto CreateBuilding(BuildingDto building)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = new Hierarchy(building.Name);
+
+                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+
+                var buildingEntity = new Building(hierarchyEntity.Id, building.BuildingArea, building.FinishingDate);
+
+                buildingEntity = this.buildingRepository.Add(unitOfWork, buildingEntity);
+
+                building.HierarchyId = hierarchyEntity.Id;
+
+                building.Location.BuildingId = hierarchyEntity.Id;
+
+                var hirarchyAdminEntities = building.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+                building.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                var location = Mapper.Map<BuildingLocation>(building.Location);
+
+                this.buildingLocationRepository.Add(unitOfWork, location);
+
+                if (building.Logo != null)
+                {
+                    building.Logo.HierarchyId = hierarchyEntity.Id;
+
+                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(building.Logo));
+
+                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), building.Logo.Logo));
+                }
+
+                unitOfWork.Commit();
+
+                return building;
+            }
+        }
+
+        public BuildingDto UpdateBuilding(BuildingDto building)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = this.hierarchyRepository.GetById(building.HierarchyId.Value);
+
+                hierarchyEntity.Name = building.Name;
+
+                this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
+
+                this.buildingRepository.Update(unitOfWork, new Building(building.HierarchyId.Value, building.BuildingArea, building.FinishingDate));
+
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                var hirarchyAdminEntities = building.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+                building.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                var location = Mapper.Map<BuildingLocation>(building.Location);
+
+                this.buildingLocationRepository.Update(unitOfWork, location);
+
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                if (building.Logo != null)
+                {
+                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(building.Logo));
+
+                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), building.Logo.Logo));
+
+                    building.Logo.Id = logoEntity.Id;
+                }
+
+                unitOfWork.Commit();
+
+                return building;
+            }
+        }
+
+        public void DeleteBuilding(long hierarchyId)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId); 
+                this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+                this.buildingRepository.Delete(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
