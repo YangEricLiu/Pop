@@ -138,7 +138,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             throw new NotImplementedException();
         }
 
-        public SingleLineDiagramDto AddSingleLineDiagram(SingleLineDiagramDto dto)
+        public SingleLineDiagramDto CreateSingleLineDiagram(SingleLineDiagramDto dto)
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {

@@ -114,6 +114,7 @@
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\ParkController.cs" />
+    <Compile Include="Controllers\SingleLineDiagramController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -132,6 +133,7 @@
     <Compile Include="Model\BuildingModel.cs" />
     <Compile Include="Model\ParkModel.cs" />
     <Compile Include="Model\SaveUserCustomerModel.cs" />
+    <Compile Include="Model\SingleLineDiagramModel.cs" />
     <Compile Include="Model\UserCustomerModel.cs" />
     <Compile Include="Model\UserPreviligedCustomerModel.cs" />
     <Compile Include="Model\LoginModel.cs" />

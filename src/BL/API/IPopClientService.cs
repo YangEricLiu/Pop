@@ -22,7 +22,7 @@ namespace SE.DSP.Pop.BL.API
         SingleLineDiagramDto UpdateSingleLineDiagram(SingleLineDiagramDto dto);
 
         [OperationContract]
-        SingleLineDiagramDto AddSingleLineDiagram(SingleLineDiagramDto dto);
+        SingleLineDiagramDto CreateSingleLineDiagram(SingleLineDiagramDto dto);
 
         [OperationContract]
         SingleLineDiagramDto[] GetSingleLineDiagramByHierarchyId(long hierarchyId);
