@@ -59,6 +59,10 @@
     <Compile Include="DataContract\UserDto.cs" />
     <Compile Include="ErrorCode\BoxError.cs" />
     <Compile Include="ErrorCode\HierarchyError.cs" />
+    <Compile Include="IDeviceService.cs" />
+    <Compile Include="IBuildingService.cs" />
+    <Compile Include="IParkService.cs" />
+    <Compile Include="IOrganizationService.cs" />
     <Compile Include="IHierarchyService.cs" />
     <Compile Include="ICustomerService.cs" />
     <Compile Include="IPopClientService.cs" />

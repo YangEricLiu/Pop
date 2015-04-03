@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\InitializeService.cs" />
+    <Compile Include="API\BaseHierarchyService.cs" />
     <Compile Include="API\HierarchyService.svc.cs">
       <DependentUpon>HierarchyService.svc</DependentUpon>
     </Compile>

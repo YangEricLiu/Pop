@@ -13,14 +13,12 @@ using DataContract = SE.DSP.Pop.BL.API.DataContract;
 namespace SE.DSP.Pop.BL.AppHost.API
 {
     [IocServiceBehavior]
-    public class CustomerService : ICustomerService
+    public class CustomerService : BaseHierarchyService, ICustomerService
     { 
         private readonly IOssRepository ossRepository;
         private readonly ICustomerRepository customerRepository;
-        private readonly SE.DSP.Foundation.API.IUserService userService;
-        private readonly IHierarchyRepository hierarchyRepository;
-        private readonly IHierarchyAdministratorRepository hierarchyAdministratorRepository;
-        private readonly IUnitOfWorkProvider unitOfWorkProvider;
+        private readonly SE.DSP.Foundation.API.IUserService userService; 
+        private readonly IHierarchyAdministratorRepository hierarchyAdministratorRepository; 
         private readonly ILogoRepository logoRepository;
 
         public CustomerService(
@@ -30,12 +28,10 @@ namespace SE.DSP.Pop.BL.AppHost.API
                           IHierarchyRepository hierarchyRepository,
                           IHierarchyAdministratorRepository hierarchyAdministratorRepository,
                           IUnitOfWorkProvider unitOfWorkProvider,
-                          ILogoRepository logoRepository)
+                          ILogoRepository logoRepository) : base(hierarchyRepository, unitOfWorkProvider)
         {
             this.ossRepository = ossRepository;
-            this.customerRepository = customerRepository;
-            this.hierarchyRepository = hierarchyRepository;
-            this.unitOfWorkProvider = unitOfWorkProvider;
+            this.customerRepository = customerRepository;          
             this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
             this.logoRepository = logoRepository;
             this.userService = userService;
@@ -70,7 +66,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             var customerIds = userCustomerResult.Select(uc => uc.CustomerId).ToArray();
 
-            var hierarchyMap = this.hierarchyRepository.GetByIds(customerIds).ToDictionary(hr => hr.Id);
+            var hierarchyMap = this.HierarchyRepository.GetByIds(customerIds).ToDictionary(hr => hr.Id);
 
             var customers = this.customerRepository.GetByIds(customerIds);
 
@@ -84,11 +80,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DataContract.CustomerDto CreateCustomer(DataContract.CustomerDto customer)
         {
-            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
                 var hierarchy = new Hierarchy(customer.CustomerName, customer.Code, HierarchyType.Customer);
 
-                hierarchy = this.hierarchyRepository.Add(unitOfWork, hierarchy);
+                this.CreateHierarchy(unitOfWork, hierarchy);
 
                 var customerEntity = new Customer(hierarchy.Id, customer.Address, customer.StartTime);
 
@@ -120,14 +116,14 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DataContract.CustomerDto UpdateCustomer(DataContract.CustomerDto customer)
         {
-            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchy = this.hierarchyRepository.GetById(customer.HierarchyId.Value);
+                var hierarchy = this.HierarchyRepository.GetById(customer.HierarchyId.Value);
 
                 hierarchy.Name = customer.CustomerName;
                 hierarchy.Code = customer.Code;
 
-                this.hierarchyRepository.Update(unitOfWork, hierarchy);
+                this.UpdateHierarchy(unitOfWork, hierarchy);
 
                 var customerEntity = this.customerRepository.GetById(customer.HierarchyId.Value);
 
@@ -167,7 +163,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             var hierarchyAdmins = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
 
-            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
                 if (hierarchyAdmins != null && hierarchyAdmins.Length > 0)
                 {
@@ -186,12 +182,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public void DeleteCustomer(long customerid)
         {
-            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, customerid);
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, customerid);
                 this.customerRepository.Delete(unitOfWork, customerid);
-                this.hierarchyRepository.Delete(unitOfWork, customerid);
+                this.DeleteHierarchy(unitOfWork, customerid, true);
 
                 unitOfWork.Commit();
             }
@@ -201,7 +197,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var customer = this.customerRepository.GetById(customerId);
 
-            var hierarchy = this.hierarchyRepository.GetById(customerId);
+            var hierarchy = this.HierarchyRepository.GetById(customerId);
 
             var hierarchyAdministrators = this.hierarchyAdministratorRepository.GetByHierarchyId(customerId);
 

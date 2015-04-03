@@ -51,7 +51,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         public HierarchyDto GetHierarchyTree(long rootId)
         {
             var user = ServiceContext.CurrentUser;
-            var entity = this.HierarchyRepository.GetById(rootId);
+            var entity = this.hierarchyRepository.GetById(rootId);
 
             if (entity == null)
             {
@@ -60,7 +60,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             var hierarchy = Mapper.Map<HierarchyDto>(entity);
 
-            var children = this.HierarchyRepository.GetByParentId(rootId);
+            var children = this.hierarchyRepository.GetByParentId(rootId);
             if (children != null && children.Length > 0)
             {
                 List<HierarchyDto> list = new List<HierarchyDto>();
@@ -79,7 +79,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
 
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 entity = this.CreateHierarchy(unitOfWork, entity);
 
@@ -93,7 +93,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public void DeleteHierarchy(long hierarchyId, bool isRecursive)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 this.DeleteHierarchy(unitOfWork, hierarchyId, isRecursive);
 
@@ -108,7 +108,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public OrganizationDto CreateOrganization(OrganizationDto organization)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 var hierarchyEntity = new Hierarchy(organization.Name, organization.Code, organization.ParentHierarchyId, Entity.Enumeration.HierarchyType.Organization);
 
@@ -137,9 +137,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public OrganizationDto UpdateOrganization(OrganizationDto organization)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = this.HierarchyRepository.GetById(organization.HierarchyId.Value);
+                var hierarchyEntity = this.hierarchyRepository.GetById(organization.HierarchyId.Value);
 
                 hierarchyEntity.Name = organization.Name;
                 hierarchyEntity.Code = organization.Code;
@@ -172,7 +172,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public void DeleteOrganization(long hierarchyId)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
                 this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
@@ -185,7 +185,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public OrganizationDto GetOrganizationById(long hierarchyId)
         {
-            var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
+            var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
 
@@ -202,7 +202,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public ParkDto GetParkById(long hierarchyId)
         {
-            var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
+            var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
             var location = this.buildingLocationRepository.GetById(hierarchyId);
@@ -237,7 +237,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public ParkDto CreatePark(ParkDto park)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 var hierarchyEntity = new Hierarchy(park.Name, park.Code, park.ParentHierarchyId, Entity.Enumeration.HierarchyType.Site);
 
@@ -281,9 +281,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public ParkDto UpdatePark(ParkDto park)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = this.HierarchyRepository.GetById(park.HierarchyId.Value);
+                var hierarchyEntity = this.hierarchyRepository.GetById(park.HierarchyId.Value);
 
                 hierarchyEntity.Name = park.Name;
                 hierarchyEntity.Code = park.Code;
@@ -326,7 +326,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public void DeletePark(long hierarchyId)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
                 this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
@@ -341,7 +341,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DeviceDto GetDeviceById(long hierarchyId)
         {
-            var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
+            var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
             var device = this.deviceRepository.GetById(hierarchyId);
             var pics = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
 
@@ -371,7 +371,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DeviceDto CreateDevice(DeviceDto device)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 var hierarchyEntity = new Hierarchy(device.Name, device.Code, device.ParentHierarchyId, Entity.Enumeration.HierarchyType.Device);
 
@@ -399,9 +399,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DeviceDto UpdateDevice(DeviceDto device)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = this.HierarchyRepository.GetById(device.HierarchyId.Value);
+                var hierarchyEntity = this.hierarchyRepository.GetById(device.HierarchyId.Value);
 
                 this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
@@ -425,7 +425,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public void DeleteDevice(long hierarchyId)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 this.deviceRepository.Delete(unitOfWork, hierarchyId);
 
@@ -439,7 +439,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public BuildingDto GetBuildingById(long hierarchyId)
         {
-            var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
+            var hierarchy = this.hierarchyRepository.GetById(hierarchyId);
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var location = this.buildingLocationRepository.GetById(hierarchyId);
             var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
@@ -475,7 +475,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public BuildingDto CreateBuilding(BuildingDto building)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 var hierarchyEntity = new Hierarchy(building.Name, building.Code, building.IndustryId, building.ParentHierarchyId, Entity.Enumeration.HierarchyType.Building);
 
@@ -514,9 +514,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public BuildingDto UpdateBuilding(BuildingDto building)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = this.HierarchyRepository.GetById(building.HierarchyId.Value);
+                var hierarchyEntity = this.hierarchyRepository.GetById(building.HierarchyId.Value);
 
                 hierarchyEntity.Name = building.Name;
                 hierarchyEntity.Code = building.Code;
@@ -556,7 +556,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public void DeleteBuilding(long hierarchyId)
         {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId); 
                 this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);

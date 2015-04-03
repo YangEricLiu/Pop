@@ -5,7 +5,7 @@ using SE.DSP.Pop.BL.API.DataContract;
 namespace SE.DSP.Pop.BL.API
 {
     [ServiceContract]
-    public interface IHierarchyService
+    public interface IHierarchyService : IOrganizationService, IParkService, IBuildingService, IDeviceService
     {
         [OperationContract]
         HierarchyDto GetHierarchyTree(long rootId);
@@ -18,53 +18,5 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         void UpdateHierarchy(HierarchyDto hierarchy);
-
-        [OperationContract]
-        OrganizationDto GetOrganizationById(long hierarchyId);
-
-        [OperationContract]
-        OrganizationDto CreateOrganization(OrganizationDto organization);
-
-        [OperationContract]
-        OrganizationDto UpdateOrganization(OrganizationDto organization);
-
-        [OperationContract]
-        void DeleteOrganization(long hierarchyId);
-
-        [OperationContract]
-        ParkDto GetParkById(long hierarchyId);
-
-        [OperationContract]
-        ParkDto CreatePark(ParkDto park);
-
-        [OperationContract]
-        ParkDto UpdatePark(ParkDto park);
-
-        [OperationContract]
-        void DeletePark(long hierarchyId);
-
-        [OperationContract]
-        DeviceDto GetDeviceById(long hierarchyId);
-
-        [OperationContract]
-        DeviceDto CreateDevice(DeviceDto park);
-
-        [OperationContract]
-        DeviceDto UpdateDevice(DeviceDto park);
-
-        [OperationContract]
-        void DeleteDevice(long hierarchyId);
-
-        [OperationContract]
-        BuildingDto GetBuildingById(long hierarchyId);
-
-        [OperationContract]
-        BuildingDto CreateBuilding(BuildingDto park);
-
-        [OperationContract]
-        BuildingDto UpdateBuilding(BuildingDto park);
-
-        [OperationContract]
-        void DeleteBuilding(long hierarchyId);
     }
 }
