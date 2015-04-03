@@ -35,8 +35,20 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                     HierarchyId = s.HierarchyId
                 };
             });
-            AutoMapper.Mapper.CreateMap<Device, DeviceDto>().ForMember(d => d.Picture, opt => opt.Ignore());
-            AutoMapper.Mapper.CreateMap<DeviceDto, Device>();
+            AutoMapper.Mapper.CreateMap<Device, DeviceDto>().ConvertUsing(s =>
+                {
+                    return new DeviceDto
+                    {
+                        Description = s.Description,
+                        Factory = s.Factory,
+                        GatewayId = s.GatewayId
+                    };
+                });
+                  
+            AutoMapper.Mapper.CreateMap<DeviceDto, Device>().ConvertUsing(s =>
+                {
+                    return new Device(s.HierarchyId.Value, s.GatewayId, s.Factory, s.Description);
+                });
 
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
