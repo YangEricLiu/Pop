@@ -3,16 +3,8 @@ using System.Runtime.Serialization;
 
 namespace SE.DSP.Pop.Web.WebHost.Model
 {
-    public class BuildingModel
-    {
-        public long? HierarchyId { get; set; }
-
-        public long ParentHierarchyId { get; set; }
-
-        public string Name { get; set; }
-
-        public string Code { get; set; }
-
+    public class BuildingModel : BaseHierarchyModel
+    { 
         public decimal BuildingArea { get; set; }
 
         public long IndustryId { get; set; }

@@ -47,7 +47,7 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                   
             AutoMapper.Mapper.CreateMap<DeviceDto, Device>().ConvertUsing(s =>
                 {
-                    return new Device(s.HierarchyId.Value, s.GatewayId, s.Factory, s.Description);
+                    return new Device(s.Id.Value, s.GatewayId, s.Factory, s.Description);
                 });
 
             AutoMapper.Mapper.AssertConfigurationIsValid();

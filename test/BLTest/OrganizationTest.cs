@@ -129,7 +129,7 @@ namespace SE.DSP.Pop.Test.BLTest
 
             var result = hierarchyService.CreateOrganization(dto);
 
-            Assert.Equal(result.HierarchyId, hierarchy.Id);
+            Assert.Equal(result.Id, hierarchy.Id);
             Assert.Equal(result.Administrators[0].HierarchyId, hierarchy.Id);
             Assert.Equal(result.Administrators[1].HierarchyId, hierarchy.Id);
             Assert.Equal(result.Gateways[0].HierarchyId, hierarchy.Id);

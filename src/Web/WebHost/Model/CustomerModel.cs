@@ -5,16 +5,10 @@ using System.Web;
 
 namespace SE.DSP.Pop.Web.WebHost.Model
 {
-    public class CustomerModel
+    public class CustomerModel : BaseHierarchyModel
     {
-        public long? HierarchyId { get; set; }
-
-        public string Code { get; set; }
- 
         public DateTime StartTime { get; set; }
-
-        public string CustomerName { get; set; }
-
+ 
         public string Address { get; set; }
 
         public LogoModel Logo { get; set; }

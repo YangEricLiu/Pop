@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContract\BaseHierarchyDto.cs" />
     <Compile Include="DataContract\BuildingLocationDto.cs" />
     <Compile Include="DataContract\CustomerListItemDto.cs" />
     <Compile Include="DataContract\DeviceDto.cs" />

@@ -259,7 +259,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 {
                     List<long> ids = new List<long>();
 
-                    ids.Add(tree.Id);
+                    ids.Add(tree.Id.Value);
 
                     if (tree.Children != null && tree.Children.Length > 0)
                     {

@@ -17,9 +17,9 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
                 {
                     return new CustomerDto
                     {
-                        HierarchyId = s.HierarchyId,
+                        Id = s.Id,
                         StartTime = s.StartTime,
-                        CustomerName = s.CustomerName,
+                        Name = s.Name,
                         Logo = Mapper.Map<LogoDto>(s.Logo),
                         Address = s.Address,
                         Administrators = s.Administrators == null ? null : s.Administrators.Select(a => Mapper.Map<HierarchyAdministratorDto>(a)).ToArray()
@@ -33,9 +33,9 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
                 {
                     return new CustomerModel
                     {
-                        HierarchyId = s.HierarchyId,
+                        Id = s.Id,
                         StartTime = s.StartTime,
-                        CustomerName = s.CustomerName,
+                        Name = s.Name,
                         Logo = Mapper.Map<LogoModel>(s.Logo),
                         Address = s.Address,
                         Administrators = s.Administrators == null ? null : s.Administrators.Select(a => Mapper.Map<HierarchyAdministratorModel>(a)).ToArray()
