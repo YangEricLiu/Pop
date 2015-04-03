@@ -80,6 +80,13 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                 };
             });
 
+            AutoMapper.Mapper.CreateMap<SingleLineDiagram, SingleLineDiagramDto>().ForMember(d => d.Content, opt => opt.Ignore());
+
+            AutoMapper.Mapper.CreateMap<SingleLineDiagramDto, SingleLineDiagram>().ConvertUsing(s =>
+                {
+                    return new SingleLineDiagram(s.HierarchyId, s.Key, s.Order, s.CreateUser);
+                });
+
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
     }

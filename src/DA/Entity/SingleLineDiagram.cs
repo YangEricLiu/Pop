@@ -8,6 +8,19 @@ namespace SE.DSP.Pop.Entity
 {
     public class SingleLineDiagram
     {
+        public SingleLineDiagram()
+        {
+        }
+
+        public SingleLineDiagram(long hierarchyId, string key, int order, string createUser)
+        {
+            this.HierarchyId = hierarchyId;
+            this.Key = key;
+            this.Order = order;
+            this.CreateTime = DateTime.Now;
+            this.CreateUser = createUser;
+        }
+
         public long Id { get; set; }
 
         public long HierarchyId { get; set; }
