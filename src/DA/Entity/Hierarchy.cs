@@ -25,6 +25,16 @@ namespace SE.DSP.Pop.Entity
             this.UpdateTime = DateTime.Now;
         }
 
+        public Hierarchy(string name, string code) : this(name)
+        {
+            this.Code = code;
+        }
+
+        public Hierarchy(string name, long industryId) : this(name)
+        {
+            this.IndustryId = industryId;
+        }
+
         public long Id { get; set; }
 
         public HierarchyType Type { get; set; }

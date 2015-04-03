@@ -12,7 +12,7 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public decimal? Latitude { get; set; }
 
         [DataMember]
-        public decimal? Longtitude { get; set; }
+        public decimal? Longitude { get; set; }
 
         [DataMember]
         public string Province { get; set; }

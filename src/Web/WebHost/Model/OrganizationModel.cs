@@ -9,6 +9,7 @@ namespace SE.DSP.Pop.Web.WebHost.Model
     { 
         public long? HierarchyId { get; set; }
         public string Name { get; set; }
+        public GatewayModel[] Gateways { get; set; }
         public HierarchyAdministratorModel[] Administrators { get; set; }
     }
 }
