@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{59761FCD-ED65-41BE-934A-B2AD92029EA5}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{127F159E-67F2-4972-9CDE-984C9F05B310}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SE.DSP.Pop.Communication.ServiceHost</RootNamespace>
-    <AssemblyName>SE.DSP.Pop.Communication.ServiceHost</AssemblyName>
+    <RootNamespace>SE.DSP.Pop.Communication.ServiceHost.API</RootNamespace>
+    <AssemblyName>SE.DSP.Pop.Communication.ServiceHost.API</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,49 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="M2Mqtt">
-      <HintPath>..\..\..\lib\M2Mqtt.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Tools\Uninstall.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Tools\Install.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Compile Include="Business\HierarchyMessageHandler.cs" />
-    <Compile Include="MainService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MainService.Designer.cs">
-      <DependentUpon>MainService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="ICommunicationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CommunicationService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ServiceHost.API\ServiceHost.API.csproj">
-      <Project>{127f159e-67f2-4972-9cde-984c9f05b310}</Project>
-      <Name>ServiceHost.API</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

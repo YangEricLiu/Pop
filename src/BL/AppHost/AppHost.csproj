@@ -129,6 +129,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Communication\ServiceHost.API\ServiceHost.API.csproj">
+      <Project>{127f159e-67f2-4972-9cde-984c9f05b310}</Project>
+      <Name>ServiceHost.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DA\Contract\Contract.csproj">
       <Project>{915be01d-d433-4457-9f75-69ecb4e29d98}</Project>
       <Name>Contract</Name>

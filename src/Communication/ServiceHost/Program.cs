@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using SE.DSP.Pop.Communication.ServiceHost;
 
 namespace ServiceHost
 {
@@ -17,7 +18,7 @@ namespace ServiceHost
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new MqttService() 
+                new MainService() 
             };
             ServiceBase.Run(ServicesToRun);
         }

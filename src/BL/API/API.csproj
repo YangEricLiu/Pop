@@ -65,6 +65,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Communication\ServiceHost.API\ServiceHost.API.csproj">
+      <Project>{127f159e-67f2-4972-9cde-984c9f05b310}</Project>
+      <Name>ServiceHost.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Foundation\Foundation.API\SE.DSP.Foundation.API.csproj">
       <Project>{d56ea6b0-0888-4a18-a913-191116282c26}</Project>
       <Name>SE.DSP.Foundation.API</Name>
