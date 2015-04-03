@@ -1,6 +1,6 @@
-﻿namespace ServiceHost
+﻿namespace SE.DSP.Pop.Communication.ServiceHost
 {
-    partial class MqttService
+    partial class MainService
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            this.ServiceName = "PopCommunicationService";
         }
 
         #endregion

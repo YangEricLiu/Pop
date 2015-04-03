@@ -1,0 +1,2 @@
+﻿sc stop PopCommunicationService
+sc delete PopCommunicationService

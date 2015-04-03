@@ -78,6 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHost", "Communication\ServiceHost\ServiceHost.csproj", "{59761FCD-ED65-41BE-934A-B2AD92029EA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHost.API", "Communication\ServiceHost.API\ServiceHost.API.csproj", "{127F159E-67F2-4972-9CDE-984C9F05B310}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +154,10 @@ Global
 		{59761FCD-ED65-41BE-934A-B2AD92029EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59761FCD-ED65-41BE-934A-B2AD92029EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59761FCD-ED65-41BE-934A-B2AD92029EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{127F159E-67F2-4972-9CDE-984C9F05B310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127F159E-67F2-4972-9CDE-984C9F05B310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127F159E-67F2-4972-9CDE-984C9F05B310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127F159E-67F2-4972-9CDE-984C9F05B310}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +183,6 @@ Global
 		{C7A78F49-0E1E-4A02-B1B8-D55BD9BC3C09} = {0A74D88E-1ED7-4686-B439-01E54DFB8CBB}
 		{78FBBD1F-4E32-4184-B8D9-088E6DAF1526} = {C7A78F49-0E1E-4A02-B1B8-D55BD9BC3C09}
 		{59761FCD-ED65-41BE-934A-B2AD92029EA5} = {DBEA8300-550D-45FD-A593-83D496D06824}
+		{127F159E-67F2-4972-9CDE-984C9F05B310} = {DBEA8300-550D-45FD-A593-83D496D06824}
 	EndGlobalSection
 EndGlobal
