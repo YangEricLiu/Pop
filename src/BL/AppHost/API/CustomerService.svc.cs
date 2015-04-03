@@ -7,6 +7,7 @@ using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
+using SE.DSP.Pop.Entity.Enumeration;
 using DataContract = SE.DSP.Pop.BL.API.DataContract;
 
 namespace SE.DSP.Pop.BL.AppHost.API
@@ -83,10 +84,10 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         public DataContract.CustomerDto CreateCustomer(DataContract.CustomerDto customer)
         {
-            var hierarchy = new Hierarchy(customer.CustomerName, customer.Code);
-
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
+                var hierarchy = new Hierarchy(customer.CustomerName, customer.Code, HierarchyType.Customer);
+
                 hierarchy = this.hierarchyRepository.Add(unitOfWork, hierarchy);
 
                 var customerEntity = new Customer(hierarchy.Id, customer.Address, customer.StartTime);

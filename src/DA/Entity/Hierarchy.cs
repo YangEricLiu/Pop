@@ -13,9 +13,9 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public Hierarchy(string name, string code)
+        public Hierarchy(string name, string code, HierarchyType hierarchyType)
         {
-            this.Type = HierarchyType.Customer;
+            this.Type = hierarchyType;
             this.Code = code;
             this.Name = name;
             this.TimezoneId = 1;
@@ -26,12 +26,13 @@ namespace SE.DSP.Pop.Entity
             this.UpdateTime = DateTime.Now;
         }
 
-        public Hierarchy(string name, string code, long parentId) : this(name, code)
+        public Hierarchy(string name, string code, long parentId, HierarchyType hierarchyType) : this(name, code, hierarchyType)
         {
             this.ParentId = parentId;
         }
 
-        public Hierarchy(string name, string code, long industryId, long parentId) : this(name, code, parentId)
+        public Hierarchy(string name, string code, long industryId, long parentId, HierarchyType hierarchyType)
+            : this(name, code, parentId, hierarchyType)
         {
             this.IndustryId = industryId;
         }

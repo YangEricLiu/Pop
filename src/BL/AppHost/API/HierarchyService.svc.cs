@@ -85,40 +85,14 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                entity.UpdateTime = DateTime.Now;
-                entity.TimezoneId = 1;
-
-                if (hierarchy.Type != HierarchyType.Customer && !this.DoesHierarchyHaveParent(hierarchy))
-                {
-                    throw new ConcurrentException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasNoParent);
-                }
-
-                if (this.IsHierarchyCodeDuplicate(hierarchy))
-                {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyCodeDuplicate);
-                }
-
-                if (this.IsHierarchyNameDuplicate(hierarchy))
-                {
-                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyNameDuplicate);
-                }
-
-                if (hierarchy.Type == HierarchyType.Organization)
-                {
-                    if (this.IsOrganizationNestingOverLimitation(hierarchy))
-                    {
-                        throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.OrganizationNestingOverLimitation);
-                    }
-                }
-
-                entity = this.hierarchyRepository.Add(entity);
+                entity = this.CreateHierarchy(unitOfWork, entity);
 
                 unitOfWork.Commit();
+
+                var dto = AutoMapper.Mapper.Map<HierarchyDto>(entity);
+
+                return dto;
             }
-
-            var dto = AutoMapper.Mapper.Map<HierarchyDto>(entity);
-
-            return dto;
         }
 
         public void DeleteHierarchy(long hierarchyId, bool isRecursive)
@@ -134,17 +108,15 @@ namespace SE.DSP.Pop.BL.AppHost.API
         public void UpdateHierarchy(BL.API.DataContract.HierarchyDto hierarchy)
         {
             var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
-
-            this.hierarchyRepository.Update(entity);
         }
 
         public OrganizationDto CreateOrganization(OrganizationDto organization)
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(organization.Name, organization.Code, organization.ParentHierarchyId);
+                var hierarchyEntity = new Hierarchy(organization.Name, organization.Code, organization.ParentHierarchyId, Entity.Enumeration.HierarchyType.Organization);
 
-                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+                hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
                 organization.HierarchyId = hierarchyEntity.Id;
 
@@ -177,7 +149,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 hierarchyEntity.Code = organization.Code;
                 hierarchyEntity.ParentId = organization.ParentHierarchyId;
 
-                this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
+                this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
                 foreach (var gateway in organization.Gateways)
                 {
@@ -271,9 +243,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(park.Name, park.Code, park.ParentHierarchyId);
+                var hierarchyEntity = new Hierarchy(park.Name, park.Code, park.ParentHierarchyId, Entity.Enumeration.HierarchyType.Site);
 
-                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+                hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
                 park.HierarchyId = hierarchyEntity.Id;
 
@@ -321,7 +293,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 hierarchyEntity.Code = park.Code;
                 hierarchyEntity.ParentId = park.ParentHierarchyId;
 
-                this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
+                this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
 
@@ -405,9 +377,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(device.Name, device.Code, device.ParentHierarchyId);
+                var hierarchyEntity = new Hierarchy(device.Name, device.Code, device.ParentHierarchyId, Entity.Enumeration.HierarchyType.Device);
 
-                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+                hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
                 device.HierarchyId = hierarchyEntity.Id;
 
@@ -435,10 +407,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             {
                 var hierarchyEntity = this.hierarchyRepository.GetById(device.HierarchyId.Value);
 
-                hierarchyEntity.Name = device.Name;
-                hierarchyEntity.Code = device.Code;
-
-                this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
+                this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
                 this.deviceRepository.Update(unitOfWork, Mapper.Map<DeviceDto, Device>(device));
 
@@ -512,9 +481,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(building.Name, building.Code, building.IndustryId, building.ParentHierarchyId);
+                var hierarchyEntity = new Hierarchy(building.Name, building.Code, building.IndustryId, building.ParentHierarchyId, Entity.Enumeration.HierarchyType.Building);
 
-                hierarchyEntity = this.hierarchyRepository.Add(unitOfWork, hierarchyEntity);
+                hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
                 var buildingEntity = new Building(hierarchyEntity.Id, building.BuildingArea, building.FinishingDate);
 
@@ -558,7 +527,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 hierarchyEntity.ParentId = building.ParentHierarchyId;
                 hierarchyEntity.IndustryId = building.IndustryId;
 
-                this.hierarchyRepository.Update(unitOfWork, hierarchyEntity);
+                this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
                 this.buildingRepository.Update(unitOfWork, new Building(building.HierarchyId.Value, building.BuildingArea, building.FinishingDate));
 
@@ -605,7 +574,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         }
 
         #region validation
-        private bool IsHierarchyCodeDuplicate(HierarchyDto hierarchy)
+        private bool IsHierarchyCodeDuplicate(Hierarchy hierarchy)
         {
             if (hierarchy.Id != 0)
             {
@@ -625,7 +594,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             return false;
         }
 
-        private bool IsHierarchyNameDuplicate(HierarchyDto hierarchy)
+        private bool IsHierarchyNameDuplicate(Hierarchy hierarchy)
         {
             if (hierarchy.ParentId.HasValue)
             {
@@ -667,7 +636,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
 
-        private bool IsOrganizationNestingOverLimitation(HierarchyDto organization)
+        private bool IsOrganizationNestingOverLimitation(Hierarchy organization)
         {
             if (organization.ParentId.HasValue)
             {
@@ -679,7 +648,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
 
-        private bool DoesHierarchyHaveParent(HierarchyDto hierarchy)
+        private bool DoesHierarchyHaveParent(Hierarchy hierarchy)
         {
             if (hierarchy.ParentId.HasValue)
             {
@@ -701,6 +670,67 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
         #endregion
+
+        private Hierarchy CreateHierarchy(IUnitOfWork unitOfWork, Hierarchy entity)
+        {
+            entity.UpdateTime = DateTime.Now;
+            entity.TimezoneId = 1;
+
+            if (entity.Type != Entity.Enumeration.HierarchyType.Customer && !this.DoesHierarchyHaveParent(entity))
+            {
+                throw new ConcurrentException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasNoParent);
+            }
+
+            if (this.IsHierarchyCodeDuplicate(entity))
+            {
+                throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyCodeDuplicate);
+            }
+
+            if (this.IsHierarchyNameDuplicate(entity))
+            {
+                throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyNameDuplicate);
+            }
+
+            if (entity.Type == Entity.Enumeration.HierarchyType.Organization)
+            {
+                if (this.IsOrganizationNestingOverLimitation(entity))
+                {
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.OrganizationNestingOverLimitation);
+                }
+            }
+
+            entity = this.hierarchyRepository.Add(unitOfWork, entity);
+
+            return entity;
+        }
+
+        private void UpdateHierarchy(IUnitOfWork unitOfWork, Hierarchy entity)
+        { 
+            if (entity.Type != Entity.Enumeration.HierarchyType.Customer && !this.DoesHierarchyHaveParent(entity))
+            {
+                throw new ConcurrentException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasNoParent);
+            }
+
+            if (this.IsHierarchyCodeDuplicate(entity))
+            {
+                throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyCodeDuplicate);
+            }
+
+            if (this.IsHierarchyNameDuplicate(entity))
+            {
+                throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyNameDuplicate);
+            }
+
+            if (entity.Type == Entity.Enumeration.HierarchyType.Organization)
+            {
+                if (this.IsOrganizationNestingOverLimitation(entity))
+                {
+                    throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.OrganizationNestingOverLimitation);
+                }
+            }
+
+            this.hierarchyRepository.Update(unitOfWork, entity);
+        }
 
         private void DeleteHierarchy(IUnitOfWork unitOfWork, long hierarchyId, bool isRecursive)
         {
