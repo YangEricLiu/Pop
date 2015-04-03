@@ -44,11 +44,41 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                         GatewayId = s.GatewayId
                     };
                 });
-                  
+
             AutoMapper.Mapper.CreateMap<DeviceDto, Device>().ConvertUsing(s =>
+            {
+                return new Device(s.Id.Value, s.GatewayId, s.Factory, s.Description);
+            });
+                  
+            AutoMapper.Mapper.CreateMap<ParkDto, Park>().ConvertUsing(s =>
                 {
-                    return new Device(s.Id.Value, s.GatewayId, s.Factory, s.Description);
+                    return new Park(s.Id.Value, s.FloorSpace, s.BuildingArea);
                 });
+
+            AutoMapper.Mapper.CreateMap<Park, ParkDto>().ConvertUsing(s =>
+            {
+                return new ParkDto
+                {
+                    BuildingArea = s.BuildingArea,
+                    FloorSpace = s.FloorSpace,
+                    Id = s.HierarchyId
+                };
+            });
+
+            AutoMapper.Mapper.CreateMap<BuildingDto, Building>().ConvertUsing(s =>
+            {
+                return new Building(s.Id.Value, s.BuildingArea, s.FinishingDate);
+            });
+
+            AutoMapper.Mapper.CreateMap<Building, BuildingDto>().ConvertUsing(s =>
+            {
+                return new BuildingDto
+                {
+                    FinishingDate = s.FinishingDate,
+                    BuildingArea = s.BuildingArea,
+                    Id = s.HierarchyId
+                };
+            });
 
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }

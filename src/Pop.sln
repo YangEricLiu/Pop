@@ -72,6 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.3", "0.3", "{78FBBD1F-4E3
 		Script\DB\0.3\04CreatePark.sql = Script\DB\0.3\04CreatePark.sql
 		Script\DB\0.3\05CreateDevice.sql = Script\DB\0.3\05CreateDevice.sql
 		Script\DB\0.3\06CreateBuilding.sql = Script\DB\0.3\06CreateBuilding.sql
+		Script\DB\0.3\06CreateSingleLineDiagram.sql = Script\DB\0.3\06CreateSingleLineDiagram.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{DBEA8300-550D-45FD-A593-83D496D06824}"

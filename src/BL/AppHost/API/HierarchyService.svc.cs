@@ -27,6 +27,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IOssRepository ossRepository;
         private readonly IDeviceRepository deviceRepository;
         private readonly IBuildingRepository buildingRepository;
+        private readonly IParkRepository parkRepository;
 
         public HierarchyService(
                                 IHierarchyRepository hierarchyRepository,
@@ -37,7 +38,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                                 ILogoRepository logoRepository,
                                 IOssRepository ossRepository,
                                 IDeviceRepository deviceRepository,
-                                IBuildingRepository buildingRepository) : base(hierarchyRepository, unitOfWorkProvider)
+                                IBuildingRepository buildingRepository,
+                                IParkRepository parkRepository) : base(hierarchyRepository, unitOfWorkProvider)
         {
             this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
             this.gatewayRepository = gatewayRepository;
@@ -145,6 +147,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         public ParkDto GetParkById(long hierarchyId)
         {
             var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
+            var park = this.parkRepository.GetById(hierarchyId);
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
             var location = this.buildingLocationRepository.GetById(hierarchyId);
@@ -164,17 +167,17 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 };
             }
 
-            return new ParkDto
-            {
-                Id = hierarchy.Id,
-                ParentId = hierarchy.ParentId.Value,
-                Code = hierarchy.Code,
-                Name = hierarchy.Name,
-                Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
-                Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray(),
-                Location = Mapper.Map<BuildingLocationDto>(location),
-                Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null
-            };
+            var result = Mapper.Map<ParkDto>(park);
+ 
+            result.ParentId = hierarchy.ParentId.Value;
+            result.Code = hierarchy.Code;
+            result.Name = hierarchy.Name;
+            result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
+            result.Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray();
+            result.Location = Mapper.Map<BuildingLocationDto>(location);
+            result.Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null;
+
+            return result;
         }
 
         public ParkDto CreatePark(ParkDto park)
@@ -205,6 +208,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 var location = Mapper.Map<BuildingLocation>(park.Location);
 
                 this.buildingLocationRepository.Add(unitOfWork, location);
+
+                this.parkRepository.Add(unitOfWork, Mapper.Map<Park>(park));
 
                 if (park.Logo != null)
                 {
@@ -249,6 +254,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.buildingLocationRepository.Update(unitOfWork, location);
 
+                this.parkRepository.Update(unitOfWork, Mapper.Map<Park>(park));
+
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyEntity.Id);
 
                 if (park.Logo != null)
@@ -274,6 +281,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
                 this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+                this.parkRepository.Delete(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
@@ -401,18 +409,16 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 };
             }
 
-            return new BuildingDto
-            {
-                Id = hierarchy.Id,
-                Name = hierarchy.Name,
-                Code = hierarchy.Code,
-                ParentId = hierarchy.ParentId.Value,
-                BuildingArea = building.BuildingArea,
-                FinishingDate = building.FinishingDate,
-                Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
-                Location = Mapper.Map<BuildingLocationDto>(location),
-                Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null
-            };
+            var result = Mapper.Map<BuildingDto>(building);
+
+            result.Name = hierarchy.Name;
+            result.Code = hierarchy.Code;
+            result.ParentId = hierarchy.ParentId.Value;  
+            result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
+            result.Location = Mapper.Map<BuildingLocationDto>(location);
+            result.Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null;
+
+            return result;
         }
 
         public BuildingDto CreateBuilding(BuildingDto building)
@@ -423,7 +429,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
-                var buildingEntity = new Building(hierarchyEntity.Id, building.BuildingArea, building.FinishingDate);
+                var buildingEntity = Mapper.Map<Building>(building);
 
                 buildingEntity = this.buildingRepository.Add(unitOfWork, buildingEntity);
 
@@ -467,7 +473,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
-                this.buildingRepository.Update(unitOfWork, new Building(building.Id.Value, building.BuildingArea, building.FinishingDate));
+                this.buildingRepository.Update(unitOfWork, Mapper.Map<Building>(building));
 
                 this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
 
