@@ -48,64 +48,6 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.buildingRepository = buildingRepository;
         }
 
-        public HierarchyDto GetHierarchyTree(long rootId)
-        {
-            var user = ServiceContext.CurrentUser;
-            var entity = this.HierarchyRepository.GetById(rootId);
-
-            if (entity == null)
-            {
-                return null;
-            }
-
-            var hierarchy = Mapper.Map<HierarchyDto>(entity);
-
-            var children = this.HierarchyRepository.GetByParentId(rootId);
-            if (children != null && children.Length > 0)
-            {
-                List<HierarchyDto> list = new List<HierarchyDto>();
-                foreach (var child in children)
-                {
-                    list.Add(this.GetHierarchyTree(child.Id));
-                }
-
-                hierarchy.Children = list.ToArray();
-            }
-
-            return hierarchy;
-        }
-
-        public HierarchyDto CreateHierarchy(HierarchyDto hierarchy)
-        {
-            var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
-
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
-            {
-                entity = this.CreateHierarchy(unitOfWork, entity);
-
-                unitOfWork.Commit();
-
-                var dto = AutoMapper.Mapper.Map<HierarchyDto>(entity);
-
-                return dto;
-            }
-        }
-
-        public void DeleteHierarchy(long hierarchyId, bool isRecursive)
-        {
-            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
-            {
-                this.DeleteHierarchy(unitOfWork, hierarchyId, isRecursive);
-
-                unitOfWork.Commit();
-            }
-        }
-
-        public void UpdateHierarchy(BL.API.DataContract.HierarchyDto hierarchy)
-        {
-            var entity = AutoMapper.Mapper.Map<Hierarchy>(hierarchy);
-        }
-
         public OrganizationDto CreateOrganization(OrganizationDto organization)
         {
             using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
