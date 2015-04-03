@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="DeviceRepository.cs" />
     <Compile Include="BuildingRepository.cs" />
+    <Compile Include="SingleLineDiagramRepository.cs" />
     <Compile Include="ParkRepository.cs" />
     <Compile Include="BuildingLocationRepository.cs" />
     <Compile Include="GetwayRepository.cs" />
