@@ -8,8 +8,15 @@ namespace SE.DSP.Pop.Web.WebHost.Model
     public class OrganizationModel
     { 
         public long? HierarchyId { get; set; }
+
+        public long ParentHierarchyId { get; set; }
+
         public string Name { get; set; }
+
+        public string Code { get; set; }
+
         public GatewayModel[] Gateways { get; set; }
+
         public HierarchyAdministratorModel[] Administrators { get; set; }
     }
 }

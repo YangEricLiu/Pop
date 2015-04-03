@@ -6,7 +6,11 @@ namespace SE.DSP.Pop.Web.WebHost.Model
     {
         public long? HierarchyId { get; set; }
 
+        public long ParentHierarchyId { get; set; }
+
         public string Name { get; set; }
+
+        public string Code { get; set; }
 
         public decimal FloorSpace { get; set; }
 
