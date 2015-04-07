@@ -17,7 +17,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpGet]
-        [Route("api/distributionRoom/{hierarchyId}")]
+        [Route("api/distributionroom/{hierarchyId}")]
         public DistributionRoomModel Get(long hierarchyId)
         {
             var tree = this.hierarchyService.GetDistributionRoomById(hierarchyId);
@@ -26,14 +26,14 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpPost]
-        [Route("api/distributionRoom/delete/{hierarchyId}")]
+        [Route("api/distributionroom/delete/{hierarchyId}")]
         public void Delete(long hierarchyId)
         {
             this.hierarchyService.DeleteDistributionRoom(hierarchyId);            
         }
 
         [HttpPost]
-        [Route("api/distributionRoom/create")]
+        [Route("api/distributionroom/create")]
         public DistributionRoomModel Create([FromBody]DistributionRoomModel DistributionRoom)
         {
             var dto = Mapper.Map<DistributionRoomModel, DistributionRoomDto>(DistributionRoom);
@@ -44,7 +44,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpPost]
-        [Route("api/DistributionRoom/update")]
+        [Route("api/distributionroom/update")]
         public DistributionRoomModel Update([FromBody]DistributionRoomModel DistributionRoom)
         {
             var dto = Mapper.Map<DistributionRoomModel, DistributionRoomDto>(DistributionRoom);

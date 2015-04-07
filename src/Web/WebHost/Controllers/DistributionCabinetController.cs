@@ -17,7 +17,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpGet]
-        [Route("api/distributionCabinet/{hierarchyId}")]
+        [Route("api/distributioncabinet/{hierarchyId}")]
         public DistributionCabinetModel Get(long hierarchyId)
         {
             var tree = this.hierarchyService.GetDistributionCabinetById(hierarchyId);
@@ -26,14 +26,14 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpPost]
-        [Route("api/distributionCabinet/delete/{hierarchyId}")]
+        [Route("api/distributioncabinet/delete/{hierarchyId}")]
         public void Delete(long hierarchyId)
         {
             this.hierarchyService.DeleteDistributionCabinet(hierarchyId);            
         }
 
         [HttpPost]
-        [Route("api/distributionCabinet/create")]
+        [Route("api/distributioncabinet/create")]
         public DistributionCabinetModel Create([FromBody]DistributionCabinetModel DistributionCabinet)
         {
             var dto = Mapper.Map<DistributionCabinetModel, DistributionCabinetDto>(DistributionCabinet);
@@ -44,7 +44,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         }
 
         [HttpPost]
-        [Route("api/distributionCabinet/update")]
+        [Route("api/distributioncabinet/update")]
         public DistributionCabinetModel Update([FromBody]DistributionCabinetModel DistributionCabinet)
         {
             var dto = Mapper.Map<DistributionCabinetModel, DistributionCabinetDto>(DistributionCabinet);
