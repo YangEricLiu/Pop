@@ -17,6 +17,6 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         public SingleLineDiagramModel[] SingleLineDiagrams { get; set; }
 
-        public HierarchyAdministratorModel[] Administrators { get; set; }
+        public HierarchyAdministratorModel[] Administrators { get; set; } 
     }
 }
