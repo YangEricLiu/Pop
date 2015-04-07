@@ -15,6 +15,8 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         public BuildingLocationModel Location { get; set; }
 
+        public SingleLineDiagramModel[] SingleLineDiagrams { get; set; }
+
         public HierarchyAdministratorModel[] Administrators { get; set; }
     }
 }
