@@ -52,6 +52,7 @@
     <Compile Include="DataContract\HierarchyDto.cs" />
     <Compile Include="DataContract\CustomerDto.cs" />
     <Compile Include="DataContract\BuildingDto.cs" />
+    <Compile Include="DataContract\DistributionRoomDto.cs" />
     <Compile Include="DataContract\ParkDto.cs" />
     <Compile Include="DataContract\OrganizationDto.cs" />
     <Compile Include="DataContract\SingleLineDiagramDto.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="ErrorCode\HierarchyError.cs" />
     <Compile Include="IDeviceService.cs" />
     <Compile Include="IBuildingService.cs" />
+    <Compile Include="IDistributionRoomService.cs" />
     <Compile Include="IParkService.cs" />
     <Compile Include="IOrganizationService.cs" />
     <Compile Include="IHierarchyService.cs" />

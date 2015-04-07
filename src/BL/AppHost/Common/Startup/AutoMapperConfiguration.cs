@@ -65,6 +65,22 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                 };
             });
 
+            AutoMapper.Mapper.CreateMap<DistributionRoomDto, DistributionRoom>().ConvertUsing(s =>
+            {
+                return new DistributionRoom(s.Id.Value, s.Location, s.Level, s.TransformerVoltage);
+            });
+
+            AutoMapper.Mapper.CreateMap<DistributionRoom, DistributionRoomDto>().ConvertUsing(s =>
+            {
+                return new DistributionRoomDto
+                {
+                    Id = s.HierarchyId,
+                    Level = s.Level,
+                    Location = s.Location,
+                    TransformerVoltage = s.TransformerVoltage
+                };
+            });
+
             AutoMapper.Mapper.CreateMap<BuildingDto, Building>().ConvertUsing(s =>
             {
                 return new Building(s.Id.Value, s.BuildingArea, s.FinishingDate);

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Device.cs" />
     <Compile Include="Building.cs" />
+    <Compile Include="DistributionRoom.cs" />
     <Compile Include="Park.cs" />
     <Compile Include="BuildingLocation.cs" />
     <Compile Include="Customer.cs" />

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DistributionRoomRepository.cs" />
     <Compile Include="DeviceRepository.cs" />
     <Compile Include="BuildingRepository.cs" />
     <Compile Include="SingleLineDiagramRepository.cs" />

@@ -28,6 +28,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IDeviceRepository deviceRepository;
         private readonly IBuildingRepository buildingRepository;
         private readonly IParkRepository parkRepository;
+        private readonly IDistributionRoomRepository distributionRoomRepository;
 
         public HierarchyService(
                                 IHierarchyRepository hierarchyRepository,
@@ -39,7 +40,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                                 IOssRepository ossRepository,
                                 IDeviceRepository deviceRepository,
                                 IBuildingRepository buildingRepository,
-                                IParkRepository parkRepository) : base(hierarchyRepository, unitOfWorkProvider)
+                                IParkRepository parkRepository,
+                                IDistributionRoomRepository distributionRoomRepository) : base(hierarchyRepository, unitOfWorkProvider)
         {
             this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
             this.gatewayRepository = gatewayRepository;
@@ -48,6 +50,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.ossRepository = ossRepository;
             this.deviceRepository = deviceRepository;
             this.buildingRepository = buildingRepository;
+            this.distributionRoomRepository = distributionRoomRepository;
         }
 
         public OrganizationDto CreateOrganization(OrganizationDto organization)
@@ -510,6 +513,102 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
                 this.buildingRepository.Delete(unitOfWork, hierarchyId);
+
+                this.DeleteHierarchy(unitOfWork, hierarchyId, true);
+
+                unitOfWork.Commit();
+            }
+        }
+
+        public DistributionRoomDto GetDistributionRoomById(long hierarchyId)
+        {
+            var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
+            var distributionRoom = this.distributionRoomRepository.GetById(hierarchyId);
+            var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
+            var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
+
+            var result = Mapper.Map<DistributionRoomDto>(distributionRoom);
+
+            result.ParentId = hierarchy.ParentId.Value;
+            result.Code = hierarchy.Code;
+            result.Name = hierarchy.Name;
+            result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
+            result.Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray();
+
+            return result;
+        }
+
+        public DistributionRoomDto CreateDistributionRoom(DistributionRoomDto distributionRoom)
+        {
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = new Hierarchy(distributionRoom.Name, distributionRoom.Code, distributionRoom.ParentId, Entity.Enumeration.HierarchyType.DistributionRoom);
+
+                hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
+
+                distributionRoom.Id = hierarchyEntity.Id;
+ 
+                var hirarchyAdminEntities = distributionRoom.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+                distributionRoom.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                foreach (var gw in distributionRoom.Gateways)
+                {
+                    gw.HierarchyId = hierarchyEntity.Id;
+                }
+
+                var gatewayentities = distributionRoom.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
+
+                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+
+                this.distributionRoomRepository.Add(unitOfWork, Mapper.Map<DistributionRoom>(distributionRoom));
+              
+                unitOfWork.Commit();
+
+                return distributionRoom;
+            }
+        }
+
+        public DistributionRoomDto UpdateDistributionRoom(DistributionRoomDto distributionRoom)
+        {
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = this.HierarchyRepository.GetById(distributionRoom.Id.Value);
+
+                hierarchyEntity.Name = distributionRoom.Name;
+                hierarchyEntity.Code = distributionRoom.Code;
+                hierarchyEntity.ParentId = distributionRoom.ParentId;
+
+                this.UpdateHierarchy(unitOfWork, hierarchyEntity);
+
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                var hirarchyAdminEntities = distributionRoom.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+                distributionRoom.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+
+                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                var gatewayentities = distributionRoom.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
+
+                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+
+                this.distributionRoomRepository.Update(unitOfWork, Mapper.Map<DistributionRoom>(distributionRoom));
+ 
+                unitOfWork.Commit();
+
+                return distributionRoom;
+            }
+        }
+
+        public void DeleteDistributionRoom(long hierarchyId)
+        {
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            {
+                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
+                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
+            
+                this.distributionRoomRepository.Delete(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
