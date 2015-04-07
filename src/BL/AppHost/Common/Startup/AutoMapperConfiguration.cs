@@ -81,6 +81,22 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                 };
             });
 
+            AutoMapper.Mapper.CreateMap<DistributionCabinetDto, DistributionCabinet>().ConvertUsing(s =>
+            {
+                return new DistributionCabinet(s.Id.Value, s.Type, s.Factory, s.ManufactureTime);
+            });
+
+            AutoMapper.Mapper.CreateMap<DistributionCabinet, DistributionCabinetDto>().ConvertUsing(s =>
+            {
+                return new DistributionCabinetDto
+                {
+                    Id = s.HierarchyId,
+                    Type = s.Type,
+                    Factory = s.Factory,
+                    ManufactureTime = s.ManufactureTime
+                };
+            });
+
             AutoMapper.Mapper.CreateMap<BuildingDto, Building>().ConvertUsing(s =>
             {
                 return new Building(s.Id.Value, s.BuildingArea, s.FinishingDate);

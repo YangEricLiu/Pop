@@ -29,6 +29,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IBuildingRepository buildingRepository;
         private readonly IParkRepository parkRepository;
         private readonly IDistributionRoomRepository distributionRoomRepository;
+        private readonly IDistributionCabinetRepository distributionCabinetRepository;
 
         public HierarchyService(
                                 IHierarchyRepository hierarchyRepository,
@@ -41,7 +42,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                                 IDeviceRepository deviceRepository,
                                 IBuildingRepository buildingRepository,
                                 IParkRepository parkRepository,
-                                IDistributionRoomRepository distributionRoomRepository) : base(hierarchyRepository, unitOfWorkProvider)
+                                IDistributionRoomRepository distributionRoomRepository,
+                                IDistributionCabinetRepository distributionCabinetRepository) : base(hierarchyRepository, unitOfWorkProvider)
         {
             this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
             this.gatewayRepository = gatewayRepository;
@@ -51,6 +53,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.deviceRepository = deviceRepository;
             this.buildingRepository = buildingRepository;
             this.distributionRoomRepository = distributionRoomRepository;
+            this.distributionCabinetRepository = distributionCabinetRepository;
         }
 
         public OrganizationDto CreateOrganization(OrganizationDto organization)
@@ -609,6 +612,107 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
             
                 this.distributionRoomRepository.Delete(unitOfWork, hierarchyId);
+
+                this.DeleteHierarchy(unitOfWork, hierarchyId, true);
+
+                unitOfWork.Commit();
+            }
+        }
+
+        public DistributionCabinetDto GetDistributionCabinetById(long hierarchyId)
+        {
+            var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
+            var distributionCabinet = this.distributionCabinetRepository.GetById(hierarchyId); 
+            var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
+
+            LogoDto logoDto = null;
+
+            if (logos.Length == 1)
+            {
+                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", logos[0].Id));
+
+                logoDto = new LogoDto
+                {
+                    Logo = ossobject.Content,
+                    Id = logos[0].Id,
+                    HierarchyId = hierarchy.Id
+                };
+            }
+
+            var result = Mapper.Map<DistributionCabinetDto>(distributionCabinet);
+
+            result.ParentId = hierarchy.ParentId.Value;
+            result.Code = hierarchy.Code;
+            result.Name = hierarchy.Name; 
+            result.Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null;
+
+            return result;
+        }
+
+        public DistributionCabinetDto CreateDistributionCabinet(DistributionCabinetDto distributionCabinet)
+        {
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = new Hierarchy(distributionCabinet.Name, distributionCabinet.Code, distributionCabinet.ParentId, Entity.Enumeration.HierarchyType.DistributionCabinet);
+
+                hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
+
+                distributionCabinet.Id = hierarchyEntity.Id;
+
+                this.distributionCabinetRepository.Add(unitOfWork, Mapper.Map<DistributionCabinet>(distributionCabinet));
+
+                if (distributionCabinet.Logo != null)
+                {
+                    distributionCabinet.Logo.HierarchyId = hierarchyEntity.Id;
+
+                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(distributionCabinet.Logo));
+
+                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), distributionCabinet.Logo.Logo));
+                }
+
+                unitOfWork.Commit();
+
+                return distributionCabinet;
+            }
+        }
+
+        public DistributionCabinetDto UpdateDistributionCabinet(DistributionCabinetDto distributionCabinet)
+        {
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            {
+                var hierarchyEntity = this.HierarchyRepository.GetById(distributionCabinet.Id.Value);
+
+                hierarchyEntity.Name = distributionCabinet.Name;
+                hierarchyEntity.Code = distributionCabinet.Code;
+                hierarchyEntity.ParentId = distributionCabinet.ParentId;
+
+                this.UpdateHierarchy(unitOfWork, hierarchyEntity);
+
+                this.distributionCabinetRepository.Update(unitOfWork, Mapper.Map<DistributionCabinet>(distributionCabinet));
+
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyEntity.Id);
+
+                if (distributionCabinet.Logo != null)
+                {
+                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(distributionCabinet.Logo));
+
+                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), distributionCabinet.Logo.Logo));
+
+                    distributionCabinet.Logo.Id = logoEntity.Id;
+                }
+
+                unitOfWork.Commit();
+
+                return distributionCabinet;
+            }
+        }
+
+        public void DeleteDistributionCabinet(long hierarchyId)
+        {
+            using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
+            { 
+                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+                this.distributionCabinetRepository.Delete(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 

@@ -29,6 +29,8 @@ namespace SE.DSP.Pop.Test.BLTest
         protected IDeviceRepository deviceRepository = Mocks.StrictMock<IDeviceRepository>();
         protected IBuildingRepository buildingRepository = Mocks.StrictMock<IBuildingRepository>();
         protected IParkRepository parkRepository = Mocks.StrictMock<IParkRepository>();
+        protected IDistributionRoomRepository distributionRoomRepository = Mocks.StrictMock<IDistributionRoomRepository>();
+        protected IDistributionCabinetRepository distributionCabinetRepository = Mocks.StrictMock<IDistributionCabinetRepository>();
 
 
         protected TestsBase()
@@ -80,7 +82,9 @@ namespace SE.DSP.Pop.Test.BLTest
                 this.ossRepository,
                 this.deviceRepository,
                 this.buildingRepository,
-                this.parkRepository);
+                this.parkRepository,
+                this.distributionRoomRepository,
+                this.distributionCabinetRepository);
         }
     }
 }

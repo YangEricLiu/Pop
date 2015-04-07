@@ -5,7 +5,7 @@ using SE.DSP.Pop.BL.API.DataContract;
 namespace SE.DSP.Pop.BL.API
 {
     [ServiceContract]
-    public interface IHierarchyService : IOrganizationService, IParkService, IBuildingService, IDeviceService, IDistributionRoomService
+    public interface IHierarchyService : IOrganizationService, IParkService, IBuildingService, IDeviceService, IDistributionRoomService, IDistributionCabinetService
     {
         [OperationContract]
         HierarchyDto GetHierarchyTree(long rootId);

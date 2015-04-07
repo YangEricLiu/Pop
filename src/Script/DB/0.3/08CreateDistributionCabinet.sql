@@ -5,20 +5,16 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SingleLineDiagram]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DistributionCabinet]') AND type in (N'U'))
 BEGIN
-	CREATE TABLE [dbo].[SingleLineDiagram](
-	    [Id] [bigint] identity(1,1) NOT NULL,
+	CREATE TABLE [dbo].[DistributionCabinet]( 
 		[HierarchyId] [bigint] NOT NULL,
-		[Key] nvarchar(100) NOT NULL, 
-		[Order] int NOT NULL,
-		[CreateTime] datetime NOT NULL,
-		[CreateUser] nvarchar(100) NOT NULL,
-		[UpdateTime] datetime NOT NULL,
-		[UpdateUser] nvarchar(100) NOT NULL
-	 CONSTRAINT [PK_SingleLineDiagram] PRIMARY KEY CLUSTERED 
+		[Type] nvarchar(100) NOT NULL, 
+		[Factory] nvarchar(100) NOT NULL,
+		[ManufactureTime] datetime NOT NULL
+	 CONSTRAINT [PK_DistributionCabinet] PRIMARY KEY CLUSTERED 
 	(
-		[Id] ASC
+		[HierarchyId] ASC
 	)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 	) ON [PRIMARY]
 
