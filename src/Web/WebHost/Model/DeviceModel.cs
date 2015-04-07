@@ -8,6 +8,6 @@
 
         public long? GatewayId { get; set; }
 
-        public LogoModel Picture { get; set; }
+        public LogoModel Logo { get; set; }
     }
 }
