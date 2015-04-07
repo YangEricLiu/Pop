@@ -1,64 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel;
-using System.IO;
-using SE.DSP.Pop.Communication.ServiceHost.API;
+using SE.DSP.Foundation.Infrastructure.Utils;
+using SE.DSP.Pop.Communication.ServiceHost.Business;
 using SE.DSP.Pop.Communication.ServiceHost.Services;
+using SE.DSP.Pop.Communication.ServiceHost.Utils;
 
 namespace SE.DSP.Pop.Communication.ServiceHost
 {
     public partial class MainService : ServiceBase
     {
         private System.ServiceModel.ServiceHost serviceHost = null;
-        private StreamWriter writer = new StreamWriter(@"e:\temp\service-log.txt", true);
 
         public MainService()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         protected override void OnStart(string[] args)
         {
             try
             {
-                writer.WriteLine("service starting");
-                writer.Flush();
-
-                if (serviceHost != null)
+                if (this.serviceHost != null)
                 {
-                    serviceHost.Close();
+                    this.serviceHost.Close();
                 }
 
-                serviceHost = new System.ServiceModel.ServiceHost(typeof(CommunicationService));
-                serviceHost.Open();
+                this.serviceHost = new System.ServiceModel.ServiceHost(typeof(CommunicationService));
+                this.serviceHost.Open();
 
-                writer.WriteLine("service started!");
-                writer.Flush();
+                this.Subscribe();
             }
             catch (Exception ex)
             {
-                writer.WriteLine(ex.Message);
-                writer.WriteLine(ex.StackTrace);
+                LogHelper.LogException(ex);
             }
         }
 
         protected override void OnStop()
         {
-            if (serviceHost != null)
+            if (this.serviceHost != null)
             {
-                serviceHost.Close();
-                serviceHost = null;
-            }
+                this.serviceHost.Close();
+                this.serviceHost = null;
 
-            writer.Flush();
-            writer.Close();
+                MqttSession.Disconnect();
+            }
+        }
+
+        private void Subscribe()
+        {
+            HierarchyMessageHandler.SubDataTopic();
+            HierarchyMessageHandler.SubAckTopic();
         }
     }
 }

@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils\MqttSession.cs" />
     <None Include="Tools\Uninstall.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -71,6 +72,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Foundation\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
+      <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>
+      <Name>SE.DSP.Foundation.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceHost.API\ServiceHost.API.csproj">
       <Project>{127f159e-67f2-4972-9cde-984c9f05b310}</Project>
       <Name>ServiceHost.API</Name>
@@ -84,4 +89,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="$(SolutionDir)\Dependencies\StyleCop\StyleCop.targets" />
+  <PropertyGroup>
+    <Dependencies>$(SolutionDir)\Dependencies</Dependencies>
+    <FxCopDir>$(ProgramFiles)\Microsoft Fxcop 10.0</FxCopDir>
+    <StyleCopOverrideSettingsFile>$(SolutionDir)\Dependencies\StyleCop\Settings.StyleCop</StyleCopOverrideSettingsFile>
+    <StyleCopOutputFile>StyleCopReport.xml</StyleCopOutputFile>
+    <StyleCopForceFullAnalysis>true</StyleCopForceFullAnalysis>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+  </PropertyGroup>
 </Project>
