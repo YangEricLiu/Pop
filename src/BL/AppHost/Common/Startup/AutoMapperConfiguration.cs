@@ -44,10 +44,79 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                         GatewayId = s.GatewayId
                     };
                 });
-                  
+
             AutoMapper.Mapper.CreateMap<DeviceDto, Device>().ConvertUsing(s =>
+            {
+                return new Device(s.Id.Value, s.GatewayId, s.Factory, s.Description);
+            });
+                  
+            AutoMapper.Mapper.CreateMap<ParkDto, Park>().ConvertUsing(s =>
                 {
-                    return new Device(s.HierarchyId.Value, s.GatewayId, s.Factory, s.Description);
+                    return new Park(s.Id.Value, s.FloorSpace, s.BuildingArea);
+                });
+
+            AutoMapper.Mapper.CreateMap<Park, ParkDto>().ConvertUsing(s =>
+            {
+                return new ParkDto
+                {
+                    BuildingArea = s.BuildingArea,
+                    FloorSpace = s.FloorSpace,
+                    Id = s.HierarchyId
+                };
+            });
+
+            AutoMapper.Mapper.CreateMap<DistributionRoomDto, DistributionRoom>().ConvertUsing(s =>
+            {
+                return new DistributionRoom(s.Id.Value, s.Location, s.Level, s.TransformerVoltage);
+            });
+
+            AutoMapper.Mapper.CreateMap<DistributionRoom, DistributionRoomDto>().ConvertUsing(s =>
+            {
+                return new DistributionRoomDto
+                {
+                    Id = s.HierarchyId,
+                    Level = s.Level,
+                    Location = s.Location,
+                    TransformerVoltage = s.TransformerVoltage
+                };
+            });
+
+            AutoMapper.Mapper.CreateMap<DistributionCabinetDto, DistributionCabinet>().ConvertUsing(s =>
+            {
+                return new DistributionCabinet(s.Id.Value, s.Type, s.Factory, s.ManufactureTime);
+            });
+
+            AutoMapper.Mapper.CreateMap<DistributionCabinet, DistributionCabinetDto>().ConvertUsing(s =>
+            {
+                return new DistributionCabinetDto
+                {
+                    Id = s.HierarchyId,
+                    Type = s.Type,
+                    Factory = s.Factory,
+                    ManufactureTime = s.ManufactureTime
+                };
+            });
+
+            AutoMapper.Mapper.CreateMap<BuildingDto, Building>().ConvertUsing(s =>
+            {
+                return new Building(s.Id.Value, s.BuildingArea, s.FinishingDate);
+            });
+
+            AutoMapper.Mapper.CreateMap<Building, BuildingDto>().ConvertUsing(s =>
+            {
+                return new BuildingDto
+                {
+                    FinishingDate = s.FinishingDate,
+                    BuildingArea = s.BuildingArea,
+                    Id = s.HierarchyId
+                };
+            });
+
+            AutoMapper.Mapper.CreateMap<SingleLineDiagram, SingleLineDiagramDto>().ForMember(d => d.Content, opt => opt.Ignore());
+
+            AutoMapper.Mapper.CreateMap<SingleLineDiagramDto, SingleLineDiagram>().ConvertUsing(s =>
+                {
+                    return new SingleLineDiagram(s.HierarchyId, s.Key, s.Order, s.CreateUser);
                 });
 
             AutoMapper.Mapper.AssertConfigurationIsValid();

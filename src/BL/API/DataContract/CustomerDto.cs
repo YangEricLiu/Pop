@@ -4,14 +4,8 @@ using System.Runtime.Serialization;
 namespace SE.DSP.Pop.BL.API.DataContract
 {
     [DataContract]
-    public class CustomerDto
+    public class CustomerDto : BaseHierarchyDto
     {
-        [DataMember]
-        public long? HierarchyId { get; set; }
-
-        [DataMember]
-        public string Code { get; set; }
-
         [DataMember]
         public string Address { get; set; }
 
@@ -26,9 +20,6 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public DateTime StartTime { get; set; }
-
-        [DataMember]
-        public string CustomerName { get; set; }
 
         [DataMember]
         public LogoDto Logo { get; set; }

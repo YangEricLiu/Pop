@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DistributionCabinetRepository.cs" />
+    <Compile Include="DistributionRoomRepository.cs" />
     <Compile Include="DeviceRepository.cs" />
     <Compile Include="BuildingRepository.cs" />
+    <Compile Include="SingleLineDiagramRepository.cs" />
     <Compile Include="ParkRepository.cs" />
     <Compile Include="BuildingLocationRepository.cs" />
     <Compile Include="GetwayRepository.cs" />

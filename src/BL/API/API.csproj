@@ -43,16 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContract\BaseHierarchyDto.cs" />
     <Compile Include="DataContract\BuildingLocationDto.cs" />
     <Compile Include="DataContract\CustomerListItemDto.cs" />
     <Compile Include="DataContract\DeviceDto.cs" />
+    <Compile Include="DataContract\DistributionCabinetDto.cs" />
     <Compile Include="DataContract\GatewayDto.cs" />
     <Compile Include="DataContract\HierarchyAdministratorDto.cs" />
     <Compile Include="DataContract\HierarchyDto.cs" />
     <Compile Include="DataContract\CustomerDto.cs" />
     <Compile Include="DataContract\BuildingDto.cs" />
+    <Compile Include="DataContract\DistributionRoomDto.cs" />
     <Compile Include="DataContract\ParkDto.cs" />
     <Compile Include="DataContract\OrganizationDto.cs" />
+    <Compile Include="DataContract\SingleLineDiagramDto.cs" />
     <Compile Include="DataContract\UserCustomerDto.cs" />
     <Compile Include="DataContract\UserPreviligedCustomerDto.cs" />
     <Compile Include="DataContract\LogoDto.cs" />
@@ -61,6 +65,8 @@
     <Compile Include="ErrorCode\HierarchyError.cs" />
     <Compile Include="IDeviceService.cs" />
     <Compile Include="IBuildingService.cs" />
+    <Compile Include="IDistributionCabinetService.cs" />
+    <Compile Include="IDistributionRoomService.cs" />
     <Compile Include="IParkService.cs" />
     <Compile Include="IOrganizationService.cs" />
     <Compile Include="IHierarchyService.cs" />

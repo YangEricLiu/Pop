@@ -3,20 +3,8 @@
 namespace SE.DSP.Pop.BL.API.DataContract
 {
     [DataContract]
-    public class ParkDto
-    {
-        [DataMember]
-        public long? HierarchyId { get; set; }
-
-        [DataMember]
-        public long ParentHierarchyId { get; set; }
-
-        [DataMember]
-        public string Name { get; set; }
-
-        [DataMember]
-        public string Code { get; set; }
-
+    public class ParkDto : BaseHierarchyDto
+    { 
         [DataMember]
         public decimal FloorSpace { get; set; }
 

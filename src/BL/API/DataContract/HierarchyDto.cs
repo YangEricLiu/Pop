@@ -5,28 +5,16 @@ using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 namespace SE.DSP.Pop.BL.API.DataContract
 {
     [DataContract]
-    public class HierarchyDto
+    public class HierarchyDto : BaseHierarchyDto
     {
         [DataMember]
-        public long Id { get; set; }
-
-        [DataMember]
         public HierarchyType Type { get; set; }
-
-        [DataMember]
-        public string Code { get; set; }
-
-        [DataMember]
-        public string Name { get; set; }
 
         [DataMember]
         public long TimezoneId { get; set; }
 
         [DataMember]
         public string Comment { get; set; }
-
-        [DataMember]
-        public long? ParentId { get; set; }
 
         [DataMember]
         public long CustomerId { get; set; }

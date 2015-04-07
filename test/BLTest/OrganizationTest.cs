@@ -114,6 +114,11 @@ namespace SE.DSP.Pop.Test.BLTest
              };
 
             Expect.Call(unitOfWorkProvider.GetUnitOfWork()).Return(unitOfWork);
+            Expect.Call(hierarchyRepository.RetrieveChildHierarchyCountByCodeUnderParentCustomer(string.Empty, 0)).IgnoreArguments().Return(0);
+            Expect.Call(hierarchyRepository.RetrieveChildHierarchyCountByCodeUnderParentCustomer(string.Empty, 0)).IgnoreArguments().Return(0);
+            Expect.Call(hierarchyRepository.RetrieveChildHierarchyCountByNameUnderParentHierarchy(string.Empty, 0)).IgnoreArguments().Return(0);
+            Expect.Call(hierarchyRepository.RetrieveAncestorAndSelfOrganizationCount(0)).IgnoreArguments().Return(1);
+            Expect.Call(hierarchyRepository.GetById(0)).IgnoreArguments().Return(hierarchy);
             Expect.Call(hierarchyRepository.Add(unitOfWork, null)).IgnoreArguments().Return(hierarchy);
             Expect.Call(hierarchyAdministratorRepository.AddMany(unitOfWork, null)).IgnoreArguments().Return(hierarchyAdministrators);
             Expect.Call(() => gatewayRepository.UpdateMany(unitOfWork, null)).IgnoreArguments();
@@ -129,7 +134,7 @@ namespace SE.DSP.Pop.Test.BLTest
 
             var result = hierarchyService.CreateOrganization(dto);
 
-            Assert.Equal(result.HierarchyId, hierarchy.Id);
+            Assert.Equal(result.Id, hierarchy.Id);
             Assert.Equal(result.Administrators[0].HierarchyId, hierarchy.Id);
             Assert.Equal(result.Administrators[1].HierarchyId, hierarchy.Id);
             Assert.Equal(result.Gateways[0].HierarchyId, hierarchy.Id);

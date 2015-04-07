@@ -14,5 +14,20 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         GatewayDto ReplaceGateway(GatewayDto gateway);
+
+        [OperationContract]
+        SingleLineDiagramDto GetSingleLineDiagramById(long id);
+
+        [OperationContract]
+        SingleLineDiagramDto UpdateSingleLineDiagram(SingleLineDiagramDto dto);
+
+        [OperationContract]
+        SingleLineDiagramDto CreateSingleLineDiagram(SingleLineDiagramDto dto);
+
+        [OperationContract]
+        SingleLineDiagramDto[] GetSingleLineDiagramByHierarchyId(long hierarchyId);
+
+        [OperationContract]
+        void DeleteSingleLineDiagramById(long id);
     }
 }

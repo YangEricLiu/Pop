@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Unity;
-using SE.DSP.Foundation.Infrastructure.BaseClass;
+using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
-using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
@@ -18,13 +17,20 @@ namespace SE.DSP.Pop.BL.AppHost.API
     [IocServiceBehavior]
     public class PopClientService : IPopClientService
     {
+        public const string SingleLineDiagramOss = "img-sld-{0}";
         private readonly IGatewayRepository gatewayRepository;
         private readonly IHierarchyRepository hierarchyRepository;
+        private readonly ISingleLineDiagramRepository singleDiagramRepository;
+        private readonly IOssRepository ossRepository;
+        private readonly IUnitOfWorkProvider unitOfWorkProvider;
 
-        public PopClientService(IGatewayRepository gatewayRepository, IHierarchyRepository hierarchyRepository)
+        public PopClientService(IGatewayRepository gatewayRepository, IHierarchyRepository hierarchyRepository, ISingleLineDiagramRepository singleDiagramRepository, IOssRepository ossRepository, IUnitOfWorkProvider unitOfWorkProvider)
         {
             this.gatewayRepository = gatewayRepository;
             this.hierarchyRepository = hierarchyRepository;
+            this.singleDiagramRepository = singleDiagramRepository;
+            this.ossRepository = ossRepository;
+            this.unitOfWorkProvider = unitOfWorkProvider;
         }
 
         public GatewayDto[] GetGatewayByCustomerId(long customerId)
@@ -114,15 +120,72 @@ namespace SE.DSP.Pop.BL.AppHost.API
             return AutoMapper.Mapper.Map<GatewayDto>(entity);
         }
 
+        public SingleLineDiagramDto GetSingleLineDiagramById(long id)
+        {
+            var entity = this.singleDiagramRepository.GetById(id);
+
+            var ossobject = this.ossRepository.GetById(string.Format(SingleLineDiagramOss, id));
+
+            var result = AutoMapper.Mapper.Map<SingleLineDiagramDto>(entity);
+
+            result.Content = ossobject.Content;
+
+            return null;
+        }
+
+        public SingleLineDiagramDto UpdateSingleLineDiagram(SingleLineDiagramDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SingleLineDiagramDto CreateSingleLineDiagram(SingleLineDiagramDto dto)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var entity = AutoMapper.Mapper.Map<SingleLineDiagram>(dto);
+
+                entity = this.singleDiagramRepository.Add(unitOfWork, entity);
+
+                this.ossRepository.Add(unitOfWork, new Foundation.DataAccess.Entity.OssObject(string.Format(SingleLineDiagramOss, entity.Id), dto.Content));
+
+                unitOfWork.Commit();
+
+                dto.Id = entity.Id;
+
+                return dto;
+            }
+        }
+
+        public SingleLineDiagramDto[] GetSingleLineDiagramByHierarchyId(long hierarchyId)
+        {
+            var entities = this.singleDiagramRepository.GetByHierarchyId(hierarchyId);
+
+            var result = new List<SingleLineDiagramDto>();
+
+            foreach (var entity in entities)
+            {
+                var dto = AutoMapper.Mapper.Map<SingleLineDiagramDto>(entity);
+
+                var ossobject = this.ossRepository.GetById(string.Format(SingleLineDiagramOss, entity.Id));
+
+                dto.Content = ossobject.Content;
+
+                result.Add(dto);
+            }
+
+            return result.OrderBy(s => s.Order).ToArray(); 
+        }
+
+        public void DeleteSingleLineDiagramById(long id)
+        {
+            this.singleDiagramRepository.Delete(id);
+        }
+
         private bool DoesGatewayNameExist(GatewayDto gateway, out Gateway entity)
         {
             entity = this.gatewayRepository.GetByName(gateway.Name);
-            if (entity != null)
-            {
-                return true;
-            }
 
-            return false;
+            return entity == null;
         }
 
         private bool DoesGatewayCustomerExist(GatewayDto gateway, out Hierarchy customer)

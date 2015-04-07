@@ -2,16 +2,8 @@
 
 namespace SE.DSP.Pop.Web.WebHost.Model
 {
-    public class ParkModel
-    {
-        public long? HierarchyId { get; set; }
-
-        public long ParentHierarchyId { get; set; }
-
-        public string Name { get; set; }
-
-        public string Code { get; set; }
-
+    public class ParkModel : BaseHierarchyModel
+    { 
         public decimal FloorSpace { get; set; }
 
         public decimal BuildingArea { get; set; }

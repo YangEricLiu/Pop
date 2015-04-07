@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Routing;
+using System.Web.Mvc;
 using SE.DSP.Pop.Web.WebHost.Common.Startup;
 
 namespace SE.DSP.Pop.Web.WebHost
@@ -23,6 +23,8 @@ namespace SE.DSP.Pop.Web.WebHost
         protected void Application_Start()
         {
             AppInitialize();
+
+            AreaRegistration.RegisterAllAreas();
             
             GlobalConfiguration.Configure(FilterConfig.Register);
         }
