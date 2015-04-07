@@ -161,6 +161,8 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
+    <Compile Include="Controllers\DistributionCabinetController.cs" />
+    <Compile Include="Controllers\DistributionRoomController.cs" />
     <Compile Include="Controllers\ParkController.cs" />
     <Compile Include="Controllers\SingleLineDiagramController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -172,6 +174,7 @@
     <Compile Include="Model\CustomerListItemModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\DeviceModel.cs" />
+    <Compile Include="Model\DistributionCabinetModel.cs" />
     <Compile Include="Model\ErrorModel.cs" />
     <Compile Include="Model\GatewayRegisterModel.cs" />
     <Compile Include="Model\GatewayModel.cs" />
@@ -179,6 +182,7 @@
     <Compile Include="Model\LogoModel.cs" />
     <Compile Include="Model\OrganizationModel.cs" />
     <Compile Include="Model\BuildingModel.cs" />
+    <Compile Include="Model\DistributionRoomModel.cs" />
     <Compile Include="Model\ParkModel.cs" />
     <Compile Include="Model\SaveUserCustomerModel.cs" />
     <Compile Include="Model\SingleLineDiagramModel.cs" />
