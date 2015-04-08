@@ -156,6 +156,13 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 });
         }
 
+        public DataContract.UserDto GetUserById(long userId)
+        {
+            var user = this.userServiceProxy.GetUserById(userId);
+
+            return this.FillCustomerForUser(user);
+        }
+
         private DataContract.UserDto FillCustomerForUser(UserDto user)
         {
             var filter = new UserCustomerFilter

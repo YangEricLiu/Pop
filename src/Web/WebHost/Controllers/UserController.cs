@@ -21,7 +21,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/user/login")]
-        public UserModel Login([FromBody]LoginModel login)
+        public long Login([FromBody]LoginModel login)
         {
             var user = this.userService.Login(login.UserName, login.Password);
             var model = AutoMapper.Mapper.Map<UserModel>(user);
@@ -32,7 +32,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
                 FormsAuthentication.SetAuthCookie(cookie, true);
             }
             
-            return model;
+            return model.Id.Value;
         }
 
         [HttpPost]
@@ -45,7 +45,7 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/user/splogin")]
-        public UserModel SpLogin([FromBody]LoginModel login)
+        public long SpLogin([FromBody]LoginModel login)
         {
             var user = this.userService.SpLogin(login.SpDomain, login.UserName, login.Password);
             var model = AutoMapper.Mapper.Map<UserModel>(user);
@@ -56,7 +56,16 @@ namespace SE.DSP.Pop.Web.WebHost.Controllers
                 FormsAuthentication.SetAuthCookie(cookie, true);
             }
 
-            return model;
+            return model.Id.Value;
+        }
+
+        [HttpGet]
+        [Route("api/user/{userId}")]
+        public UserModel GetUser(long userId)
+        {
+            var user = this.userService.GetUserById(userId);
+
+            return AutoMapper.Mapper.Map<UserModel>(user);
         }
 
         [HttpPost]
