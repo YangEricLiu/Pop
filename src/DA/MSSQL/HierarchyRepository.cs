@@ -27,13 +27,12 @@ namespace SE.DSP.Pop.MSSQL
             return hierarchies.ToArray();
         }
 
-        public Hierarchy GetByCode(string code)
+        public Hierarchy GetByCode(long customerId, string code)
         {
-            var sql = @"select * from Hierarchy H
-                        inner join Customer C on H.Id = C.HierarchyId
-                        where H.Code=@0";
+            var sql = @"select * from Hierarchy
+                        where Code=@0 and CustomerId=@1";
 
-            var result = this.Db.Query<Hierarchy>(sql, code);
+            var result = this.Db.Query<Hierarchy>(sql, code, customerId);
 
             return result.SingleOrDefault();
         }

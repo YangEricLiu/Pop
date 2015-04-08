@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
+using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
@@ -23,14 +24,16 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly ISingleLineDiagramRepository singleDiagramRepository;
         private readonly IOssRepository ossRepository;
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
+        private readonly ICustomerRepository customerRepository;
 
-        public PopClientService(IGatewayRepository gatewayRepository, IHierarchyRepository hierarchyRepository, ISingleLineDiagramRepository singleDiagramRepository, IOssRepository ossRepository, IUnitOfWorkProvider unitOfWorkProvider)
+        public PopClientService(IGatewayRepository gatewayRepository, IHierarchyRepository hierarchyRepository, ISingleLineDiagramRepository singleDiagramRepository, IOssRepository ossRepository, IUnitOfWorkProvider unitOfWorkProvider, ICustomerRepository customerRepository)
         {
             this.gatewayRepository = gatewayRepository;
             this.hierarchyRepository = hierarchyRepository;
             this.singleDiagramRepository = singleDiagramRepository;
             this.ossRepository = ossRepository;
             this.unitOfWorkProvider = unitOfWorkProvider;
+            this.customerRepository = customerRepository;
         }
 
         public GatewayDto[] GetGatewayByCustomerId(long customerId)
@@ -57,7 +60,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.InvalidGatewayMac);
             }
 
-            Hierarchy customer = null;
+            Customer customer = null;
 
             if (!this.DoesGatewayCustomerExist(gateway, out customer))
             {
@@ -71,11 +74,46 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.GatewayAlreadyExist);
             }
             
-            Guid guid = Guid.NewGuid();
-            string uniqueId = Convert.ToBase64String(guid.ToByteArray());
+            ////Guid guid = Guid.NewGuid();
+            ////string uniqueId = Convert.ToBase64String(guid.ToByteArray());
+
+            string key = string.Format("{0}|{1}", gateway.Name, gateway.Mac);
+
+            string hex = CryptographyHelper.MD5(key);
+
+            string[] ids = new string[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                int hexint = 0x3FFFFFFF & Convert.ToInt32("0x" + hex.Substring(i * 8, 8), 16);
+                string outChars = string.Empty;
+                for (int j = 0; j < 6; j++)
+                {
+                    int index = 0x0000003D & hexint;
+                    outChars += SE.DSP.Foundation.Infrastructure.Constant.Constant.ALLLETTERSANDNUMBERS[index];
+                    hexint = hexint >> 5;
+                }
+
+                ids[i] = outChars;
+            }
+
+            string uniqueId = null;
+            foreach (var id in ids)
+            {
+                if (this.gatewayRepository.GetByUniqueId(id) == null)
+                {
+                    uniqueId = id;
+                    break;
+                }
+            }
+
+            if (string.IsNullOrEmpty(uniqueId))
+            {
+                throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.CantAcquireUniqueId);
+            }
 
             gateway.UniqueId = uniqueId;
-            gateway.CustomerId = customer.CustomerId;
+            gateway.CustomerId = customer.HierarchyId;
             gateway.RegisterTime = DateTime.Now;
             
             entity = this.gatewayRepository.Add(AutoMapper.Mapper.Map<Gateway>(gateway));
@@ -100,7 +138,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.InvalidGatewayMac);
             }
 
-            Hierarchy customer = null;
+            Customer customer = null;
 
             if (!this.DoesGatewayCustomerExist(gateway, out customer))
             {
@@ -181,20 +219,76 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.singleDiagramRepository.Delete(id);
         }
 
+        public void SaveGatewayHierarchy(string boxId, long timestamp, GatewayHierarchyDto[] gatewayHierarchy)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                var gateway = this.gatewayRepository.GetByUniqueId(boxId);
+
+                this.SaveGatewayHierarchyTreeRecursive(gateway.Id, gateway.CustomerId, -1, timestamp, gatewayHierarchy);
+
+                unitOfWork.Commit();                
+            }
+        }
+
+        private void SaveGatewayHierarchyTreeRecursive(long gatewayId, long customerId, long parentId, long timestamp, GatewayHierarchyDto[] gatewayHierarchy)
+        {
+            foreach (var item in gatewayHierarchy)
+            {
+                if (item.Type == GatewayHierarchyType.Parameter)
+                {
+                    continue;
+                }
+
+                var hierarchy = this.hierarchyRepository.GetByCode(customerId, item.Id.ToString());
+
+                if (hierarchy == null)
+                {
+                    ////create
+                    hierarchy = new Hierarchy();
+                    hierarchy.ParentId = parentId == -1 ? null : (long?)parentId;
+                    hierarchy.Code = item.Id.ToString();
+                    hierarchy.Name = item.Name;
+                    hierarchy.Type = item.Type == GatewayHierarchyType.Device ? HierarchyType.Device : HierarchyType.DistributionCabinet;
+                    hierarchy.UpdateTime = DateTime.Now;
+                    hierarchy.TimezoneId = 1;
+                    hierarchy.CustomerId = customerId;
+
+                    hierarchy = this.hierarchyRepository.Add(hierarchy);
+                }
+                else
+                {
+                    ////update
+                    hierarchy.Name = item.Name;
+                    hierarchy.ParentId = parentId == -1 ? null : (long?)parentId;
+                    hierarchy.Code = item.Id.ToString();
+                    hierarchy.Type = item.Type == GatewayHierarchyType.Device ? HierarchyType.Device : HierarchyType.DistributionCabinet;
+                    hierarchy.UpdateTime = DateTime.Now;
+
+                    this.hierarchyRepository.Update(hierarchy);
+                }
+
+                if (item.Children != null && item.Children.Length > 0)
+                {
+                    this.SaveGatewayHierarchyTreeRecursive(gatewayId, customerId, hierarchy.Id, timestamp, item.Children);
+                }
+            }
+        }
+
         private bool DoesGatewayNameExist(GatewayDto gateway, out Gateway entity)
         {
             entity = this.gatewayRepository.GetByName(gateway.Name);
 
-            return entity == null;
+            return entity != null;
         }
 
-        private bool DoesGatewayCustomerExist(GatewayDto gateway, out Hierarchy customer)
+        private bool DoesGatewayCustomerExist(GatewayDto gateway, out Customer customer)
         {
             var customerCode = gateway.Name.Split('.').FirstOrDefault();
 
-            customer = this.hierarchyRepository.GetByCode(customerCode);
+            customer = this.customerRepository.GetByCode(customerCode);
 
-            if (customer != null && customer.Type == HierarchyType.Customer)
+            if (customer != null)
             {
                 return true;
             }

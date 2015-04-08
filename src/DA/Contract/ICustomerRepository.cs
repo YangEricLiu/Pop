@@ -13,5 +13,7 @@ namespace SE.DSP.Pop.Contract
         Customer[] GetByIds(long[] ids);
 
         Customer[] GetBySpId(long spId);
+
+        Customer GetByCode(string customerCode);
     }
 }

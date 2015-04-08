@@ -55,6 +55,7 @@ namespace SE.DSP.Pop.Communication.ServiceHost.Utils
         public static void Publish(string topic, string message)
         {
             var code = Client.Publish(topic, Encoding.UTF8.GetBytes(message), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, false);
+            LogHelper.LogDebug(string.Format("publish topic: {0}, message: {1}, result: {2}", topic, message, code));
         }
     }
 }

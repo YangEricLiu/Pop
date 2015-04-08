@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SE.DSP.Foundation.Infrastructure.Utils;
+using SE.DSP.Foundation.Web.Wcf;
+using SE.DSP.Pop.BL.API;
+using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.Communication.ServiceHost.Utils;
-using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace SE.DSP.Pop.Communication.ServiceHost.Business
@@ -33,18 +33,45 @@ namespace SE.DSP.Pop.Communication.ServiceHost.Business
         public const string SubscribeAckTopic = "/V1/0/hack/+";
 
         private const string PublishDataTopic = "/V1.0/hpush/{0}";
-        private const string PublishAckTopic = "V1.0/hack/{0}";
+        private const string PublishAckTopic = "/V1.0/hcack/{0}";
         private const string PublishInquireTopic = "/V1.0/hget/{0}";
-
+        
+        private static readonly IPopClientService clientService = ServiceProxy<IPopClientService>.GetClient("IPopClientService.EndPoint");
+        
         public static void SubDataTopic()
         {
             Action<object, MqttMsgPublishEventArgs> action = (o, e) =>
             {
                 ////LogHelper.LogDebug("hierarchy data: " + e.Topic);
+                var boxId = e.Topic.Split('/').LastOrDefault();
 
                 if (e.Topic.StartsWith(SubscribeDataTopic.Substring(0, SubscribeDataTopic.Length - 1)))
                 {
-                    LogHelper.LogDebug("hierarchy data message: " + Encoding.UTF8.GetString(e.Message));
+                    LogHelper.LogDebug(string.Format("hierarchy data message of box [{0}]: {1}", boxId, Encoding.UTF8.GetString(e.Message)));
+
+                    ////process hierarchy data
+                    try
+                    {
+                        var raw = Encoding.UTF8.GetString(e.Message);
+
+                        dynamic message = JObject.Parse(raw);
+
+                        var id = message.boxId;
+                        var timestamp = Convert.ToInt64(message.timestamp);
+                        var hierarchy = ((JArray)message.children).ToObject<GatewayHierarchyDto[]>();
+
+                        clientService.SaveGatewayHierarchy(boxId, timestamp, hierarchy);
+
+                        LogHelper.LogDebug("save result: ok");
+
+                        ////send ack
+                        LogHelper.LogDebug("sending ack to " + boxId);
+                        Ack(boxId);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.LogException(ex);
+                    }
                 }
             };
 
@@ -70,8 +97,9 @@ namespace SE.DSP.Pop.Communication.ServiceHost.Business
 
         public static void Ack(string boxId)
         {
-            string topic = "V1.0/hack/{0}";
-            topic = string.Format(topic, boxId);                
+            var topic = string.Format(PublishAckTopic, boxId);
+            LogHelper.LogDebug(string.Format("ack topic is {0}", topic));
+            MqttSession.Publish(topic, "ok");
         }
 
         public static void Inquire(string boxId)
@@ -82,6 +110,7 @@ namespace SE.DSP.Pop.Communication.ServiceHost.Business
 
         public static void Push(string boxId)
         { 
+            ////Get changed hierarchy
             string topic = "V1.0/hpush/{0}";
             topic = string.Format(topic, boxId);
         }

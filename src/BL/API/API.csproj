@@ -49,6 +49,7 @@
     <Compile Include="DataContract\DeviceDto.cs" />
     <Compile Include="DataContract\DistributionCabinetDto.cs" />
     <Compile Include="DataContract\GatewayDto.cs" />
+    <Compile Include="DataContract\GatewayHierarchyDto.cs" />
     <Compile Include="DataContract\HierarchyAdministratorDto.cs" />
     <Compile Include="DataContract\HierarchyDto.cs" />
     <Compile Include="DataContract\CustomerDto.cs" />

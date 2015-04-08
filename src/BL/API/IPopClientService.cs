@@ -29,5 +29,8 @@ namespace SE.DSP.Pop.BL.API
 
         [OperationContract]
         void DeleteSingleLineDiagramById(long id);
+
+        [OperationContract]
+        void SaveGatewayHierarchy(string boxId, long timestamp, GatewayHierarchyDto[] gatewayHierarchy);
     }
 }

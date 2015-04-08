@@ -12,5 +12,8 @@ namespace SE.DSP.Pop.Communication.ServiceHost.API
     {
         [OperationContract]
         double Add(double n1, double n2);
+
+        [OperationContract]
+        void HierarchyChanged();
     }
 }

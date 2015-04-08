@@ -73,5 +73,16 @@ namespace SE.DSP.Pop.MSSQL
 
             return result.ToArray();
         }
+
+        public Customer GetByCode(string customerCode)
+        {
+            var sql = @"select * from Customer C
+                        inner join Hierarchy H on H.Id = C.HierarchyId
+                        where H.Code = @0";
+
+            var result = this.Db.SingleOrDefault<Customer>(sql, customerCode);
+
+            return result;
+        }
     }
 }

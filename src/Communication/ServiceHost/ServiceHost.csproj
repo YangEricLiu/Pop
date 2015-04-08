@@ -35,6 +35,10 @@
     <Reference Include="M2Mqtt">
       <HintPath>..\..\..\lib\M2Mqtt.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -72,14 +76,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BL\API\API.csproj">
+      <Project>{0b4bad06-6fd4-4741-95d3-ec02e155a3eb}</Project>
+      <Name>API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Foundation\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
       <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>
       <Name>SE.DSP.Foundation.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Foundation\Foundation.Web\SE.DSP.Foundation.Web.csproj">
+      <Project>{ae31828f-8dff-4e37-a844-01d307532f35}</Project>
+      <Name>SE.DSP.Foundation.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServiceHost.API\ServiceHost.API.csproj">
       <Project>{127f159e-67f2-4972-9cde-984c9f05b310}</Project>
       <Name>ServiceHost.API</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

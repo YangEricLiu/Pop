@@ -87,5 +87,12 @@ namespace SE.DSP.Pop.MSSQL
 
             return result.SingleOrDefault();
         }
+
+        public Gateway GetByUniqueId(string uniqueId)
+        {
+            var result = this.Db.Query<Gateway>("where UniqueId = @0", uniqueId);
+
+            return result.SingleOrDefault();
+        }
     }
 }

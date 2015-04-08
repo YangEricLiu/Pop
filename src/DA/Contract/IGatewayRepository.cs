@@ -17,5 +17,7 @@ namespace SE.DSP.Pop.Contract
         void DeleteGatewayByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
 
         Gateway GetByName(string name);
+
+        Gateway GetByUniqueId(string uniqueId);
     }
 }
