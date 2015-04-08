@@ -18,6 +18,9 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public HierarchyAdministratorDto[] Administrators { get; set; }
 
         [DataMember]
+        public SingleLineDiagramDto[] SingleLineDiagrams { get; set; }
+
+        [DataMember]
         public GatewayDto[] Gateways { get; set; }
     }
 }

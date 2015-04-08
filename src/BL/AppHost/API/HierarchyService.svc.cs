@@ -30,6 +30,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IParkRepository parkRepository;
         private readonly IDistributionRoomRepository distributionRoomRepository;
         private readonly IDistributionCabinetRepository distributionCabinetRepository;
+        private readonly ISingleLineDiagramRepository singleLineDiagramRepository;
 
         public HierarchyService(
                                 IHierarchyRepository hierarchyRepository,
@@ -43,7 +44,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
                                 IBuildingRepository buildingRepository,
                                 IParkRepository parkRepository,
                                 IDistributionRoomRepository distributionRoomRepository,
-                                IDistributionCabinetRepository distributionCabinetRepository) : base(hierarchyRepository, unitOfWorkProvider)
+                                IDistributionCabinetRepository distributionCabinetRepository,
+                                ISingleLineDiagramRepository singleLineDiagramRepository) : base(hierarchyRepository, unitOfWorkProvider)
         {
             this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
             this.gatewayRepository = gatewayRepository;
@@ -54,6 +56,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.buildingRepository = buildingRepository;
             this.distributionRoomRepository = distributionRoomRepository;
             this.distributionCabinetRepository = distributionCabinetRepository;
+            this.singleLineDiagramRepository = singleLineDiagramRepository;
         }
 
         public OrganizationDto CreateOrganization(OrganizationDto organization)
@@ -66,19 +69,10 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 organization.Id = hierarchyEntity.Id;
 
-                foreach (var gateway in organization.Gateways)
-                {
-                    gateway.HierarchyId = hierarchyEntity.Id;
-                }
+                organization.Administrators = this.AddHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, organization.Administrators);
 
-                var hirarchyAdminEntities = organization.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
-
-                organization.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
-
-                var gatewayentities = organization.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
-
-                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
-
+                organization.Gateways = this.AddGateways(unitOfWork, hierarchyEntity.Id, organization.Gateways);
+  
                 unitOfWork.Commit();
 
                 return organization;
@@ -97,22 +91,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
-                foreach (var gateway in organization.Gateways)
-                {
-                    gateway.HierarchyId = hierarchyEntity.Id;
-                }
+                organization.Administrators = this.UpdateHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, organization.Administrators);
 
-                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                var hirarchyAdminEntities = organization.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
-
-                organization.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
-
-                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                var gatewayentities = organization.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
-
-                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+                organization.Gateways = this.UpdateGateways(unitOfWork, hierarchyEntity.Id, organization.Gateways);
 
                 unitOfWork.Commit();
 
@@ -157,22 +138,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
             var location = this.buildingLocationRepository.GetById(hierarchyId);
-            var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
-
-            LogoDto logoDto = null;
-
-            if (logos.Length == 1)
-            {
-                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", logos[0].Id));
-
-                logoDto = new LogoDto
-                {
-                    Logo = ossobject.Content,
-                    Id = logos[0].Id,
-                    HierarchyId = hierarchy.Id
-                };
-            }
-
+          
             var result = Mapper.Map<ParkDto>(park);
  
             result.ParentId = hierarchy.ParentId.Value;
@@ -181,7 +147,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray();
             result.Location = Mapper.Map<BuildingLocationDto>(location);
-            result.Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null;
+            result.Logo = this.GetLogoByHierarchyId(hierarchyId);
 
             return result;
         }
@@ -198,33 +164,17 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 park.Location.BuildingId = hierarchyEntity.Id;
 
-                var hirarchyAdminEntities = park.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+                park.Administrators = this.AddHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, park.Administrators);
 
-                park.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+                park.Gateways = this.AddGateways(unitOfWork, hierarchyEntity.Id, park.Gateways);
 
-                foreach (var gw in park.Gateways)
-                {
-                    gw.HierarchyId = hierarchyEntity.Id;
-                }
-
-                var gatewayentities = park.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
-
-                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+                park.Logo = this.AddLogo(unitOfWork, hierarchyEntity.Id, park.Logo);
 
                 var location = Mapper.Map<BuildingLocation>(park.Location);
 
                 this.buildingLocationRepository.Add(unitOfWork, location);
 
                 this.parkRepository.Add(unitOfWork, Mapper.Map<Park>(park));
-
-                if (park.Logo != null)
-                {
-                    park.Logo.HierarchyId = hierarchyEntity.Id;
-
-                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(park.Logo));
-
-                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), park.Logo.Logo));
-                }
 
                 unitOfWork.Commit();
 
@@ -244,34 +194,17 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
-                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
+                park.Administrators = this.UpdateHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, park.Administrators);
 
-                var hirarchyAdminEntities = park.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+                park.Gateways = this.UpdateGateways(unitOfWork, hierarchyEntity.Id, park.Gateways);
 
-                park.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
-
-                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                var gatewayentities = park.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
-
-                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+                park.Logo = this.UpdateLogo(unitOfWork, hierarchyEntity.Id, park.Logo);
 
                 var location = Mapper.Map<BuildingLocation>(park.Location);
 
                 this.buildingLocationRepository.Update(unitOfWork, location);
 
                 this.parkRepository.Update(unitOfWork, Mapper.Map<Park>(park));
-
-                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                if (park.Logo != null)
-                {
-                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(park.Logo));
-
-                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), park.Logo.Logo));
-
-                    park.Logo.Id = logoEntity.Id;
-                }
 
                 unitOfWork.Commit();
 
@@ -298,26 +231,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
         public DeviceDto GetDeviceById(long hierarchyId)
         {
             var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
-            var device = this.deviceRepository.GetById(hierarchyId);
-            var pics = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
-
-            LogoDto logoDto = null;
-
-            if (pics.Length == 1)
-            {
-                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", pics[0].Id));
-
-                logoDto = new LogoDto
-                {
-                    Logo = ossobject.Content,
-                    Id = pics[0].Id,
-                    HierarchyId = hierarchyId
-                };
-            }
-
+            var device = this.deviceRepository.GetById(hierarchyId); 
+ 
             var result = AutoMapper.Mapper.Map<Device, DeviceDto>(device);
 
-            result.Picture = logoDto;
+            result.Logo = this.GetLogoByHierarchyId(hierarchyId);
             result.Name = hierarchy.Name;
             result.Code = hierarchy.Code;
             result.ParentId = hierarchy.ParentId.Value;
@@ -337,15 +255,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.deviceRepository.Add(unitOfWork, Mapper.Map<Device>(device));
 
-                if (device.Picture != null)
-                {
-                    var logoEntity = this.logoRepository.Add(unitOfWork, new Logo(device.Id.Value));
-
-                    device.Picture.Id = logoEntity.Id;
-                    device.Picture.HierarchyId = device.Id;
-
-                    this.ossRepository.Add(unitOfWork, new OssObject(string.Format("img-pic-{0}", logoEntity.Id), device.Picture.Logo));
-                }
+                device.Logo = this.AddLogo(unitOfWork, hierarchyEntity.Id, device.Logo);
 
                 unitOfWork.Commit();
 
@@ -363,17 +273,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.deviceRepository.Update(unitOfWork, Mapper.Map<DeviceDto, Device>(device));
 
-                this.logoRepository.DeleteByHierarchyId(unitOfWork, device.Id.Value);
-
-                if (device.Picture != null)
-                {
-                    var logoEntity = this.logoRepository.Add(unitOfWork, new Logo(device.Id.Value));
-
-                    device.Picture.Id = logoEntity.Id;
-                    device.Picture.HierarchyId = device.Id;
-
-                    this.ossRepository.Add(unitOfWork, new OssObject(string.Format("img-pic-{0}", logoEntity.Id), device.Picture.Logo));
-                }
+                device.Logo = this.UpdateLogo(unitOfWork, hierarchyEntity.Id, device.Logo);
 
                 return device;
             }
@@ -398,23 +298,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var location = this.buildingLocationRepository.GetById(hierarchyId);
-            var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
             var building = this.buildingRepository.GetById(hierarchyId);
-
-            LogoDto logoDto = null;
-
-            if (logos.Length == 1)
-            {
-                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", logos[0].Id));
-
-                logoDto = new LogoDto
-                {
-                    Logo = ossobject.Content,
-                    Id = logos[0].Id,
-                    HierarchyId = hierarchy.Id
-                };
-            }
-
+         
             var result = Mapper.Map<BuildingDto>(building);
 
             result.Name = hierarchy.Name;
@@ -422,7 +307,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             result.ParentId = hierarchy.ParentId.Value;  
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Location = Mapper.Map<BuildingLocationDto>(location);
-            result.Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null;
+            result.Logo = this.GetLogoByHierarchyId(hierarchyId);
+            result.SingleLineDiagrams = this.GetSingleLineDiagramsByHierarchyId(hierarchyId);
 
             return result;
         }
@@ -443,22 +329,15 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 building.Location.BuildingId = hierarchyEntity.Id;
 
-                var hirarchyAdminEntities = building.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+                building.Administrators = this.AddHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, building.Administrators);
 
-                building.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+                building.Logo = this.AddLogo(unitOfWork, hierarchyEntity.Id, building.Logo);
+
+                building.SingleLineDiagrams = this.AddSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, building.SingleLineDiagrams);
 
                 var location = Mapper.Map<BuildingLocation>(building.Location);
 
                 this.buildingLocationRepository.Add(unitOfWork, location);
-
-                if (building.Logo != null)
-                {
-                    building.Logo.HierarchyId = hierarchyEntity.Id;
-
-                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(building.Logo));
-
-                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), building.Logo.Logo));
-                }
 
                 unitOfWork.Commit();
 
@@ -481,27 +360,14 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.buildingRepository.Update(unitOfWork, Mapper.Map<Building>(building));
 
-                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                var hirarchyAdminEntities = building.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
-
-                building.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+                building.Administrators = this.UpdateHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, building.Administrators);
+                building.Logo = this.UpdateLogo(unitOfWork, hierarchyEntity.Id, building.Logo);
+                building.SingleLineDiagrams = this.UpdateSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, building.SingleLineDiagrams);
 
                 var location = Mapper.Map<BuildingLocation>(building.Location);
 
                 this.buildingLocationRepository.Update(unitOfWork, location);
-
-                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                if (building.Logo != null)
-                {
-                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(building.Logo));
-
-                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), building.Logo.Logo));
-
-                    building.Logo.Id = logoEntity.Id;
-                }
-
+ 
                 unitOfWork.Commit();
 
                 return building;
@@ -516,6 +382,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.buildingLocationRepository.Delete(unitOfWork, hierarchyId);
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
                 this.buildingRepository.Delete(unitOfWork, hierarchyId);
+                this.singleLineDiagramRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
@@ -528,7 +395,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
             var distributionRoom = this.distributionRoomRepository.GetById(hierarchyId);
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
-            var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
+            var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId); 
 
             var result = Mapper.Map<DistributionRoomDto>(distributionRoom);
 
@@ -537,6 +404,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             result.Name = hierarchy.Name;
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray();
+            result.SingleLineDiagrams = this.GetSingleLineDiagramsByHierarchyId(hierarchyId);
 
             return result;
         }
@@ -550,19 +418,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
                 distributionRoom.Id = hierarchyEntity.Id;
- 
-                var hirarchyAdminEntities = distributionRoom.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
 
-                distributionRoom.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+                distributionRoom.Administrators = this.AddHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, distributionRoom.Administrators);
 
-                foreach (var gw in distributionRoom.Gateways)
-                {
-                    gw.HierarchyId = hierarchyEntity.Id;
-                }
+                distributionRoom.Gateways = this.AddGateways(unitOfWork, hierarchyEntity.Id, distributionRoom.Gateways);
 
-                var gatewayentities = distributionRoom.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
-
-                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+                distributionRoom.SingleLineDiagrams = this.AddSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, distributionRoom.SingleLineDiagrams);
 
                 this.distributionRoomRepository.Add(unitOfWork, Mapper.Map<DistributionRoom>(distributionRoom));
               
@@ -584,17 +445,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
-                this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyEntity.Id);
+                distributionRoom.Administrators = this.UpdateHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, distributionRoom.Administrators);
 
-                var hirarchyAdminEntities = distributionRoom.Administrators.Select(ad => new HierarchyAdministrator(hierarchyEntity.Id, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+                distributionRoom.Gateways = this.UpdateGateways(unitOfWork, hierarchyEntity.Id, distributionRoom.Gateways);
 
-                distributionRoom.Administrators = this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
-
-                this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                var gatewayentities = distributionRoom.Gateways.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
-
-                this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+                distributionRoom.SingleLineDiagrams = this.UpdateSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, distributionRoom.SingleLineDiagrams);
 
                 this.distributionRoomRepository.Update(unitOfWork, Mapper.Map<DistributionRoom>(distributionRoom));
  
@@ -612,6 +467,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
             
                 this.distributionRoomRepository.Delete(unitOfWork, hierarchyId);
+                this.singleLineDiagramRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
@@ -623,28 +479,14 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
             var distributionCabinet = this.distributionCabinetRepository.GetById(hierarchyId); 
-            var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
-
-            LogoDto logoDto = null;
-
-            if (logos.Length == 1)
-            {
-                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", logos[0].Id));
-
-                logoDto = new LogoDto
-                {
-                    Logo = ossobject.Content,
-                    Id = logos[0].Id,
-                    HierarchyId = hierarchy.Id
-                };
-            }
-
+     
             var result = Mapper.Map<DistributionCabinetDto>(distributionCabinet);
 
             result.ParentId = hierarchy.ParentId.Value;
             result.Code = hierarchy.Code;
-            result.Name = hierarchy.Name; 
-            result.Logo = logoDto != null ? Mapper.Map<LogoDto>(logos[0]) : null;
+            result.Name = hierarchy.Name;
+            result.Logo = this.GetLogoByHierarchyId(hierarchyId);
+            result.SingleLineDiagrams = this.GetSingleLineDiagramsByHierarchyId(hierarchyId);
 
             return result;
         }
@@ -659,16 +501,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 distributionCabinet.Id = hierarchyEntity.Id;
 
+                distributionCabinet.Logo = this.AddLogo(unitOfWork, hierarchyEntity.Id, distributionCabinet.Logo);
+
+                distributionCabinet.SingleLineDiagrams = this.AddSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, distributionCabinet.SingleLineDiagrams);
+
                 this.distributionCabinetRepository.Add(unitOfWork, Mapper.Map<DistributionCabinet>(distributionCabinet));
-
-                if (distributionCabinet.Logo != null)
-                {
-                    distributionCabinet.Logo.HierarchyId = hierarchyEntity.Id;
-
-                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(distributionCabinet.Logo));
-
-                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), distributionCabinet.Logo.Logo));
-                }
 
                 unitOfWork.Commit();
 
@@ -688,18 +525,11 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 this.UpdateHierarchy(unitOfWork, hierarchyEntity);
 
+                distributionCabinet.Logo = this.UpdateLogo(unitOfWork, hierarchyEntity.Id, distributionCabinet.Logo);
+
+                distributionCabinet.SingleLineDiagrams = this.UpdateSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, distributionCabinet.SingleLineDiagrams);
+
                 this.distributionCabinetRepository.Update(unitOfWork, Mapper.Map<DistributionCabinet>(distributionCabinet));
-
-                this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyEntity.Id);
-
-                if (distributionCabinet.Logo != null)
-                {
-                    var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(distributionCabinet.Logo));
-
-                    this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), distributionCabinet.Logo.Logo));
-
-                    distributionCabinet.Logo.Id = logoEntity.Id;
-                }
 
                 unitOfWork.Commit();
 
@@ -713,11 +543,128 @@ namespace SE.DSP.Pop.BL.AppHost.API
             { 
                 this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
                 this.distributionCabinetRepository.Delete(unitOfWork, hierarchyId);
+                this.singleLineDiagramRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
 
                 this.DeleteHierarchy(unitOfWork, hierarchyId, true);
 
                 unitOfWork.Commit();
             }
+        }
+
+        private SingleLineDiagramDto[] GetSingleLineDiagramsByHierarchyId(long hierarchyId)
+        {
+            var entities = this.singleLineDiagramRepository.GetByHierarchyId(hierarchyId);
+
+            var dtos = entities.Select(sld => Mapper.Map<SingleLineDiagramDto>(sld)).ToArray();
+
+            foreach (var item in dtos)
+            {
+                item.Content = this.ossRepository.GetById(string.Format(PopClientService.SingleLineDiagramOss, item.Id)).Content;
+            }
+
+            return dtos;
+        }
+
+        private SingleLineDiagramDto[] AddSingleLineDiagrams(IUnitOfWork unitOfWork, long hierarchyId, SingleLineDiagramDto[] dto)
+        { 
+            foreach (var item in dto)
+            {
+                item.HierarchyId = hierarchyId;
+
+                var entity = Mapper.Map<SingleLineDiagram>(item);
+
+                entity = this.singleLineDiagramRepository.Add(unitOfWork, entity);
+
+                item.Id = entity.Id;
+
+                this.ossRepository.Add(unitOfWork, new OssObject(string.Format(PopClientService.SingleLineDiagramOss, entity.Id), item.Content));
+            }
+
+            return dto;
+        }
+
+        private SingleLineDiagramDto[] UpdateSingleLineDiagrams(IUnitOfWork unitOfWork, long hierarchyId, SingleLineDiagramDto[] dto)
+        {
+            this.singleLineDiagramRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+            return this.AddSingleLineDiagrams(unitOfWork, hierarchyId, dto);
+        }
+
+        private LogoDto GetLogoByHierarchyId(long hierarchyId)
+        {
+            var logos = this.logoRepository.GetLogosByHierarchyIds(new long[] { hierarchyId });
+
+            LogoDto logoDto = null;
+
+            if (logos.Length == 1)
+            {
+                var ossobject = this.ossRepository.GetById(string.Format("img-pic-{0}", logos[0].Id));
+
+                logoDto = new LogoDto
+                {
+                    Logo = ossobject.Content,
+                    Id = logos[0].Id,
+                    HierarchyId = hierarchyId
+                };
+            }
+
+            return logoDto;
+        }
+
+        private LogoDto AddLogo(IUnitOfWork unitOfWork, long hierarchyId, LogoDto dto)
+        {
+            if (dto != null)
+            {
+                dto.HierarchyId = hierarchyId;
+
+                var logoEntity = this.logoRepository.Add(unitOfWork, Mapper.Map<Logo>(dto));
+
+                this.ossRepository.Add(new OssObject(string.Format("img-pic-{0}", logoEntity.Id), dto.Logo));
+
+                dto.Id = logoEntity.Id;
+
+                return dto;
+            }
+
+            return null;
+        }
+
+        private LogoDto UpdateLogo(IUnitOfWork unitOfWork, long hierarchyId, LogoDto dto)
+        {
+            this.logoRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+            return this.AddLogo(unitOfWork, hierarchyId, dto);
+        }
+
+        private HierarchyAdministratorDto[] AddHierarchyAdministrators(IUnitOfWork unitOfWork, long hierarchyId, HierarchyAdministratorDto[] dto)
+        {
+            var hirarchyAdminEntities = dto.Select(ad => new HierarchyAdministrator(hierarchyId, ad.Name, ad.Title, ad.Telephone, ad.Email)).ToArray();
+
+            return this.hierarchyAdministratorRepository.AddMany(unitOfWork, hirarchyAdminEntities).Select(ha => AutoMapper.Mapper.Map<BL.API.DataContract.HierarchyAdministratorDto>(ha)).ToArray();
+        }
+
+        private HierarchyAdministratorDto[] UpdateHierarchyAdministrators(IUnitOfWork unitOfWork, long hierarchyId, HierarchyAdministratorDto[] dto)
+        {
+            this.hierarchyAdministratorRepository.DeleteAdministratorByHierarchyId(unitOfWork, hierarchyId);
+            return this.AddHierarchyAdministrators(unitOfWork, hierarchyId, dto);
+        }
+
+        private GatewayDto[] AddGateways(IUnitOfWork unitOfWork, long hierarchyId, GatewayDto[] dto)
+        {
+            foreach (var gateway in dto)
+            {
+                gateway.HierarchyId = hierarchyId;
+            }
+
+            var gatewayentities = dto.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
+
+            this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
+
+            return dto;
+        }
+
+        private GatewayDto[] UpdateGateways(IUnitOfWork unitOfWork, long hierarchyId, GatewayDto[] dto)
+        {
+            this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
+            return this.AddGateways(unitOfWork, hierarchyId, dto);
         }
     }
 }

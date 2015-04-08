@@ -22,6 +22,9 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public BuildingLocationDto Location { get; set; }
 
         [DataMember]
+        public SingleLineDiagramDto[] SingleLineDiagrams { get; set; }
+
+        [DataMember]
         public HierarchyAdministratorDto[] Administrators { get; set; }
     }
 }

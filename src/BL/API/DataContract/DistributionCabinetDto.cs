@@ -17,5 +17,8 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public LogoDto Logo { get; set; }
+
+        [DataMember]
+        public SingleLineDiagramDto[] SingleLineDiagrams { get; set; }
     }
 }

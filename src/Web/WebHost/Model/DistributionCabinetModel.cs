@@ -11,6 +11,8 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         public DateTime ManufactureTime { get; set; }
  
-        public LogoModel Logo { get; set; } 
+        public LogoModel Logo { get; set; }
+
+        public SingleLineDiagramModel[] SingleLineDiagrams { get; set; }
     }
 }

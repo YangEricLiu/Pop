@@ -25,6 +25,9 @@ namespace SE.DSP.Pop.BL.API
         UserDto[] GetUserBySpId(long spId);
 
         [OperationContract]
+        UserDto GetUserById(long userId);
+
+        [OperationContract]
         UserCustomerDto[] SaveUserCustomer(long userId, UserCustomerDto[] userCustomers);
 
         [OperationContract]
