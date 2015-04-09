@@ -328,8 +328,6 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 buildingEntity = this.buildingRepository.Add(unitOfWork, buildingEntity);
 
-                building.Id = hierarchyEntity.Id;
-
                 building.Location.BuildingId = hierarchyEntity.Id;
 
                 building.Administrators = this.AddHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, building.Administrators);
