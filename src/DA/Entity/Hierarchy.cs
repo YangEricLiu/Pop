@@ -31,7 +31,7 @@ namespace SE.DSP.Pop.Entity
             this.ParentId = parentId;
         }
 
-        public Hierarchy(string name, string code, long industryId, long parentId, HierarchyType hierarchyType)
+        public Hierarchy(string name, string code, long? industryId, long parentId, HierarchyType hierarchyType)
             : this(name, code, parentId, hierarchyType)
         {
             this.IndustryId = industryId;

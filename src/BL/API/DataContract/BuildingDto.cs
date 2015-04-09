@@ -7,7 +7,7 @@ namespace SE.DSP.Pop.BL.API.DataContract
     public class BuildingDto : BaseHierarchyDto
     {
         [DataMember]
-        public long IndustryId { get; set; }
+        public long? IndustryId { get; set; }
 
         [DataMember]
         public decimal? BuildingArea { get; set; }

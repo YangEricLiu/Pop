@@ -305,7 +305,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             result.Name = hierarchy.Name;
             result.Code = hierarchy.Code;
-            result.ParentId = hierarchy.ParentId.Value;  
+            result.ParentId = hierarchy.ParentId.Value;
+            result.IndustryId = hierarchy.IndustryId;
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Location = Mapper.Map<BuildingLocationDto>(location);
             result.Logo = this.GetLogoByHierarchyId(hierarchyId);
