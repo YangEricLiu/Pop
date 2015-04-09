@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -202,7 +203,7 @@
             this.TextBoxHierarchyText.Name = "TextBoxHierarchyText";
             this.TextBoxHierarchyText.Size = new System.Drawing.Size(557, 436);
             this.TextBoxHierarchyText.TabIndex = 0;
-            this.TextBoxHierarchyText.Text = "";
+            this.TextBoxHierarchyText.Text = resources.GetString("TextBoxHierarchyText.Text");
             // 
             // LabelHierarchyStatus
             // 
