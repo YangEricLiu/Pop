@@ -322,6 +322,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
+                building.Id = hierarchyEntity.Id;
+
                 var buildingEntity = Mapper.Map<Building>(building);
 
                 buildingEntity = this.buildingRepository.Add(unitOfWork, buildingEntity);

@@ -12,17 +12,13 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         public long HierarchyId { get; set; }
 
-        public string Key { get; set; }
+        public string Description { get; set; }
 
         public int Order { get; set; }
 
         public DateTime CreateTime { get; set; }
 
         public string CreateUser { get; set; }
-
-        public DateTime? UpdateTime { get; set; }
-
-        public string UpdateUser { get; set; }
 
         public byte[] Content { get; set; }
     }

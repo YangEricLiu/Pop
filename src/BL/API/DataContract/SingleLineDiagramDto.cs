@@ -13,7 +13,7 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public long HierarchyId { get; set; }
 
         [DataMember]
-        public string Key { get; set; }
+        public string Description { get; set; }
 
         [DataMember]
         public int Order { get; set; }
@@ -23,12 +23,6 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public string CreateUser { get; set; }
-
-        [DataMember]
-        public DateTime? UpdateTime { get; set; }
-
-        [DataMember]
-        public string UpdateUser { get; set; }
 
         [DataMember]
         public byte[] Content { get; set; }

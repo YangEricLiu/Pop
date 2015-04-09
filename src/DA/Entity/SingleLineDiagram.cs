@@ -12,10 +12,10 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public SingleLineDiagram(long hierarchyId, string key, int order, string createUser)
+        public SingleLineDiagram(long hierarchyId, string description, int order, string createUser)
         {
             this.HierarchyId = hierarchyId;
-            this.Key = key;
+            this.Description = description;
             this.Order = order;
             this.CreateTime = DateTime.Now;
             this.CreateUser = createUser;
@@ -25,16 +25,12 @@ namespace SE.DSP.Pop.Entity
 
         public long HierarchyId { get; set; }
 
-        public string Key { get; set; }
+        public string Description { get; set; }
 
         public int Order { get; set; }
 
         public DateTime CreateTime { get; set; }
 
         public string CreateUser { get; set; }
-
-        public DateTime? UpdateTime { get; set; }
-
-        public string UpdateUser { get; set; }
     }
 }

@@ -10,12 +10,10 @@ BEGIN
 	CREATE TABLE [dbo].[SingleLineDiagram](
 	    [Id] [bigint] identity(1,1) NOT NULL,
 		[HierarchyId] [bigint] NOT NULL,
-		[Key] nvarchar(100) NOT NULL, 
+		[Description] nvarchar(500) NOT NULL, 
 		[Order] int NOT NULL,
 		[CreateTime] datetime NOT NULL,
-		[CreateUser] nvarchar(100) NOT NULL,
-		[UpdateTime] datetime NOT NULL,
-		[UpdateUser] nvarchar(100) NOT NULL
+		[CreateUser] nvarchar(100) NOT NULL
 	 CONSTRAINT [PK_SingleLineDiagram] PRIMARY KEY CLUSTERED 
 	(
 		[Id] ASC
