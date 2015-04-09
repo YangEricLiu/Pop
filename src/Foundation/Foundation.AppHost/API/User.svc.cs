@@ -22,6 +22,7 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Practices.Unity;
+using SE.DSP.Foundation.API.ErrorCode;
 
 namespace SE.DSP.Foundation.AppHost.API
 {
@@ -968,7 +969,10 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
 
             var users = UserAPI.RetrieveUsers(new UserFilter { Name = userName, DemoStatus = null, SpId = -1 });
 
-            if (users == null || users.Length == 0 || users[0] == null) return null;
+            if (users == null || users.Length == 0 || users[0] == null)
+            {
+                throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserDoesNotExist);
+            }
 
             var user = UserTranslator.UserEntity2UserDto(users[0]);
  
@@ -993,16 +997,16 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
 
                 if (allSps.Length == 0)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserSpIsInvalidate);
                 }
                 var sp = allSps[0];
                 if (sp.Status == EntityStatus.Deleted)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserSpIsDeleted);
                 }
                 if (sp.DeployStatus == DeployStatus.Processing)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserSpIsInProcessing);
                 }
 
                 user.SpStatus = sp.Status;
@@ -1010,7 +1014,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 if (sp.Status == EntityStatus.Inactive)
                 {
                     currentUser = user;
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserIsInactive);
                 }
                 if (user.Password.ToLower() == CryptographyHelper.MD5(password).ToLower() && sp.Status == EntityStatus.Active)
                 {
@@ -1020,7 +1024,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 else
                 {
                     currentUser = user;
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.PasswordIsIncorrect);
                 }
             }
             else
@@ -1033,7 +1037,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 else
                 {
                     currentUser = user;
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.PasswordIsIncorrect);
                 }
             }
             
@@ -1044,7 +1048,10 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
 
             var users = UserAPI.RetrieveUsers(new UserFilter { Name = userName, DemoStatus = null, SpId = -1 });
 
-            if (users == null || users.Length == 0 || users[0] == null) return null;
+            if (users == null || users.Length == 0 || users[0] == null)
+            {
+                throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserDoesNotExist);
+            }
 
             var user = UserTranslator.UserEntity2UserDto(users[0]);
 
@@ -1067,20 +1074,20 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 });
                 if (allSps.Length == 0)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserSpIsInvalidate);
                 }
                 var sp = allSps[0];
                 if (!String.IsNullOrEmpty(sp.Domain) && spdomain.ToLower().IndexOf(sp.Domain.ToLower()) < 0)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.SpDomainIsIncorrect);
                 }
                 if (sp.Status == EntityStatus.Deleted)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserSpIsDeleted);
                 }
                 if (sp.DeployStatus == DeployStatus.Processing)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserSpIsInProcessing);
                 }
 
                 user.SpStatus = sp.Status;
@@ -1088,7 +1095,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 if (sp.Status == EntityStatus.Inactive)
                 {
                     currentUser = user;
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.UserIsInactive);
                 }
                 if (user.Password.ToLower() == CryptographyHelper.MD5(password).ToLower() && sp.Status == EntityStatus.Active)
                 {
@@ -1098,7 +1105,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 else
                 {
                     currentUser = user;
-                    return user;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.PasswordIsIncorrect);
                 }
             }
             else
@@ -1106,7 +1113,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 var platformDomain = ConfigHelper.Get(DeploymentConfigKey.LoginPlatformDomain);
                 if (!String.IsNullOrEmpty(platformDomain) && spdomain.ToLower() != platformDomain)
                 {
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.SpDomainIsIncorrect);
                 }
 
                 if (user.Password.ToLower() == CryptographyHelper.MD5(password).ToLower())
@@ -1117,7 +1124,7 @@ String.Format("{0}index.aspx?u={1}&t={2}&a=initpwd&amp;lang=" + I18nHelper.Local
                 else
                 {
                     currentUser = user;
-                    return null;
+                    throw new BusinessLogicException(Layer.BL, Module.User, LoginError.PasswordIsIncorrect);
                 }
             }
         }
