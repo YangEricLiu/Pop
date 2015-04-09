@@ -12,13 +12,19 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public Logo(long hierarchyId)
+        public Logo(long hierarchyId, string udpateUser)
         {
             this.HierarchyId = hierarchyId;
+            this.UpdateTime = DateTime.Now;
+            this.UpdateUser = udpateUser; 
         }
 
         public long Id { get; set; }
 
         public long HierarchyId { get; set; }
+
+        public DateTime UpdateTime { get; set; }
+
+        public string UpdateUser { get; set; }
     }
 }

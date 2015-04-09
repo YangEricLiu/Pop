@@ -101,7 +101,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 if (customer.Logo != null)
                 {
-                    var logo = this.logoRepository.Add(unitOfWork, new Logo(hierarchy.Id));
+                    customer.Logo.HierarchyId = hierarchy.Id;
+
+                    var logo = this.logoRepository.Add(unitOfWork, AutoMapper.Mapper.Map<Logo>(customer.Logo));
 
                     customer.Logo.Id = logo.Id;
 
@@ -144,7 +146,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 if (customer.Logo != null)
                 {
-                    var logo = this.logoRepository.Add(unitOfWork, new Logo(hierarchy.Id));
+                    var logo = this.logoRepository.Add(unitOfWork, AutoMapper.Mapper.Map<Logo>(customer.Logo));
 
                     customer.Logo.Id = logo.Id;
 

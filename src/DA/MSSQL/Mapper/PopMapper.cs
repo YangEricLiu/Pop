@@ -19,7 +19,7 @@ namespace SE.DSP.Pop.MSSQL.Mapper
             if (pocoProperty.Name == "Version")
             {
                 return null;
-            }
+            } 
 
             return ColumnInfo.FromProperty(pocoProperty);
         }
@@ -35,7 +35,7 @@ namespace SE.DSP.Pop.MSSQL.Mapper
             {
                 return db => db == DBNull.Value ? null : new long?(DbVersion2Long((byte[])db)); 
             }
-
+             
             return null;
         }
 

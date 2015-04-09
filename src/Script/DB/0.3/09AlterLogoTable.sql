@@ -1,0 +1,1 @@
+  alter table [dbo].[Logo] alter column [logo] varbinary(max) null

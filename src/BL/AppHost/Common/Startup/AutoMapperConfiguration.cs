@@ -25,7 +25,7 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                 });
             AutoMapper.Mapper.CreateMap<LogoDto, Logo>().ConvertUsing(s =>
                 {
-                    return new Logo(s.HierarchyId.Value);
+                    return new Logo(s.HierarchyId.Value, ServiceContext.CurrentUser.Name);
                 });
             AutoMapper.Mapper.CreateMap<Logo, LogoDto>().ConvertUsing(s =>
             {

@@ -54,7 +54,7 @@ namespace SE.DSP.Foundation.DataAccess
 
         public override OssObject Add(IUnitOfWork unitOfWork, OssObject entity)
         {
-            throw new NotImplementedException();
+            return this.Add(entity);
         }
 
         public override void Update(OssObject entity)
