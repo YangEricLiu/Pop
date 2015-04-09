@@ -157,6 +157,7 @@
     <Compile Include="Common\Startup\WebApiConfig.cs" />
     <Compile Include="Common\WebContext.cs" />
     <Compile Include="Controllers\GatewayController.cs" />
+    <Compile Include="Controllers\HardcoreController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\HierarchyController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -197,7 +198,9 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
