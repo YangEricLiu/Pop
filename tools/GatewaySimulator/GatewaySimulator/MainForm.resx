@@ -117,4 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="TextBoxHierarchyText.Text" xml:space="preserve">
+    <value>{
+    "boxid": "r2Una2",
+    "timestamp": 137131233,
+    "children": [
+        {
+            "id": 101,
+            "type": 1,
+            "name": "panel ABC",
+            "children": [
+                {
+                    "id": 102,
+                    "type": 2,
+                    "name": "device PPP"
+                }
+            ]
+        }
+    ]
+}</value>
+  </data>
 </root>
