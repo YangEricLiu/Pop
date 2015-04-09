@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GatewaySimulator.Business
 {
-    public static class Register
+    public static class RegisterBusiness
     {
         public static void RegesterCommand(string name, string mac)
         {
@@ -36,7 +37,7 @@ namespace GatewaySimulator.Business
             }
         }
 
-        public static ResponseMessage Replace(string name, string mac)
+        public static dynamic Replace(string name, string mac)
         {
             var url = string.Format("{0}{1}", ConfigurationManager.AppSettings["WebHost"], ConfigurationManager.AppSettings["ReplaceUrl"]);
 
@@ -45,12 +46,12 @@ namespace GatewaySimulator.Business
 
             var responseText = HttpHelper.Get(absolute);
 
-            ResponseMessage response = JsonHelper.Deserialize<ResponseMessage>(responseText);
+            dynamic response = JObject.Parse(responseText);
 
             return response;
         }
 
-        public static ResponseMessage Register(string name, string mac)
+        public static dynamic Register(string name, string mac)
         {
             var url = string.Format("{0}{1}", ConfigurationManager.AppSettings["WebHost"], ConfigurationManager.AppSettings["RegisterUrl"]);
 
@@ -59,7 +60,7 @@ namespace GatewaySimulator.Business
 
             var responseText = HttpHelper.Get(absolute);
 
-            ResponseMessage response = JsonHelper.Deserialize<ResponseMessage>(responseText);
+            dynamic response = JObject.Parse(responseText);
 
             return response;
         }
