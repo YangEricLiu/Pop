@@ -165,33 +165,44 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         private DataContract.UserDto FillCustomerForUser(UserDto user)
         {
-            var filter = new UserCustomerFilter
-            {
-                WholeCustomer = user.CustomerIds.Length == 1 && user.CustomerIds[0] == 0
-            };
+            var allCustomers = this.customerRepository.GetBySpId(user.SpId);
 
-            if (!filter.WholeCustomer.HasValue || !filter.WholeCustomer.Value)
-            {
-                filter.CustomerIds = user.CustomerIds;
-            }
-
-            var userCustomerResult = this.userServiceProxy.RetrieveUserCustomers(filter);
-
-            var customerIds = userCustomerResult.Select(uc => uc.CustomerId).ToArray();
-
-            var logos = this.logoRepository.GetLogosByHierarchyIds(customerIds).ToDictionary(lg => lg.HierarchyId);
+            var customerIds = allCustomers.Select(uc => uc.HierarchyId).ToArray();
 
             var hierarchyMap = this.hierarchyRepository.GetByIds(customerIds).ToDictionary(hr => hr.Id);
 
+            var logos = this.logoRepository.GetLogosByHierarchyIds(customerIds).ToDictionary(lg => lg.HierarchyId);
+
+            var userCustomers = this.userCustomerRepository.GetUserCustomersByUserId(user.Id.Value);
+
             var dtoResult = AutoMapper.Mapper.Map<DataContract.UserDto>(user);
 
-            dtoResult.Customers = userCustomerResult.Select(uc => new DataContract.UserPreviligedCustomerDto
-            {
-                CustomerId = uc.CustomerId,
-                CustomerLogoId = logos.ContainsKey(uc.CustomerId) ? new long?(logos[uc.CustomerId].Id) : null,
-                CustomerName = hierarchyMap.ContainsKey(uc.CustomerId) ? hierarchyMap[uc.CustomerId].Name : string.Empty
-            }).ToArray();
+            var upc = new List<DataContract.UserPreviligedCustomerDto>();
 
+            foreach (var customer in allCustomers)
+            {
+                if (userCustomers.Length == 1 && userCustomers[0].HasAllCustomer())
+                {
+                    upc.Add(new DataContract.UserPreviligedCustomerDto
+                    {
+                        CustomerId = customer.HierarchyId,
+                        CustomerLogoId = logos.ContainsKey(customer.HierarchyId) ? logos[customer.HierarchyId].Id : 0,
+                        CustomerName = hierarchyMap.ContainsKey(customer.HierarchyId) ? hierarchyMap[customer.HierarchyId].Name : string.Empty
+                    });
+                }
+                else if (user.CustomerIds.Contains(customer.HierarchyId))
+                {
+                    upc.Add(new DataContract.UserPreviligedCustomerDto
+                    {
+                        CustomerId = customer.HierarchyId,
+                        CustomerLogoId = logos.ContainsKey(customer.HierarchyId) ? logos[customer.HierarchyId].Id : 0,
+                        CustomerName = hierarchyMap.ContainsKey(customer.HierarchyId) ? hierarchyMap[customer.HierarchyId].Name : string.Empty
+                    });
+                }
+            }
+
+            dtoResult.Customers = upc.ToArray();
+ 
             return dtoResult;
         }
     }

@@ -54,6 +54,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.ossRepository = ossRepository;
             this.deviceRepository = deviceRepository;
             this.buildingRepository = buildingRepository;
+            this.parkRepository = parkRepository;
             this.distributionRoomRepository = distributionRoomRepository;
             this.distributionCabinetRepository = distributionCabinetRepository;
             this.singleLineDiagramRepository = singleLineDiagramRepository;
