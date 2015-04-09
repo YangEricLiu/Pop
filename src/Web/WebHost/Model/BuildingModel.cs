@@ -5,11 +5,11 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 {
     public class BuildingModel : BaseHierarchyModel
     { 
-        public decimal BuildingArea { get; set; }
+        public decimal? BuildingArea { get; set; }
 
         public long IndustryId { get; set; }
 
-        public DateTime FinishingDate { get; set; }
+        public DateTime? FinishingDate { get; set; }
 
         public LogoModel Logo { get; set; }
 

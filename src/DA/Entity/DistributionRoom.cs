@@ -12,7 +12,7 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public DistributionRoom(long hierarchyId, string location, int level, long transformerVoltage)
+        public DistributionRoom(long hierarchyId, string location, int? level, long? transformerVoltage)
         {
             this.HierarchyId = hierarchyId;
             this.Location = location;
@@ -24,8 +24,8 @@ namespace SE.DSP.Pop.Entity
 
         public string Location { get; set; }
 
-        public int Level { get; set; }
+        public int? Level { get; set; }
 
-        public long TransformerVoltage { get; set; }
+        public long? TransformerVoltage { get; set; }
     }
 }

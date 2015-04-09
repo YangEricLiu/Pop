@@ -10,10 +10,10 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public long IndustryId { get; set; }
 
         [DataMember]
-        public decimal BuildingArea { get; set; }
+        public decimal? BuildingArea { get; set; }
 
         [DataMember]
-        public DateTime FinishingDate { get; set; }
+        public DateTime? FinishingDate { get; set; }
 
         [DataMember]
         public LogoDto Logo { get; set; }

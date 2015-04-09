@@ -10,8 +10,8 @@ BEGIN
 	CREATE TABLE [dbo].[Device](
 		[HierarchyId] [bigint] NOT NULL,
 		[GatewayId] [bigint] NULL,
-		[Description] nvarchar(250) NOT NULL,
-		[Factory] nvarchar(100) NOT NULL,
+		[Description] nvarchar(250) NULL,
+		[Factory] nvarchar(100) NULL,
 	 CONSTRAINT [PK_Device] PRIMARY KEY CLUSTERED 
 	(
 		[HierarchyId] ASC

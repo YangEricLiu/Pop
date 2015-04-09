@@ -9,9 +9,9 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Di
 BEGIN
 	CREATE TABLE [dbo].[DistributionRoom](
 		[HierarchyId] [bigint] NOT NULL,
-		[Location] nvarchar(100) NOT NULL, 
-		[Level] int NOT NULL,
-		[TransformerVoltage] bigint NOT NULL
+		[Location] nvarchar(100) NULL, 
+		[Level] int NULL,
+		[TransformerVoltage] bigint NULL
 	 CONSTRAINT [PK_DistributionRoom] PRIMARY KEY CLUSTERED 
 	(
 		[HierarchyId] ASC

@@ -13,7 +13,7 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string Factory { get; set; }
 
         [DataMember]
-        public DateTime ManufactureTime { get; set; }
+        public DateTime? ManufactureTime { get; set; }
 
         [DataMember]
         public LogoDto Logo { get; set; }

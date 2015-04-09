@@ -6,9 +6,9 @@ namespace SE.DSP.Pop.Web.WebHost.Model
     { 
         public string Location { get; set; }
 
-        public int Level { get; set; }
+        public int? Level { get; set; }
 
-        public long TransformerVoltage { get; set; }
+        public long? TransformerVoltage { get; set; }
  
         public HierarchyAdministratorModel[] Administrators { get; set; }
 

@@ -12,7 +12,7 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public Building(long hierarchyId, decimal buildingArea, DateTime finishingdate)
+        public Building(long hierarchyId, decimal? buildingArea, DateTime? finishingdate)
         {
             this.HierarchyId = hierarchyId;
             this.BuildingArea = buildingArea;
@@ -21,8 +21,8 @@ namespace SE.DSP.Pop.Entity
 
         public long HierarchyId { get; set; } 
 
-        public decimal BuildingArea { get; set; }
+        public decimal? BuildingArea { get; set; }
 
-        public DateTime FinishingDate { get; set; }
+        public DateTime? FinishingDate { get; set; }
     }
 }

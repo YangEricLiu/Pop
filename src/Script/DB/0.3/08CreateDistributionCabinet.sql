@@ -9,9 +9,9 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Di
 BEGIN
 	CREATE TABLE [dbo].[DistributionCabinet]( 
 		[HierarchyId] [bigint] NOT NULL,
-		[Type] nvarchar(100) NOT NULL, 
-		[Factory] nvarchar(100) NOT NULL,
-		[ManufactureTime] datetime NOT NULL
+		[Type] nvarchar(100) NULL, 
+		[Factory] nvarchar(100) NULL,
+		[ManufactureTime] datetime NULL
 	 CONSTRAINT [PK_DistributionCabinet] PRIMARY KEY CLUSTERED 
 	(
 		[HierarchyId] ASC

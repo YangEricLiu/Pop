@@ -6,10 +6,10 @@ namespace SE.DSP.Pop.BL.API.DataContract
     public class ParkDto : BaseHierarchyDto
     { 
         [DataMember]
-        public decimal FloorSpace { get; set; }
+        public decimal? FloorSpace { get; set; }
 
         [DataMember]
-        public decimal BuildingArea { get; set; }
+        public decimal? BuildingArea { get; set; }
 
         [DataMember]
         public LogoDto Logo { get; set; }

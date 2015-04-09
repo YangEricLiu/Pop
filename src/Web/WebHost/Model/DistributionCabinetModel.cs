@@ -9,7 +9,7 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         public string Factory { get; set; }
 
-        public DateTime ManufactureTime { get; set; }
+        public DateTime? ManufactureTime { get; set; }
  
         public LogoModel Logo { get; set; }
 

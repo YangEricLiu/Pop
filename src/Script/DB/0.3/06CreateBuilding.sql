@@ -9,8 +9,8 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Bu
 BEGIN
 	CREATE TABLE [dbo].[Building](
 		[HierarchyId] [bigint] NOT NULL,
-		[BuildingArea] decimal(19,2) NOT NULL,
-		[FinishingDate] datetime NOT NULL
+		[BuildingArea] decimal(19,2) NULL,
+		[FinishingDate] datetime NULL
 	 CONSTRAINT [PK_Building] PRIMARY KEY CLUSTERED 
 	(
 		[HierarchyId] ASC

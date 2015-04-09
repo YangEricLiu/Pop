@@ -12,7 +12,7 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public DistributionCabinet(long hierarchyId, string type, string factory, DateTime manufactureTime)
+        public DistributionCabinet(long hierarchyId, string type, string factory, DateTime? manufactureTime)
         {
             this.HierarchyId = hierarchyId;
             this.Type = type;
@@ -26,6 +26,6 @@ namespace SE.DSP.Pop.Entity
 
         public string Factory { get; set; }
 
-        public DateTime ManufactureTime { get; set; }
+        public DateTime? ManufactureTime { get; set; }
     }
 }
