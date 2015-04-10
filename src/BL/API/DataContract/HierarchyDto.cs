@@ -7,8 +7,8 @@ namespace SE.DSP.Pop.BL.API.DataContract
     [DataContract]
     public class HierarchyDto : BaseHierarchyDto
     {
-        [DataMember]
-        public HierarchyType Type { get; set; }
+        ////[DataMember]
+        ////public HierarchyType Type { get; set; }
 
         [DataMember]
         public long TimezoneId { get; set; }

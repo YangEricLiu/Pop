@@ -2,12 +2,12 @@
 using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Foundation.DataAccess.Entity;
 using SE.DSP.Foundation.Infrastructure.BE.Entities;
+using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Pop.BL.API;
 using SE.DSP.Pop.BL.API.DataContract;
 using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
-using SE.DSP.Pop.Entity.Enumeration;
 using DataContract = SE.DSP.Pop.BL.API.DataContract;
 
 namespace SE.DSP.Pop.BL.AppHost.API

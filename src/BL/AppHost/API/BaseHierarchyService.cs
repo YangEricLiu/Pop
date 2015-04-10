@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using SE.DSP.Foundation.DataAccess;
+using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Foundation.Infrastructure.Interception;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
@@ -167,7 +168,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 }
                 else
                 {
-                    hierarchy.CustomerId = parentHierarchy.Type == SE.DSP.Pop.Entity.Enumeration.HierarchyType.Customer ? parentHierarchy.Id : parentHierarchy.CustomerId;
+                    hierarchy.CustomerId = parentHierarchy.Type == HierarchyType.Customer ? parentHierarchy.Id : parentHierarchy.CustomerId;
                     return true;
                 }
             }
@@ -183,7 +184,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             entity.UpdateTime = DateTime.Now;
             entity.TimezoneId = 1;
 
-            if (entity.Type != Entity.Enumeration.HierarchyType.Customer && !this.DoesHierarchyHaveParent(entity))
+            if (entity.Type != HierarchyType.Customer && !this.DoesHierarchyHaveParent(entity))
             {
                 throw new ConcurrentException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasNoParent);
             }
@@ -198,7 +199,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyNameDuplicate);
             }
 
-            if (entity.Type == Entity.Enumeration.HierarchyType.Organization)
+            if (entity.Type == HierarchyType.Organization)
             {
                 if (this.IsOrganizationNestingOverLimitation(entity))
                 {
@@ -213,7 +214,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
         protected void UpdateHierarchy(IUnitOfWork unitOfWork, Hierarchy entity)
         {
-            if (entity.Type != Entity.Enumeration.HierarchyType.Customer && !this.DoesHierarchyHaveParent(entity))
+            if (entity.Type != HierarchyType.Customer && !this.DoesHierarchyHaveParent(entity))
             {
                 throw new ConcurrentException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyHasNoParent);
             }
@@ -228,7 +229,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 throw new BusinessLogicException(Layer.BL, Module.Hierarchy, HierarchyError.HierarchyNameDuplicate);
             }
 
-            if (entity.Type == Entity.Enumeration.HierarchyType.Organization)
+            if (entity.Type == HierarchyType.Organization)
             {
                 if (this.IsOrganizationNestingOverLimitation(entity))
                 {
@@ -288,7 +289,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
             dto.Name = entity.Name;
             dto.Code = entity.Code;
             dto.ParentId = entity.ParentId.Value;
-            dto.Type = (int)entity.Type;
+            dto.Type = entity.Type;
         }
     }
 }

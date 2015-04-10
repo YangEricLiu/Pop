@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using SE.DSP.Pop.Entity.Enumeration;
+﻿using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
+using System.ComponentModel.DataAnnotations;
 
 namespace SE.DSP.Pop.Web.WebHost.Model
 {

@@ -43,7 +43,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TextBoxHierarchyText = new System.Windows.Forms.RichTextBox();
             this.LabelHierarchyStatus = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ButtonHierarchyUpload = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.OutputText = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -191,7 +191,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.LabelHierarchyStatus);
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
+            this.splitContainer1.Panel2.Controls.Add(this.ButtonHierarchyUpload);
             this.splitContainer1.Size = new System.Drawing.Size(858, 436);
             this.splitContainer1.SplitterDistance = 557;
             this.splitContainer1.TabIndex = 0;
@@ -215,14 +215,15 @@
             this.LabelHierarchyStatus.TabIndex = 1;
             this.LabelHierarchyStatus.Text = "label1";
             // 
-            // button1
+            // ButtonHierarchyUpload
             // 
-            this.button1.Location = new System.Drawing.Point(26, 21);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "上传";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ButtonHierarchyUpload.Location = new System.Drawing.Point(26, 21);
+            this.ButtonHierarchyUpload.Name = "ButtonHierarchyUpload";
+            this.ButtonHierarchyUpload.Size = new System.Drawing.Size(75, 23);
+            this.ButtonHierarchyUpload.TabIndex = 0;
+            this.ButtonHierarchyUpload.Text = "上传";
+            this.ButtonHierarchyUpload.UseVisualStyleBackColor = true;
+            this.ButtonHierarchyUpload.Click += new System.EventHandler(this.ButtonHierarchyUpload_Click);
             // 
             // tabPage3
             // 
@@ -278,7 +279,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox TextBoxHierarchyText;
         private System.Windows.Forms.Label LabelHierarchyStatus;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ButtonHierarchyUpload;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.RichTextBox OutputText;
         private System.Windows.Forms.TextBox TextBoxBoxMac;

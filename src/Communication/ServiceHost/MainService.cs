@@ -38,12 +38,19 @@ namespace SE.DSP.Pop.Communication.ServiceHost
 
         protected override void OnStop()
         {
-            if (this.serviceHost != null)
+            try
             {
-                this.serviceHost.Close();
-                this.serviceHost = null;
+                if (this.serviceHost != null)
+                {
+                    this.serviceHost.Close();
+                    this.serviceHost = null;
 
-                MqttSession.Disconnect();
+                    MqttSession.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex);
             }
         }
 

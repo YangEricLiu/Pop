@@ -56,6 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Foundation\Foundation.Infrastructure\SE.DSP.Foundation.Infrastructure.csproj">
+      <Project>{b11251ad-6a05-4aa1-8100-b8224b594fbc}</Project>
+      <Name>SE.DSP.Foundation.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Foundation\SE.DSP.Foundation.ResourceAccess\SE.DSP.Foundation.DataAccess.csproj">
       <Project>{930d100c-72c5-4743-9a3a-572aae8b8bdb}</Project>
       <Name>SE.DSP.Foundation.DataAccess</Name>

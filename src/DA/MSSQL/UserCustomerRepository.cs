@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using SE.DSP.Foundation.DataAccess;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
-using SE.DSP.Pop.Entity.Enumeration;
 
 namespace SE.DSP.Pop.MSSQL
 {

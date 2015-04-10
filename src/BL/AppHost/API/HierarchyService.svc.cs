@@ -64,7 +64,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(organization.Name, organization.Code, organization.ParentId, Entity.Enumeration.HierarchyType.Organization);
+                var hierarchyEntity = new Hierarchy(organization.Name, organization.Code, organization.ParentId, HierarchyType.Organization);
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
@@ -156,7 +156,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(park.Name, park.Code, park.ParentId, Entity.Enumeration.HierarchyType.Site);
+                var hierarchyEntity = new Hierarchy(park.Name, park.Code, park.ParentId, HierarchyType.Site);
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
@@ -246,7 +246,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(device.Name, device.Code, device.ParentId, Entity.Enumeration.HierarchyType.Device);
+                var hierarchyEntity = new Hierarchy(device.Name, device.Code, device.ParentId, HierarchyType.Device);
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
@@ -316,7 +316,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(building.Name, building.Code, building.IndustryId, building.ParentId, Entity.Enumeration.HierarchyType.Building);
+                var hierarchyEntity = new Hierarchy(building.Name, building.Code, building.IndustryId, building.ParentId, HierarchyType.Building);
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
@@ -411,7 +411,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(distributionRoom.Name, distributionRoom.Code, distributionRoom.ParentId, Entity.Enumeration.HierarchyType.DistributionRoom);
+                var hierarchyEntity = new Hierarchy(distributionRoom.Name, distributionRoom.Code, distributionRoom.ParentId, HierarchyType.Room);
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 
@@ -492,7 +492,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
         {
             using (var unitOfWork = this.UnitOfWorkProvider.GetUnitOfWork())
             {
-                var hierarchyEntity = new Hierarchy(distributionCabinet.Name, distributionCabinet.Code, distributionCabinet.ParentId, Entity.Enumeration.HierarchyType.DistributionCabinet);
+                var hierarchyEntity = new Hierarchy(distributionCabinet.Name, distributionCabinet.Code, distributionCabinet.ParentId, HierarchyType.Cabinet);
 
                 hierarchyEntity = this.CreateHierarchy(unitOfWork, hierarchyEntity);
 

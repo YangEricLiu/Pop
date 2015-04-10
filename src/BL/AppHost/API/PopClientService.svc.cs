@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SE.DSP.Foundation.DataAccess;
+using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 using SE.DSP.Foundation.Infrastructure.Enumerations;
 using SE.DSP.Foundation.Infrastructure.Utils;
 using SE.DSP.Foundation.Infrastructure.Utils.Exceptions;
@@ -11,7 +12,6 @@ using SE.DSP.Pop.BL.API.ErrorCode;
 using SE.DSP.Pop.BL.AppHost.Common.Ioc;
 using SE.DSP.Pop.Contract;
 using SE.DSP.Pop.Entity;
-using SE.DSP.Pop.Entity.Enumeration;
 
 namespace SE.DSP.Pop.BL.AppHost.API
 {
@@ -249,7 +249,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                     hierarchy.ParentId = parentId == -1 ? null : (long?)parentId;
                     hierarchy.Code = item.Id.ToString();
                     hierarchy.Name = item.Name;
-                    hierarchy.Type = item.Type == GatewayHierarchyType.Device ? HierarchyType.Device : HierarchyType.DistributionCabinet;
+                    hierarchy.Type = item.Type == GatewayHierarchyType.Device ? HierarchyType.Device : HierarchyType.Cabinet;
                     hierarchy.UpdateTime = DateTime.Now;
                     hierarchy.TimezoneId = 1;
                     hierarchy.CustomerId = customerId;
@@ -262,7 +262,7 @@ namespace SE.DSP.Pop.BL.AppHost.API
                     hierarchy.Name = item.Name;
                     hierarchy.ParentId = parentId == -1 ? null : (long?)parentId;
                     hierarchy.Code = item.Id.ToString();
-                    hierarchy.Type = item.Type == GatewayHierarchyType.Device ? HierarchyType.Device : HierarchyType.DistributionCabinet;
+                    hierarchy.Type = item.Type == GatewayHierarchyType.Device ? HierarchyType.Device : HierarchyType.Cabinet;
                     hierarchy.UpdateTime = DateTime.Now;
 
                     this.hierarchyRepository.Update(hierarchy);

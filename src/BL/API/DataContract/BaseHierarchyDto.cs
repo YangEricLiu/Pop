@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using SE.DSP.Foundation.Infrastructure.BE.Enumeration;
 
 namespace SE.DSP.Pop.BL.API.DataContract
 {
@@ -23,6 +24,6 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string Code { get; set; }
 
         [DataMember]
-        public int Type { get; set; }
+        public HierarchyType Type { get; set; }
     }
 }
