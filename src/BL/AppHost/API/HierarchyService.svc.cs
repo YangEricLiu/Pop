@@ -121,15 +121,15 @@ namespace SE.DSP.Pop.BL.AppHost.API
             var administrators = this.hierarchyAdministratorRepository.GetByHierarchyId(hierarchyId);
             var gateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
 
-            return new OrganizationDto
-            {
-                Id = hierarchy.Id,
-                ParentId = hierarchy.ParentId.Value,
-                Code = hierarchy.Code,
-                Name = hierarchy.Name,
+            var result = new OrganizationDto
+            { 
                 Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray(),
                 Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray()
             };
+
+            this.SetBaseHierarchyInfo(result, hierarchy);
+
+            return result;
         }
 
         public ParkDto GetParkById(long hierarchyId)
@@ -141,10 +141,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
             var location = this.buildingLocationRepository.GetById(hierarchyId);
           
             var result = Mapper.Map<ParkDto>(park);
- 
-            result.ParentId = hierarchy.ParentId.Value;
-            result.Code = hierarchy.Code;
-            result.Name = hierarchy.Name;
+
+            this.SetBaseHierarchyInfo(result, hierarchy);
+
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray();
             result.Location = Mapper.Map<BuildingLocationDto>(location);
@@ -232,14 +231,13 @@ namespace SE.DSP.Pop.BL.AppHost.API
         public DeviceDto GetDeviceById(long hierarchyId)
         {
             var hierarchy = this.HierarchyRepository.GetById(hierarchyId);
-            var device = this.deviceRepository.GetById(hierarchyId); 
- 
+            var device = this.deviceRepository.GetById(hierarchyId);
+
             var result = AutoMapper.Mapper.Map<Device, DeviceDto>(device);
 
+            this.SetBaseHierarchyInfo(result, hierarchy);
+
             result.Logo = this.GetLogoByHierarchyId(hierarchyId);
-            result.Name = hierarchy.Name;
-            result.Code = hierarchy.Code;
-            result.ParentId = hierarchy.ParentId.Value;
 
             return result;
         }
@@ -303,9 +301,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
          
             var result = Mapper.Map<BuildingDto>(building);
 
-            result.Name = hierarchy.Name;
-            result.Code = hierarchy.Code;
-            result.ParentId = hierarchy.ParentId.Value;
+            this.SetBaseHierarchyInfo(result, hierarchy);
+
             result.IndustryId = hierarchy.IndustryId;
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Location = Mapper.Map<BuildingLocationDto>(location);
@@ -401,9 +398,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             var result = Mapper.Map<DistributionRoomDto>(distributionRoom);
 
-            result.ParentId = hierarchy.ParentId.Value;
-            result.Code = hierarchy.Code;
-            result.Name = hierarchy.Name;
+            this.SetBaseHierarchyInfo(result, hierarchy);
+
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray();
             result.SingleLineDiagrams = this.GetSingleLineDiagramsByHierarchyId(hierarchyId);
@@ -484,9 +480,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
      
             var result = Mapper.Map<DistributionCabinetDto>(distributionCabinet);
 
-            result.ParentId = hierarchy.ParentId.Value;
-            result.Code = hierarchy.Code;
-            result.Name = hierarchy.Name;
+            this.SetBaseHierarchyInfo(result, hierarchy);
+
             result.Logo = this.GetLogoByHierarchyId(hierarchyId);
             result.SingleLineDiagrams = this.GetSingleLineDiagramsByHierarchyId(hierarchyId);
 

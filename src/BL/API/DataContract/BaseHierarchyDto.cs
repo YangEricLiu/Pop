@@ -21,5 +21,8 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public string Code { get; set; }
+
+        [DataMember]
+        public int Type { get; set; }
     }
 }

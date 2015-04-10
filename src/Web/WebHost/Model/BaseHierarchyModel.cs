@@ -17,5 +17,7 @@ namespace SE.DSP.Pop.Web.WebHost.Model
 
         [Required]
         public string Code { get; set; }
+
+        public int Type { get; set; }
     }
 }

@@ -281,5 +281,14 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 }
             }
         }
+
+        protected void SetBaseHierarchyInfo(BaseHierarchyDto dto, Hierarchy entity)
+        {
+            dto.Id = entity.Id;
+            dto.Name = entity.Name;
+            dto.Code = entity.Code;
+            dto.ParentId = entity.ParentId.Value;
+            dto.Type = (int)entity.Type;
+        }
     }
 }
