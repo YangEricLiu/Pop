@@ -162,17 +162,20 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 park.Id = hierarchyEntity.Id;
 
-                park.Location.BuildingId = hierarchyEntity.Id;
-
                 park.Administrators = this.AddHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, park.Administrators);
 
                 park.Gateways = this.AddGateways(unitOfWork, hierarchyEntity.Id, park.Gateways);
 
                 park.Logo = this.AddLogo(unitOfWork, hierarchyEntity.Id, park.Logo);
 
-                var location = Mapper.Map<BuildingLocation>(park.Location);
+                if (park.Location != null)
+                {
+                    park.Location.BuildingId = hierarchyEntity.Id;
 
-                this.buildingLocationRepository.Add(unitOfWork, location);
+                    var location = Mapper.Map<BuildingLocation>(park.Location);
+
+                    this.buildingLocationRepository.Add(unitOfWork, location);
+                }
 
                 this.parkRepository.Add(unitOfWork, Mapper.Map<Park>(park));
 
@@ -202,7 +205,10 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 var location = Mapper.Map<BuildingLocation>(park.Location);
 
-                this.buildingLocationRepository.Update(unitOfWork, location);
+                if (location != null)
+                {
+                    this.buildingLocationRepository.Update(unitOfWork, location);
+                }
 
                 this.parkRepository.Update(unitOfWork, Mapper.Map<Park>(park));
 
@@ -326,17 +332,20 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
                 buildingEntity = this.buildingRepository.Add(unitOfWork, buildingEntity);
 
-                building.Location.BuildingId = hierarchyEntity.Id;
-
                 building.Administrators = this.AddHierarchyAdministrators(unitOfWork, hierarchyEntity.Id, building.Administrators);
 
                 building.Logo = this.AddLogo(unitOfWork, hierarchyEntity.Id, building.Logo);
 
                 building.SingleLineDiagrams = this.AddSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, building.SingleLineDiagrams);
 
-                var location = Mapper.Map<BuildingLocation>(building.Location);
+                if (building.Location != null)
+                {
+                    building.Location.BuildingId = hierarchyEntity.Id;
 
-                this.buildingLocationRepository.Add(unitOfWork, location);
+                    var location = Mapper.Map<BuildingLocation>(building.Location);
+
+                    this.buildingLocationRepository.Add(unitOfWork, location);
+                }
 
                 unitOfWork.Commit();
 
@@ -363,9 +372,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 building.Logo = this.UpdateLogo(unitOfWork, hierarchyEntity.Id, building.Logo);
                 building.SingleLineDiagrams = this.UpdateSingleLineDiagrams(unitOfWork, hierarchyEntity.Id, building.SingleLineDiagrams);
 
-                var location = Mapper.Map<BuildingLocation>(building.Location);
+                if (building.Location != null)
+                {
+                    var location = Mapper.Map<BuildingLocation>(building.Location);
 
-                this.buildingLocationRepository.Update(unitOfWork, location);
+                    this.buildingLocationRepository.Update(unitOfWork, location);
+                }
  
                 unitOfWork.Commit();
 
