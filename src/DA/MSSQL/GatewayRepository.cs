@@ -49,7 +49,7 @@ namespace SE.DSP.Pop.MSSQL
         {
             var db = this.GetDatabese(unitOfWork);
 
-            db.Save("Gateway", "Id", entity);
+            db.Save("Gateway", "Id", entity); 
         }
 
         public override void Delete(IUnitOfWork unitOfWork, long id)

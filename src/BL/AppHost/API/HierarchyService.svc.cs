@@ -661,18 +661,40 @@ namespace SE.DSP.Pop.BL.AppHost.API
             foreach (var gateway in dto)
             {
                 gateway.HierarchyId = hierarchyId;
+
+                var gatewayentity = Mapper.Map<Gateway>(gateway);
+
+                this.gatewayRepository.Update(unitOfWork, gatewayentity);
+
+                var cabinetHierarchyIds = this.distributionCabinetRepository.GetIdByGatewayId(gatewayentity.Id);
+
+                this.HierarchyRepository.UpdateHierarchyParentId(unitOfWork, cabinetHierarchyIds, gatewayentity.HierarchyId);
+
+                var deviceHierarchyIds = this.deviceRepository.GetIdByGatewayId(gatewayentity.Id);
+
+                this.HierarchyRepository.UpdateHierarchyParentId(unitOfWork, deviceHierarchyIds, gatewayentity.HierarchyId);
             }
-
-            var gatewayentities = dto.Select(gw => Mapper.Map<Gateway>(gw)).ToArray();
-
-            this.gatewayRepository.UpdateMany(unitOfWork, gatewayentities);
 
             return dto;
         }
 
         private GatewayDto[] UpdateGateways(IUnitOfWork unitOfWork, long hierarchyId, GatewayDto[] dto)
         {
+            var oldGateways = this.gatewayRepository.GetByHierarchyId(hierarchyId);
+
+            foreach (var gw in oldGateways)
+            {
+                var cabinetHierarchyIds = this.distributionCabinetRepository.GetIdByGatewayId(gw.Id);
+
+                this.HierarchyRepository.UpdateHierarchyParentId(unitOfWork, cabinetHierarchyIds, null);
+
+                var deviceHierarchyIds = this.deviceRepository.GetIdByGatewayId(gw.Id);
+
+                this.HierarchyRepository.UpdateHierarchyParentId(unitOfWork, deviceHierarchyIds, null);
+            }
+
             this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
+
             return this.AddGateways(unitOfWork, hierarchyId, dto);
         }
     }

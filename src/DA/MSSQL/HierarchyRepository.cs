@@ -153,5 +153,12 @@ namespace SE.DSP.Pop.MSSQL
 
             return count;
         }
+
+        public void UpdateHierarchyParentId(IUnitOfWork unitOfWork, long[] hierarchyIds, long? parentId)
+        {
+            var db = this.GetDatabese(unitOfWork);
+
+            db.Update<Hierarchy>("set parentid = @0 where hierarchyId in (@1)", parentId, hierarchyIds);
+        }
     }
 }

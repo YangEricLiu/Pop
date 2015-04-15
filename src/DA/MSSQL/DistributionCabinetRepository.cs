@@ -56,5 +56,12 @@ namespace SE.DSP.Pop.MSSQL
 
             db.Delete<DistributionCabinet>("where HierarchyId = @0", id);
         }
+
+        public long[] GetIdByGatewayId(long gatewayId)
+        {
+            var result = this.Db.Query<DistributionCabinet>("where gatewayid = @0", gatewayId);
+
+            return result.Select(r => r.HierarchyId).ToArray();
+        }
     }
 }

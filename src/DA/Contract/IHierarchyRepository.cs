@@ -16,6 +16,8 @@ namespace SE.DSP.Pop.Contract
 
         Hierarchy GetByCode(long customerId, string code);
 
+        void UpdateHierarchyParentId(IUnitOfWork unitOfWork, long[] hierarchyIds, long? parentId);
+ 
         long RetrieveSiblingHierarchyCountByCodeUnderParentCustomer(long hierarchyId, string hierarchyCode, long customerId);
 
         long RetrieveChildHierarchyCountByCodeUnderParentCustomer(string hierarchyCode, long customerId);

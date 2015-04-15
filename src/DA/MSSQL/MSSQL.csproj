@@ -46,7 +46,7 @@
     <Compile Include="SingleLineDiagramRepository.cs" />
     <Compile Include="ParkRepository.cs" />
     <Compile Include="BuildingLocationRepository.cs" />
-    <Compile Include="GetwayRepository.cs" />
+    <Compile Include="GatewayRepository.cs" />
     <Compile Include="UserCustomerRepository.cs" />
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="HierarchyAdministratorRepository.cs" />

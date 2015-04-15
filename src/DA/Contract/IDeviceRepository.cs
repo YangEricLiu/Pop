@@ -9,6 +9,7 @@ using SE.DSP.Pop.Entity;
 namespace SE.DSP.Pop.Contract
 {
     public interface IDeviceRepository : IRepository<Device, long>
-    { 
+    {
+        long[] GetIdByGatewayId(long gatewayId);
     }
 }
