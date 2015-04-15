@@ -83,7 +83,7 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
 
             AutoMapper.Mapper.CreateMap<DistributionCabinetDto, DistributionCabinet>().ConvertUsing(s =>
             {
-                return new DistributionCabinet(s.Id.Value, s.Type, s.Factory, s.ManufactureTime);
+                return new DistributionCabinet(s.Id.Value, s.GatewayId, s.Type, s.Factory, s.ManufactureTime);
             });
 
             AutoMapper.Mapper.CreateMap<DistributionCabinet, DistributionCabinetDto>().ConvertUsing(s =>
@@ -92,6 +92,7 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                 {
                     Id = s.HierarchyId,
                     Type = s.Type,
+                    GatewayId = s.GatewayId,
                     Factory = s.Factory,
                     ManufactureTime = s.ManufactureTime
                 };

@@ -12,15 +12,18 @@ namespace SE.DSP.Pop.Entity
         {
         }
 
-        public DistributionCabinet(long hierarchyId, string type, string factory, DateTime? manufactureTime)
+        public DistributionCabinet(long hierarchyId, long? gatewayId, string type, string factory, DateTime? manufactureTime)
         {
             this.HierarchyId = hierarchyId;
+            this.GatewayId = gatewayId;
             this.Type = type;
             this.Factory = factory;
             this.ManufactureTime = manufactureTime;
         }
 
         public long HierarchyId { get; set; }
+
+        public long? GatewayId { get; set; }
 
         public string Type { get; set; }
 

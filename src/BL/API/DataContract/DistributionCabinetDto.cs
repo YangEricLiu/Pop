@@ -13,6 +13,9 @@ namespace SE.DSP.Pop.BL.API.DataContract
         public string Factory { get; set; }
 
         [DataMember]
+        public long? GatewayId { get; set; }
+
+        [DataMember]
         public DateTime? ManufactureTime { get; set; }
 
         [DataMember]
