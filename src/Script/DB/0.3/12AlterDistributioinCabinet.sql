@@ -1,0 +1,2 @@
+ if not exists(select 1 from sysobjects obj inner join syscolumns col on obj.Id = col.Id where obj.Name = 'DistributionCabinet' and col.Name = 'GatewayId')
+  alter table dbo.DistributionCabinet add  GatewayId [bigint] null 
