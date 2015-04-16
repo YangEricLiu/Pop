@@ -156,6 +156,8 @@
     <Compile Include="Common\Startup\FilterConfig.cs" />
     <Compile Include="Common\Startup\WebApiConfig.cs" />
     <Compile Include="Common\WebContext.cs" />
+    <Compile Include="Controllers\ScenePictureController.cs" />
+    <Compile Include="Controllers\SceneLogController.cs" />
     <Compile Include="Controllers\GatewayController.cs" />
     <Compile Include="Controllers\HardcoreController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
