@@ -11,5 +11,7 @@ namespace SE.DSP.Pop.Contract
     public interface IScenePictureRepository : IRepository<ScenePicture, long>
     {
         ScenePicture[] GetScenePictureByHierarchyId(long hierarchyId);
+
+        void DeleteByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
     }
 }

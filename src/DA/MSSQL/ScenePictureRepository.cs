@@ -65,5 +65,12 @@ namespace SE.DSP.Pop.MSSQL
 
             return result.ToArray();
         }
+
+        public void DeleteByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId)
+        {
+            var db = this.GetDatabese(unitOfWork);
+
+            db.Delete<ScenePicture>("where hierarchyId = @0", hierarchyId);
+        }
     }
 }

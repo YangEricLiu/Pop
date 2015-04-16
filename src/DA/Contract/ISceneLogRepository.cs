@@ -11,5 +11,7 @@ namespace SE.DSP.Pop.Contract
     public interface ISceneLogRepository : IRepository<SceneLog, long>
     {
         SceneLog[] GetSceneLogByHierarchyId(long hierarchyId);
+
+        void DeleteByHierarchyId(IUnitOfWork unitOfWork, long hierarchyId);
     }
 }

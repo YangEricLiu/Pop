@@ -120,6 +120,22 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                     return new SingleLineDiagram(s.HierarchyId, s.Description, s.Order, s.CreateUser);
                 });
 
+            AutoMapper.Mapper.CreateMap<ScenePictureDto, ScenePicture>().ConvertUsing(s =>
+                {
+                    return new ScenePicture(s.HierarchyId, s.Order, s.Description, ServiceContext.CurrentUser.Name);
+                });
+
+            AutoMapper.Mapper.CreateMap<ScenePicture, ScenePictureDto>().ConvertUsing(s =>
+            {
+                return new ScenePictureDto
+                {
+                    Description = s.Description,
+                    Id = s.Id,
+                    HierarchyId = s.HierarchyId,
+                    Order = s.Order
+                };
+            });
+
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
     }

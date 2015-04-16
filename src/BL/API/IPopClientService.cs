@@ -28,6 +28,9 @@ namespace SE.DSP.Pop.BL.API
         SingleLineDiagramDto[] GetSingleLineDiagramByHierarchyId(long hierarchyId);
 
         [OperationContract]
+        ScenePictureDto[] UploadScenePicture(long hierarchyId, ScenePictureDto[] scenePictures);
+
+        [OperationContract]
         void DeleteSingleLineDiagramById(long id);
 
         [OperationContract]

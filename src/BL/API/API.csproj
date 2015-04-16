@@ -57,6 +57,7 @@
     <Compile Include="DataContract\DistributionRoomDto.cs" />
     <Compile Include="DataContract\ParkDto.cs" />
     <Compile Include="DataContract\OrganizationDto.cs" />
+    <Compile Include="DataContract\ScenePictureDto.cs" />
     <Compile Include="DataContract\SingleLineDiagramDto.cs" />
     <Compile Include="DataContract\UserCustomerDto.cs" />
     <Compile Include="DataContract\UserPreviligedCustomerDto.cs" />

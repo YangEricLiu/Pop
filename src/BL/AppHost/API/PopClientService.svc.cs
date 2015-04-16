@@ -19,14 +19,25 @@ namespace SE.DSP.Pop.BL.AppHost.API
     public class PopClientService : IPopClientService
     {
         public const string SingleLineDiagramOss = "img-sld-{0}";
+        public const string ScenePictureOss = "img-scene-{0}";
         private readonly IGatewayRepository gatewayRepository;
         private readonly IHierarchyRepository hierarchyRepository;
         private readonly ISingleLineDiagramRepository singleDiagramRepository;
         private readonly IOssRepository ossRepository;
         private readonly IUnitOfWorkProvider unitOfWorkProvider;
         private readonly ICustomerRepository customerRepository;
+        private readonly IScenePictureRepository scenePictureRepository;
+        private readonly ISceneLogRepository sceneLogRepository;
 
-        public PopClientService(IGatewayRepository gatewayRepository, IHierarchyRepository hierarchyRepository, ISingleLineDiagramRepository singleDiagramRepository, IOssRepository ossRepository, IUnitOfWorkProvider unitOfWorkProvider, ICustomerRepository customerRepository)
+        public PopClientService(
+                                IGatewayRepository gatewayRepository, 
+                                IHierarchyRepository hierarchyRepository, 
+                                ISingleLineDiagramRepository singleDiagramRepository, 
+                                IOssRepository ossRepository, 
+                                IUnitOfWorkProvider unitOfWorkProvider, 
+                                ICustomerRepository customerRepository,
+                                IScenePictureRepository scenePictureRepository,
+                                ISceneLogRepository sceneLogRepository)
         {
             this.gatewayRepository = gatewayRepository;
             this.hierarchyRepository = hierarchyRepository;
@@ -34,6 +45,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.ossRepository = ossRepository;
             this.unitOfWorkProvider = unitOfWorkProvider;
             this.customerRepository = customerRepository;
+            this.scenePictureRepository = scenePictureRepository;
+            this.sceneLogRepository = sceneLogRepository;
         }
 
         public GatewayDto[] GetGatewayByCustomerId(long customerId)
@@ -50,12 +63,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 gateway.Mac = gateway.Mac.Replace("-", string.Empty);
             }
 
-            if (!this.IsGatewayNameValid(gateway))
+            if (!gateway.IsGatewayNameValid())
             {
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.InvalidGatewayName);
             }
 
-            if (!this.IsGatewayMacValid(gateway))
+            if (!gateway.IsGatewayMacValid())
             {
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.InvalidGatewayMac);
             }
@@ -128,12 +141,12 @@ namespace SE.DSP.Pop.BL.AppHost.API
                 gateway.Mac = gateway.Mac.Replace("-", string.Empty);
             }
 
-            if (!this.IsGatewayNameValid(gateway))
+            if (!gateway.IsGatewayNameValid())
             {
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.InvalidGatewayName);
             }
 
-            if (!this.IsGatewayMacValid(gateway))
+            if (!gateway.IsGatewayMacValid())
             {
                 throw new BusinessLogicException(Layer.BL, Module.Box, GatewayError.InvalidGatewayMac);
             }
@@ -214,6 +227,25 @@ namespace SE.DSP.Pop.BL.AppHost.API
             return result.OrderBy(s => s.Order).ToArray(); 
         }
 
+        public ScenePictureDto[] UploadScenePicture(long hierarchyId, ScenePictureDto[] scenePictures)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.scenePictureRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+
+                foreach (var dto in scenePictures)
+                {
+                    var entity = this.scenePictureRepository.Add(unitOfWork, AutoMapper.Mapper.Map<ScenePicture>(dto));
+                    this.ossRepository.Add(unitOfWork, new Foundation.DataAccess.Entity.OssObject(string.Format(ScenePictureOss, entity.Id), dto.Content));
+                    dto.Id = entity.Id;
+                }
+
+                unitOfWork.Commit();
+
+                return scenePictures;
+            }
+        }
+
         public void DeleteSingleLineDiagramById(long id)
         {
             this.singleDiagramRepository.Delete(id);
@@ -289,37 +321,6 @@ namespace SE.DSP.Pop.BL.AppHost.API
             customer = this.customerRepository.GetByCode(customerCode);
 
             if (customer != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool IsGatewayNameValid(GatewayDto gateway)
-        {
-            if (!string.IsNullOrEmpty(gateway.Name) && gateway.Name.Contains("."))
-            {
-                var segements = gateway.Name.Split('.');
-
-                if (segements.Length == 2)
-                {
-                    var customerCode = segements.FirstOrDefault();
-                    var boxName = segements.LastOrDefault();
-
-                    if (!string.IsNullOrEmpty(customerCode) && !string.IsNullOrEmpty(boxName))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private bool IsGatewayMacValid(GatewayDto gateway)
-        {
-            if (!string.IsNullOrEmpty(gateway.Mac) && gateway.Mac.Length == 12)
             {
                 return true;
             }
