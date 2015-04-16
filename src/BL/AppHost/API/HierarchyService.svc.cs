@@ -31,6 +31,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
         private readonly IDistributionRoomRepository distributionRoomRepository;
         private readonly IDistributionCabinetRepository distributionCabinetRepository;
         private readonly ISingleLineDiagramRepository singleLineDiagramRepository;
+        private readonly ISceneLogRepository sceneLogRepository;
+        private readonly IScenePictureRepository scenePictureRepository;
 
         public HierarchyService(
                                 IHierarchyRepository hierarchyRepository,
@@ -45,7 +47,9 @@ namespace SE.DSP.Pop.BL.AppHost.API
                                 IParkRepository parkRepository,
                                 IDistributionRoomRepository distributionRoomRepository,
                                 IDistributionCabinetRepository distributionCabinetRepository,
-                                ISingleLineDiagramRepository singleLineDiagramRepository) : base(hierarchyRepository, unitOfWorkProvider)
+                                ISingleLineDiagramRepository singleLineDiagramRepository,
+                                ISceneLogRepository sceneLogRepository,
+                                IScenePictureRepository scenePictureRepository) : base(hierarchyRepository, unitOfWorkProvider)
         {
             this.hierarchyAdministratorRepository = hierarchyAdministratorRepository;
             this.gatewayRepository = gatewayRepository;
@@ -58,6 +62,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.distributionRoomRepository = distributionRoomRepository;
             this.distributionCabinetRepository = distributionCabinetRepository;
             this.singleLineDiagramRepository = singleLineDiagramRepository;
+            this.sceneLogRepository = sceneLogRepository;
+            this.scenePictureRepository = scenePictureRepository;
         }
 
         public OrganizationDto CreateOrganization(OrganizationDto organization)
@@ -244,6 +250,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.SetBaseHierarchyInfo(result, hierarchy);
 
             result.Logo = this.GetLogoByHierarchyId(hierarchyId);
+            result.SceneLogs = this.GetSceneLogs(hierarchyId);
+            result.ScenePictures = this.GetScenePictures(hierarchyId);
 
             return result;
         }
@@ -415,6 +423,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
             result.Administrators = administrators.Select(ad => Mapper.Map<HierarchyAdministratorDto>(ad)).ToArray();
             result.Gateways = gateways.Select(gw => Mapper.Map<GatewayDto>(gw)).ToArray();
             result.SingleLineDiagrams = this.GetSingleLineDiagramsByHierarchyId(hierarchyId);
+            result.SceneLogs = this.GetSceneLogs(hierarchyId);
+            result.ScenePictures = this.GetScenePictures(hierarchyId);
 
             return result;
         }
@@ -496,6 +506,8 @@ namespace SE.DSP.Pop.BL.AppHost.API
 
             result.Logo = this.GetLogoByHierarchyId(hierarchyId);
             result.SingleLineDiagrams = this.GetSingleLineDiagramsByHierarchyId(hierarchyId);
+            result.SceneLogs = this.GetSceneLogs(hierarchyId);
+            result.ScenePictures = this.GetScenePictures(hierarchyId);
 
             return result;
         }
@@ -696,6 +708,33 @@ namespace SE.DSP.Pop.BL.AppHost.API
             this.gatewayRepository.DeleteGatewayByHierarchyId(unitOfWork, hierarchyId);
 
             return this.AddGateways(unitOfWork, hierarchyId, dto);
+        }
+
+        private SceneLogDto[] GetSceneLogs(long hierarchyId)
+        {
+            var entities = this.sceneLogRepository.GetSceneLogByHierarchyId(hierarchyId);
+
+            return entities.Select(s => Mapper.Map<SceneLogDto>(s)).ToArray();
+        }
+
+        private ScenePictureDto[] GetScenePictures(long hierarchyId)
+        {
+            var entities = this.scenePictureRepository.GetScenePictureByHierarchyId(hierarchyId);
+
+            var result = new List<ScenePictureDto>();
+
+            foreach (var entity in entities)
+            {
+                var dto = Mapper.Map<ScenePictureDto>(entity);
+
+                var ossobj = this.ossRepository.GetById(string.Format(PopClientService.ScenePictureOss, dto.Id));
+
+                dto.Content = ossobj.Content;
+
+                result.Add(dto);
+            }
+
+            return result.ToArray();
         }
     }
 }

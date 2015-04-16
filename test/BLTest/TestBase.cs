@@ -32,6 +32,8 @@ namespace SE.DSP.Pop.Test.BLTest
         protected IDistributionRoomRepository distributionRoomRepository = Mocks.StrictMock<IDistributionRoomRepository>();
         protected IDistributionCabinetRepository distributionCabinetRepository = Mocks.StrictMock<IDistributionCabinetRepository>();
         protected ISingleLineDiagramRepository singleLineDiagramRepository = Mocks.StrictMock<ISingleLineDiagramRepository>();
+        protected ISceneLogRepository sceneLogRepository = Mocks.StrictMock<ISceneLogRepository>();
+        protected IScenePictureRepository scenePictureRepository = Mocks.StrictMock<IScenePictureRepository>();
 
 
         protected TestsBase()
@@ -86,7 +88,9 @@ namespace SE.DSP.Pop.Test.BLTest
                 this.parkRepository,
                 this.distributionRoomRepository,
                 this.distributionCabinetRepository,
-                this.singleLineDiagramRepository);
+                this.singleLineDiagramRepository,
+                this.sceneLogRepository,
+                this.scenePictureRepository);
         }
     }
 }

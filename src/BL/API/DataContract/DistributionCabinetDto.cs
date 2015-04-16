@@ -23,5 +23,11 @@ namespace SE.DSP.Pop.BL.API.DataContract
 
         [DataMember]
         public SingleLineDiagramDto[] SingleLineDiagrams { get; set; }
+
+        [DataMember]
+        public SceneLogDto[] SceneLogs { get; set; }
+
+        [DataMember]
+        public ScenePictureDto[] ScenePictures { get; set; }
     }
 }
