@@ -43,6 +43,8 @@
     <Compile Include="IDistributionRoomRepository.cs" />
     <Compile Include="IDeviceRepository.cs" />
     <Compile Include="IBuildingRepository.cs" />
+    <Compile Include="ISceneLogRepository.cs" />
+    <Compile Include="IScenePictureRepository.cs" />
     <Compile Include="ISingleLineDiagramRepository.cs" />
     <Compile Include="IParkRepository.cs" />
     <Compile Include="IBuildingLocationRepository.cs" />
