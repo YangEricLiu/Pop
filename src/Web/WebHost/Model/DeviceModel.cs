@@ -9,5 +9,9 @@
         public long? GatewayId { get; set; }
 
         public LogoModel Logo { get; set; }
+
+        public SceneLogModel[] SceneLogs { get; set; }
+
+        public ScenePictureModel[] ScenePicture { get; set; }
     }
 }

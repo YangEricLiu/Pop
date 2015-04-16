@@ -16,5 +16,9 @@ namespace SE.DSP.Pop.Web.WebHost.Model
         public LogoModel Logo { get; set; }
 
         public SingleLineDiagramModel[] SingleLineDiagrams { get; set; }
+
+        public SceneLogModel[] SceneLogs { get; set; }
+
+        public ScenePictureModel[] ScenePicture { get; set; }
     }
 }

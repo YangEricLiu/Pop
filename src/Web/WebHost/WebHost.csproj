@@ -187,6 +187,8 @@
     <Compile Include="Model\DistributionRoomModel.cs" />
     <Compile Include="Model\ParkModel.cs" />
     <Compile Include="Model\SaveUserCustomerModel.cs" />
+    <Compile Include="Model\SceneLogModel.cs" />
+    <Compile Include="Model\ScenePictureModel.cs" />
     <Compile Include="Model\SingleLineDiagramModel.cs" />
     <Compile Include="Model\UserCustomerModel.cs" />
     <Compile Include="Model\UserPreviligedCustomerModel.cs" />

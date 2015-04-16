@@ -77,6 +77,10 @@ namespace SE.DSP.Pop.Web.WebHost.Common.Startup
             Mapper.CreateMap<DistributionRoomModel, DistributionRoomDto>();
             Mapper.CreateMap<DistributionCabinetDto, DistributionCabinetModel>();
             Mapper.CreateMap<DistributionCabinetModel, DistributionCabinetDto>();
+            Mapper.CreateMap<SceneLogDto, SceneLogModel>();
+            Mapper.CreateMap<SceneLogModel, SceneLogDto>();
+            Mapper.CreateMap<ScenePictureDto, ScenePictureModel>();
+            Mapper.CreateMap<ScenePictureModel, ScenePictureDto>();
             Mapper.AssertConfigurationIsValid();
         }
     }
