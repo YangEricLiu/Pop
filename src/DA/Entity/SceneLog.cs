@@ -8,6 +8,18 @@ namespace SE.DSP.Pop.Entity
 {
     public class SceneLog
     {
+        public SceneLog()
+        {
+        }
+
+        public SceneLog(long hierarchyId, string content, string createUser)
+        {
+            this.HierarchyId = hierarchyId;
+            this.Content = content;
+            this.CreateUser = createUser;
+            this.CreateTime = DateTime.Now;
+        }
+
         public long Id { get; set; }
 
         public long HierarchyId { get; set; }

@@ -136,6 +136,13 @@ namespace SE.DSP.Pop.BL.AppHost.Common.Startup
                 };
             });
 
+            AutoMapper.Mapper.CreateMap<SceneLogDto, SceneLog>().ConvertUsing(s =>
+            {
+                return new SceneLog(s.HierarchyId, s.Content, ServiceContext.CurrentUser.Name);
+            });
+
+            AutoMapper.Mapper.CreateMap<ScenePicture, ScenePictureDto>();            
+
             AutoMapper.Mapper.AssertConfigurationIsValid();
         }
     }

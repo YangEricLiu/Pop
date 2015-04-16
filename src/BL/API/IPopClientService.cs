@@ -31,6 +31,9 @@ namespace SE.DSP.Pop.BL.API
         ScenePictureDto[] UploadScenePicture(long hierarchyId, ScenePictureDto[] scenePictures);
 
         [OperationContract]
+        SceneLogDto[] UploadSceneLog(long hierarchyId, SceneLogDto[] sceneLogs);
+
+        [OperationContract]
         void DeleteSingleLineDiagramById(long id);
 
         [OperationContract]

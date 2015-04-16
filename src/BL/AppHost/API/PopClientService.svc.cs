@@ -246,6 +246,24 @@ namespace SE.DSP.Pop.BL.AppHost.API
             }
         }
 
+        public SceneLogDto[] UploadSceneLog(long hierarchyId, SceneLogDto[] sceneLogs)
+        {
+            using (var unitOfWork = this.unitOfWorkProvider.GetUnitOfWork())
+            {
+                this.sceneLogRepository.DeleteByHierarchyId(unitOfWork, hierarchyId);
+
+                foreach (var dto in sceneLogs)
+                {
+                    var entity = this.sceneLogRepository.Add(unitOfWork, AutoMapper.Mapper.Map<SceneLog>(dto));
+                    dto.Id = entity.Id;
+                }
+
+                unitOfWork.Commit();
+
+                return sceneLogs;
+            }
+        }
+
         public void DeleteSingleLineDiagramById(long id)
         {
             this.singleDiagramRepository.Delete(id);
